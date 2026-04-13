@@ -34,6 +34,6 @@ jobs:
           BUNNY_STORAGE_HOSTNAME: se.storage.bunnycdn.com
           BUNNY_STORAGE_USERNAME: celeroncool-nenimein-fi
           BUNNY_STORAGE_PASSWORD: ${{ steps.bwsecrets.outputs.BUNNY_STORAGE_PASSWORD }}
-          BUNNY_PULL_ZONE_ID: 464290
+          BUNNY_PULL_ZONE_ID: 5679250
         with:
           args: deploy --dir=public
