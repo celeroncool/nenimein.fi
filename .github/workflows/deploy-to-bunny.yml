@@ -17,13 +17,21 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@master
+      - name: Step name
+        uses: bitwarden/sm-action@v3
+        with:
+          access_token: ${{ secrets.SM_ACCESS_TOKEN }}
+          secrets: |
+            7e2b536c-f7ce-42ef-8a14-b42b00f0d5ff > BUNNY_STORAGE_PASSWORD
+            d41e9330-f13a-485a-a56a-b42901083b18 > BUNNY_API_ACCESS_KEY
+  
       - name: Deploy to Edge Storage
         uses: own3d/bunny-action@main
         env:
-          BUNNY_API_ACCESS_KEY: ${{ secrets.BUNNY_API_ACCESS_KEY }}
+          BUNNY_API_ACCESS_KEY: ${{ steps.secrets.outputs.BUNNY_API_ACCESS_KEY }}
           BUNNY_STORAGE_HOSTNAME: storage.bunnycdn.com
           BUNNY_STORAGE_USERNAME: bunny-app
-          BUNNY_STORAGE_PASSWORD: ${{ secrets.BUNNY_STORAGE_PASSWORD }}
+          BUNNY_STORAGE_PASSWORD: ${{ steps.secrets.outputs.BUNNY_STORAGE_PASSWORD }}
           BUNNY_PULL_ZONE_ID: 464290
         with:
           args: deploy --dir=dist
