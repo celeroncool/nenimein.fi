@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Security on Sami&#39;s Blog</title>
+		<link>https://nenimein.fi/blog/tags/security/</link>
+		<description>Recent content in Security on nenimein.fi</description>
+		<generator>Hugo -- gohugo.io</generator>
+		<language>en-us</language>
+		<copyright>© Sami Nieminen</copyright>
+		<lastBuildDate>Sun, 03 Nov 2024 17:25:41 +0200</lastBuildDate>
+		<atom:link href="https://nenimein.fi/blog/tags/security/index.xml" rel="self" type="application/rss+xml" />
+		<item>
+			<title>How to actually use Azure Secure Files with Terraform</title>
+			<link>https://nenimein.fi/blog/post/azure-secure-files/</link>
+			<pubDate>Sun, 03 Nov 2024 17:25:41 +0200</pubDate>
+			<guid>https://nenimein.fi/blog/post/azure-secure-files/</guid>
+			<description>
+			I could not find a real guide to use Azure secure files securely in combination with Terraform. All guides either used a PAT (Privileged …
+			</description>
+		</item>
+	</channel>
+</rss>

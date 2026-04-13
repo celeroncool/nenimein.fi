@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Home-Renovation on Sami&#39;s Blog</title>
+		<link>https://nenimein.fi/blog/tags/home-renovation/</link>
+		<description>Recent content in Home-Renovation on nenimein.fi</description>
+		<generator>Hugo -- gohugo.io</generator>
+		<language>en-us</language>
+		<copyright>© Sami Nieminen</copyright>
+		<lastBuildDate>Sun, 24 Feb 2019 13:21:01 +0200</lastBuildDate>
+		<atom:link href="https://nenimein.fi/blog/tags/home-renovation/index.xml" rel="self" type="application/rss+xml" />
+		<item>
+			<title>Storage Spaces</title>
+			<link>https://nenimein.fi/blog/post/storage-spaces/</link>
+			<pubDate>Sun, 24 Feb 2019 13:21:01 +0200</pubDate>
+			<guid>https://nenimein.fi/blog/post/storage-spaces/</guid>
+			<description>
+			This first documented project has nothing to do with computers or cars or motorcycles, but rather enables me to actually do them, without …
+			</description>
+		</item>
+	</channel>
+</rss>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Servers on Sami&#39;s Blog</title>
+		<link>https://nenimein.fi/blog/tags/servers/</link>
+		<description>Recent content in Servers on nenimein.fi</description>
+		<generator>Hugo -- gohugo.io</generator>
+		<language>en-us</language>
+		<copyright>© Sami Nieminen</copyright>
+		<lastBuildDate>Tue, 26 Aug 2025 14:11:38 +0300</lastBuildDate>
+		<atom:link href="https://nenimein.fi/blog/tags/servers/index.xml" rel="self" type="application/rss+xml" />
+		<item>
+			<title>LackRack V3</title>
+			<link>https://nenimein.fi/blog/post/lackrack-v3/</link>
+			<pubDate>Tue, 26 Aug 2025 14:11:38 +0300</pubDate>
+			<guid>https://nenimein.fi/blog/post/lackrack-v3/</guid>
+			<description>
+			LackRack V3 - Cheaper, stronger, complies with standards! Inspired by the original LackRack - Eth0Wiki and later revisions NiBuch …
+			</description>
+		</item>
+	</channel>
+</rss>

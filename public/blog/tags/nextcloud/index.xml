@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Nextcloud on Sami&#39;s Blog</title>
+		<link>https://nenimein.fi/blog/tags/nextcloud/</link>
+		<description>Recent content in Nextcloud on nenimein.fi</description>
+		<generator>Hugo -- gohugo.io</generator>
+		<language>en-us</language>
+		<copyright>© Sami Nieminen</copyright>
+		<lastBuildDate>Tue, 23 Jan 2024 16:58:43 +0200</lastBuildDate>
+		<atom:link href="https://nenimein.fi/blog/tags/nextcloud/index.xml" rel="self" type="application/rss+xml" />
+		<item>
+			<title>Nextcloud VM cloud backups with restic and Backblaze</title>
+			<link>https://nenimein.fi/blog/post/nextcloud-vm-backups/</link>
+			<pubDate>Tue, 23 Jan 2024 16:58:43 +0200</pubDate>
+			<guid>https://nenimein.fi/blog/post/nextcloud-vm-backups/</guid>
+			<description>
+			UPDATE 20241206 Happy Independence Day for all Finns <3
+I have created a V1.0 script for backing up your Nextcloud instance using Restic. It …
+			</description>
+		</item>
+	</channel>
+</rss>

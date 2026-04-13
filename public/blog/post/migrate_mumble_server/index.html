@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en" dir='ltr'>
+<head>
+<meta charset="UTF-8">
+<title>Migrating mumble servers | Sami&#39;s Blog</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.147.6">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="keywords" content="projects, lang-english, linux, server">
+<link rel="stylesheet" type="text/css" media="screen" href="/blog/css/normalize.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="/blog/css/main.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="/blog/css/all.css" />
+
+<script>
+localStorage.setItem('theme', 'dark');
+</script>
+
+
+
+
+
+<meta property="og:url" content="https://nenimein.fi/blog/post/migrate_mumble_server/">
+  <meta property="og:site_name" content="Sami&#39;s Blog">
+  <meta property="og:title" content="Migrating mumble servers">
+  <meta property="og:description" content="How to migrate mumble server to from old linux server to new linux server.
+This is mostly a reminder for myself, on how to do it in the future if I ever need to migrate servers again. But, it might also help you if you hit a few “gotchas” on the way as I did.
+Prep First, set up the new server. My new server is running Ubuntu 20.04 LTS, so I get the best mix of latest packages and stability. Most of the commands are run as #root.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2022-02-03T19:44:10+02:00">
+    <meta property="article:modified_time" content="2022-02-03T19:44:10+02:00">
+    <meta property="article:tag" content="Projects">
+    <meta property="article:tag" content="Lang-English">
+    <meta property="article:tag" content="Linux">
+    <meta property="article:tag" content="Server">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Migrating mumble servers">
+  <meta name="twitter:description" content="How to migrate mumble server to from old linux server to new linux server.
+This is mostly a reminder for myself, on how to do it in the future if I ever need to migrate servers again. But, it might also help you if you hit a few “gotchas” on the way as I did.
+Prep First, set up the new server. My new server is running Ubuntu 20.04 LTS, so I get the best mix of latest packages and stability. Most of the commands are run as #root.">
+
+
+  <meta itemprop="name" content="Migrating mumble servers">
+  <meta itemprop="description" content="How to migrate mumble server to from old linux server to new linux server.
+This is mostly a reminder for myself, on how to do it in the future if I ever need to migrate servers again. But, it might also help you if you hit a few “gotchas” on the way as I did.
+Prep First, set up the new server. My new server is running Ubuntu 20.04 LTS, so I get the best mix of latest packages and stability. Most of the commands are run as #root.">
+  <meta itemprop="datePublished" content="2022-02-03T19:44:10+02:00">
+  <meta itemprop="dateModified" content="2022-02-03T19:44:10+02:00">
+  <meta itemprop="wordCount" content="503">
+  <meta itemprop="keywords" content="Projects,Lang-English,Linux,Server">
+</head>
+<body>
+<header>
+<div id="avatar">
+<a href="https://nenimein.fi/blog/"><img src="/blog/img/logo.png" alt="Sami&#39;s Blog"></a>
+</div>
+<div id="titletext">
+<h2 id="title"><a href="https://nenimein.fi/blog/">Sami&#39;s Blog</a></h2>
+</div>
+<div id="title-description">
+<p id="subtitle">Made with <a href="https://gohugo.io/" target="_blank">Hugo</a>. Themed by <a href="https://codeberg.org/farooqkz/hugo-vitae" target="_blank">Vitae</a>. Deployed to someone else&rsquo;s computer.</p>
+<div id="social">
+<nav><ul>
+<li><button id="dark-mode" aria-label="Switch Dark Mode"><span title="Switch Dark Mode" class="icons fas fa-moon" aria-hidden="true"></span></button></li>
+</ul></nav>
+</div>
+</div>
+<div id="mainmenu">
+<nav>
+<ul>
+<li><a href="/blog/">Home</a></li>
+<li><a href="/blog/post">All posts</a></li>
+<li><a href="/blog/about">About</a></li>
+<li><a href="/blog/tags">Tags</a></li>
+<li><a href="/blog/sitemap.xml">RSS</a></li>
+</ul>
+</nav>
+</div>
+</header>
+<main>
+<div class="post" dir="auto">
+<article>
+<div class="post-header" dir="auto">
+<div class="meta" dir="auto">
+<div class="date" data-date='2022-02-03'>
+<span class="day">03</span>
+<span class="rest">Feb 2022</span>
+</div>
+
+
+</div>
+<div class="matter" dir="auto">
+<h1 class="title">Migrating mumble servers</h1>
+<p class="post-meta" dir="auto">
+<span class="post-meta">
+
+
+
+
+
+</span>
+
+</p>
+</div>
+</div>
+<div class="markdown">
+<p>How to migrate mumble server to from old linux server to new linux server.</p>
+<p>This is mostly a reminder for myself, on how to do it in the future if I ever need to migrate servers again. But, it might also help you if you hit a few &ldquo;gotchas&rdquo; on the way as I did.</p>
+<h2 id="prep">Prep</h2>
+<p>First, set up the new server. My new server is running Ubuntu 20.04 LTS, so I get the best mix of latest packages and stability.
+Most of the commands are run as #root.</p>
+<h3 id="install-mumble">Install mumble</h3>
+<p>First, we need to install mumble server, or &ldquo;murmur&rdquo; to the new server. Start by running:</p>
+<p><code># apt get update</code></p>
+<p><code># apt get upgrade</code></p>
+<p><code># apt get install mumble-server</code></p>
+<p><code># apt get install certbot</code> &lt;- Optional, for &ldquo;green&rdquo; connection bar in mumble.</p>
+<p>Then we need to stop the newly installed mumble-server service to make it ready to accept new configs.</p>
+<p><code># systemctl stop mumble-server</code></p>
+<p>Make sure you also open up port TCP 80 for the certificate renewals and your mumble-server TCP/UDP port.</p>
+<h3 id="copy-db-file">Copy DB file</h3>
+<p>On the old server, stop mumble server and copy the DB file to the new server via filezilla or SCP.
+Here I&rsquo;m using SQLite as the database. You can find your database by checking the config file <code>/etc/mumble-server.ini</code>.</p>
+<p><code># systemctl stop mumble-server</code></p>
+<p><code># cp /var/lib/mumble-server/dbname.sqlite /home/user/dbname.sqlite</code></p>
+<p>Copy the file to the new server, and move it to <code>/var/lib/mumble-server/dbname.sqlite</code>.
+Then set the correct permissions to the DB file. Otherwise you will have errors regading unaccessible DB file :).
+You can find the correct user in <code>/etc/mumble-server.ini</code> -&gt; <code>uname=username</code>.</p>
+<p><code># chown mumble-server:mumble-server /var/lib/mumble-server/murmur.sqlite</code></p>
+<h3 id="compare-new-config-file-to-old-config-file">Compare new config file to old config file</h3>
+<p>Copy all the necessary settings from old config file to new config file. I do not recommend copying the whole file to the new server, as there might be new config options on new installs.</p>
+<p>Most important config options are:</p>
+<ul>
+<li><code>database=/var/lib/mumble-server/dbname.sqlite</code> &lt;- Make sure this points to a correct file.</li>
+<li><code>logfile=/var/log/mumble-server/mumble-server.log</code></li>
+<li><code>welcometext=&quot;Welcome to this server running Murmur. Please enjoy your stay!&quot;</code></li>
+<li><code>port=1337</code></li>
+<li><code>serverpassword=</code> &lt;- If you are using a password.</li>
+<li><code>sslCert=/etc/letsencrypt/live/server.com/fullchain.pem</code> &lt;- If you are using SSL.</li>
+<li><code>sslKey=/etc/letsencrypt/live/server.com/privkey.pem</code> &lt;- If you are using SSL.</li>
+</ul>
+<h3 id="set-up-ssl-certificates-with-letsencrypt-optional">Set up SSL certificates with letsencrypt (optional)</h3>
+<p>Here I&rsquo;m using certbot interactively in standalone mode to get a new cert to the server
+Remember to point your mumble DNS name to the new server, otherwise the certificate renew will not go through.</p>
+<p><code># certbot certonly -a standalone -d mumble.server.com</code></p>
+<p>You should see something like this which tells you where the certificates are saved:
+&ldquo;<code>Congratulations! Your certificate and chain have been saved at:</code>&rdquo;</p>
+<p>Next you have to configure mumble-server to start as root and drop it privileges after start, so mumble can read the certificate file.</p>
+<p><code># vim /etc/default/mumble-server</code> and set <code>MURMUR_USE_CAPABILITIES=1</code></p>
+<h2 id="start-chatting">Start chatting!</h2>
+<p>Now start the mumble server with command:</p>
+<p><code># systemctl start mumble-server</code></p>
+<p>Check that mumble-server service status is &ldquo;active: (running)&rdquo; with:</p>
+<p><code># systemctl status mumble-server</code></p>
+<p>And finally let&rsquo;s make it so that mumble-server will automatically start after reboots/upgrades:</p>
+<p><code># systemctl enable mumble-server</code></p>
+
+</div>
+<div class="tags" dir="auto">
+<div class="taxosfloating_left">
+<p>Tags</p>
+</div>
+<div class="termsfloating_right">
+<p>
+<a href="/blog/tags/lang-english/">lang-english</a>
+<a href="/blog/tags/linux/">linux</a>
+<a href="/blog/tags/projects/">projects</a>
+<a href="/blog/tags/server/">server</a>
+</p>
+</div>
+<div class="clearit"></div>
+</div>
+</article>
+</div>
+</main>
+<footer>
+© Sami Nieminen
+
+<script data-id="matomo-tracking" data-matomo-tracking-url='https://matomo.nenimein.fi' data-matomo-tracking-id='1' src="/blog/js/matomo-tracking.min.d8e1498fb42aa6048c4db4ac8451d0141fe4a0a83a1b4857df2a67a0cabd350a.js" integrity="sha256-2OFJj7QqpgSMTbSshFHQFB/koKg6G0hX3ypnoMq9NQo=" crossorigin="anonymous" defer></script>
+</footer><script src="/blog/js/dark-mode.js"></script>
+
+</body>
+</html>

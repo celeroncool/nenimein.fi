@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en" dir='ltr'>
+<head>
+<meta charset="UTF-8">
+<title>How to add boot options in PopOS! 22.04 | Sami&#39;s Blog</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.147.6">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="keywords" content="linux, lang-english">
+<link rel="stylesheet" type="text/css" media="screen" href="/blog/css/normalize.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="/blog/css/main.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="/blog/css/all.css" />
+
+<script>
+localStorage.setItem('theme', 'dark');
+</script>
+
+
+
+
+
+<meta property="og:url" content="https://nenimein.fi/blog/post/how-to-add-boot-options-in-popos-22.04/">
+  <meta property="og:site_name" content="Sami&#39;s Blog">
+  <meta property="og:title" content="How to add boot options in PopOS! 22.04">
+  <meta property="og:description" content="Most of the guides tell you to just add a grub option. Well, PopOS! 22.04 does not use GRUB, if you have a UEFI motherboard and installed PopOS! with UEFI (no CSM enabled)…
+kernelstub Official documentation from System76: https://support.system76.com/articles/kernelstub/
+sudo kernelstub -p This will print out your current settings:
+kernelstub.Config : INFO Looking for configuration... kernelstub : INFO System information: OS:..................Pop!_OS 22.04 Root partition:....../dev/nvme0n1p2 Root FS UUID:........ ESP Path:............/boot/efi ESP Partition:......./dev/nvme0n1p3 ESP Partition #:.....3 NVRAM entry #:.......-1 Boot Variable #:.....0000 Kernel Boot Options:.quiet splash amdgpu.ppfeaturemask=0xfff7ffff acpi_enforce_resources=lax Kernel Image Path:.../boot/vmlinuz-6.4.6-76060406-generic Initrd Image Path:.../boot/initrd.img-6.4.6-76060406-generic Force-overwrite:.....False kernelstub : INFO Configuration details: ESP Location:................../boot/efi Management Mode:...............True Install Loader configuration:..True Configuration version:.........3 sudo kernelstub -o “options” This will modify current kernel options. Beware, this will not ADD, but EDIT, so you will loose your current options… In this example, I’m adding a custom resolution. For some reason my display only shows up as 120Hz, but it is a 144Hz Freesync Premium monitor (works fine in Windows).">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2023-08-10T08:51:33+03:00">
+    <meta property="article:modified_time" content="2023-08-10T08:51:33+03:00">
+    <meta property="article:tag" content="Linux">
+    <meta property="article:tag" content="Lang-English">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="How to add boot options in PopOS! 22.04">
+  <meta name="twitter:description" content="Most of the guides tell you to just add a grub option. Well, PopOS! 22.04 does not use GRUB, if you have a UEFI motherboard and installed PopOS! with UEFI (no CSM enabled)…
+kernelstub Official documentation from System76: https://support.system76.com/articles/kernelstub/
+sudo kernelstub -p This will print out your current settings:
+kernelstub.Config : INFO Looking for configuration... kernelstub : INFO System information: OS:..................Pop!_OS 22.04 Root partition:....../dev/nvme0n1p2 Root FS UUID:........ ESP Path:............/boot/efi ESP Partition:......./dev/nvme0n1p3 ESP Partition #:.....3 NVRAM entry #:.......-1 Boot Variable #:.....0000 Kernel Boot Options:.quiet splash amdgpu.ppfeaturemask=0xfff7ffff acpi_enforce_resources=lax Kernel Image Path:.../boot/vmlinuz-6.4.6-76060406-generic Initrd Image Path:.../boot/initrd.img-6.4.6-76060406-generic Force-overwrite:.....False kernelstub : INFO Configuration details: ESP Location:................../boot/efi Management Mode:...............True Install Loader configuration:..True Configuration version:.........3 sudo kernelstub -o “options” This will modify current kernel options. Beware, this will not ADD, but EDIT, so you will loose your current options… In this example, I’m adding a custom resolution. For some reason my display only shows up as 120Hz, but it is a 144Hz Freesync Premium monitor (works fine in Windows).">
+
+
+  <meta itemprop="name" content="How to add boot options in PopOS! 22.04">
+  <meta itemprop="description" content="Most of the guides tell you to just add a grub option. Well, PopOS! 22.04 does not use GRUB, if you have a UEFI motherboard and installed PopOS! with UEFI (no CSM enabled)…
+kernelstub Official documentation from System76: https://support.system76.com/articles/kernelstub/
+sudo kernelstub -p This will print out your current settings:
+kernelstub.Config : INFO Looking for configuration... kernelstub : INFO System information: OS:..................Pop!_OS 22.04 Root partition:....../dev/nvme0n1p2 Root FS UUID:........ ESP Path:............/boot/efi ESP Partition:......./dev/nvme0n1p3 ESP Partition #:.....3 NVRAM entry #:.......-1 Boot Variable #:.....0000 Kernel Boot Options:.quiet splash amdgpu.ppfeaturemask=0xfff7ffff acpi_enforce_resources=lax Kernel Image Path:.../boot/vmlinuz-6.4.6-76060406-generic Initrd Image Path:.../boot/initrd.img-6.4.6-76060406-generic Force-overwrite:.....False kernelstub : INFO Configuration details: ESP Location:................../boot/efi Management Mode:...............True Install Loader configuration:..True Configuration version:.........3 sudo kernelstub -o “options” This will modify current kernel options. Beware, this will not ADD, but EDIT, so you will loose your current options… In this example, I’m adding a custom resolution. For some reason my display only shows up as 120Hz, but it is a 144Hz Freesync Premium monitor (works fine in Windows).">
+  <meta itemprop="datePublished" content="2023-08-10T08:51:33+03:00">
+  <meta itemprop="dateModified" content="2023-08-10T08:51:33+03:00">
+  <meta itemprop="wordCount" content="245">
+  <meta itemprop="keywords" content="Linux,Lang-English">
+</head>
+<body>
+<header>
+<div id="avatar">
+<a href="https://nenimein.fi/blog/"><img src="/blog/img/logo.png" alt="Sami&#39;s Blog"></a>
+</div>
+<div id="titletext">
+<h2 id="title"><a href="https://nenimein.fi/blog/">Sami&#39;s Blog</a></h2>
+</div>
+<div id="title-description">
+<p id="subtitle">Made with <a href="https://gohugo.io/" target="_blank">Hugo</a>. Themed by <a href="https://codeberg.org/farooqkz/hugo-vitae" target="_blank">Vitae</a>. Deployed to someone else&rsquo;s computer.</p>
+<div id="social">
+<nav><ul>
+<li><button id="dark-mode" aria-label="Switch Dark Mode"><span title="Switch Dark Mode" class="icons fas fa-moon" aria-hidden="true"></span></button></li>
+</ul></nav>
+</div>
+</div>
+<div id="mainmenu">
+<nav>
+<ul>
+<li><a href="/blog/">Home</a></li>
+<li><a href="/blog/post">All posts</a></li>
+<li><a href="/blog/about">About</a></li>
+<li><a href="/blog/tags">Tags</a></li>
+<li><a href="/blog/sitemap.xml">RSS</a></li>
+</ul>
+</nav>
+</div>
+</header>
+<main>
+<div class="post" dir="auto">
+<article>
+<div class="post-header" dir="auto">
+<div class="meta" dir="auto">
+<div class="date" data-date='2023-08-10'>
+<span class="day">10</span>
+<span class="rest">Aug 2023</span>
+</div>
+
+
+</div>
+<div class="matter" dir="auto">
+<h1 class="title">How to add boot options in PopOS! 22.04</h1>
+<p class="post-meta" dir="auto">
+<span class="post-meta">
+
+
+
+
+
+</span>
+
+</p>
+</div>
+</div>
+<div class="markdown">
+<p>Most of the guides tell you to just add a grub option. Well, PopOS! 22.04 does not use GRUB, if you have a UEFI motherboard and installed PopOS! with UEFI (no CSM enabled)&hellip;</p>
+<h1 id="kernelstub">kernelstub</h1>
+<p>Official documentation from System76:
+<a href="https://support.system76.com/articles/kernelstub/" target="_blank">https://support.system76.com/articles/kernelstub/</a></p>
+<h2 id="sudo-kernelstub--p">sudo kernelstub -p</h2>
+<p>This will print out your current settings:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">kernelstub.Config    : INFO     Looking for configuration...
+</span></span><span class="line"><span class="cl">kernelstub           : INFO     System information: 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    OS:..................Pop!_OS 22.04
+</span></span><span class="line"><span class="cl">    Root partition:....../dev/nvme0n1p2
+</span></span><span class="line"><span class="cl">    Root FS UUID:........
+</span></span><span class="line"><span class="cl">    ESP Path:............/boot/efi
+</span></span><span class="line"><span class="cl">    ESP Partition:......./dev/nvme0n1p3
+</span></span><span class="line"><span class="cl">    ESP Partition #:.....3
+</span></span><span class="line"><span class="cl">    NVRAM entry #:.......-1
+</span></span><span class="line"><span class="cl">    Boot Variable #:.....0000
+</span></span><span class="line"><span class="cl">    Kernel Boot Options:.quiet splash amdgpu.ppfeaturemask=0xfff7ffff acpi_enforce_resources=lax
+</span></span><span class="line"><span class="cl">    Kernel Image Path:.../boot/vmlinuz-6.4.6-76060406-generic
+</span></span><span class="line"><span class="cl">    Initrd Image Path:.../boot/initrd.img-6.4.6-76060406-generic
+</span></span><span class="line"><span class="cl">    Force-overwrite:.....False
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">kernelstub           : INFO     Configuration details: 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   ESP Location:................../boot/efi
+</span></span><span class="line"><span class="cl">   Management Mode:...............True
+</span></span><span class="line"><span class="cl">   Install Loader configuration:..True
+</span></span><span class="line"><span class="cl">   Configuration version:.........3
+</span></span></code></pre></div><h2 id="sudo-kernelstub--o-options">sudo kernelstub -o &ldquo;options&rdquo;</h2>
+<p>This will modify current kernel options. Beware, this will not ADD, but EDIT, so you will loose your current options&hellip;
+In this example, I&rsquo;m adding a custom resolution. For some reason my display only shows up as 120Hz, but it is a 144Hz Freesync Premium monitor (works fine in Windows).</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">sudo kernelstub -o &#34;quiet splash amdgpu.ppfeaturemask=0xfff7ffff acpi_enforce_resources=lax video=DP-3:3440x1440@144&#34;
+</span></span></code></pre></div><h2 id="finishing-up">Finishing up</h2>
+<p>Now check again with kernelstub -p that your options have been made.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">sudo kernelstub -p
+</span></span><span class="line"><span class="cl">kernelstub.Config    : INFO     Looking for configuration...
+</span></span><span class="line"><span class="cl">kernelstub           : INFO     System information: 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    OS:..................Pop!_OS 22.04
+</span></span><span class="line"><span class="cl">    Root partition:....../dev/nvme0n1p2
+</span></span><span class="line"><span class="cl">    Root FS UUID:........
+</span></span><span class="line"><span class="cl">    ESP Path:............/boot/efi
+</span></span><span class="line"><span class="cl">    ESP Partition:......./dev/nvme0n1p3
+</span></span><span class="line"><span class="cl">    ESP Partition #:.....3
+</span></span><span class="line"><span class="cl">    NVRAM entry #:.......-1
+</span></span><span class="line"><span class="cl">    Boot Variable #:.....0000
+</span></span><span class="line"><span class="cl">    Kernel Boot Options:.quiet splash amdgpu.ppfeaturemask=0xfff7ffff acpi_enforce_resources=lax video=DP-3:3440x1440@144
+</span></span><span class="line"><span class="cl">    Kernel Image Path:.../boot/vmlinuz-6.4.6-76060406-generic
+</span></span><span class="line"><span class="cl">    Initrd Image Path:.../boot/initrd.img-6.4.6-76060406-generic
+</span></span><span class="line"><span class="cl">    Force-overwrite:.....False
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">kernelstub           : INFO     Configuration details: 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   ESP Location:................../boot/efi
+</span></span><span class="line"><span class="cl">   Management Mode:...............True
+</span></span><span class="line"><span class="cl">   Install Loader configuration:..True
+</span></span><span class="line"><span class="cl">   Configuration version:.........3
+</span></span></code></pre></div>
+</div>
+<div class="tags" dir="auto">
+<div class="taxosfloating_left">
+<p>Tags</p>
+</div>
+<div class="termsfloating_right">
+<p>
+<a href="/blog/tags/lang-english/">lang-english</a>
+<a href="/blog/tags/linux/">linux</a>
+</p>
+</div>
+<div class="clearit"></div>
+</div>
+</article>
+</div>
+</main>
+<footer>
+© Sami Nieminen
+
+<script data-id="matomo-tracking" data-matomo-tracking-url='https://matomo.nenimein.fi' data-matomo-tracking-id='1' src="/blog/js/matomo-tracking.min.d8e1498fb42aa6048c4db4ac8451d0141fe4a0a83a1b4857df2a67a0cabd350a.js" integrity="sha256-2OFJj7QqpgSMTbSshFHQFB/koKg6G0hX3ypnoMq9NQo=" crossorigin="anonymous" defer></script>
+</footer><script src="/blog/js/dark-mode.js"></script>
+
+</body>
+</html>

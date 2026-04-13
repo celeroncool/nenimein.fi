@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en" dir='ltr'>
+<head>
+<meta charset="UTF-8">
+<title>Nextcloud VM cloud backups with restic and Backblaze | Sami&#39;s Blog</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.147.6">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="keywords" content="nextcloud, linux, lang-english, backblaze">
+<link rel="stylesheet" type="text/css" media="screen" href="/blog/css/normalize.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="/blog/css/main.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="/blog/css/all.css" />
+
+<script>
+localStorage.setItem('theme', 'dark');
+</script>
+
+
+
+
+
+<meta property="og:url" content="https://nenimein.fi/blog/post/nextcloud-vm-backups/">
+  <meta property="og:site_name" content="Sami&#39;s Blog">
+  <meta property="og:title" content="Nextcloud VM cloud backups with restic and Backblaze">
+  <meta property="og:description" content="UPDATE 20241206 Happy Independence Day for all Finns &lt;3
+I have created a V1.0 script for backing up your Nextcloud instance using Restic. It has been mainlined to “not supported” scripts folder and you can find it here
+Currently script has support for:
+AWS S3 Bucket Azure Blob Storage Backblaze B2 Tested working with Azure and Backblaze, as I have access to those two environments.
+Script has logging, error handling and hopefully clear instuctions how to set it up. Also has options to only backup the config &#43; DB or config &#43; DB &#43; /mnt/ncdata.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2024-01-23T16:58:43+02:00">
+    <meta property="article:modified_time" content="2024-01-23T16:58:43+02:00">
+    <meta property="article:tag" content="Nextcloud">
+    <meta property="article:tag" content="Linux">
+    <meta property="article:tag" content="Lang-English">
+    <meta property="article:tag" content="Backblaze">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Nextcloud VM cloud backups with restic and Backblaze">
+  <meta name="twitter:description" content="UPDATE 20241206 Happy Independence Day for all Finns &lt;3
+I have created a V1.0 script for backing up your Nextcloud instance using Restic. It has been mainlined to “not supported” scripts folder and you can find it here
+Currently script has support for:
+AWS S3 Bucket Azure Blob Storage Backblaze B2 Tested working with Azure and Backblaze, as I have access to those two environments.
+Script has logging, error handling and hopefully clear instuctions how to set it up. Also has options to only backup the config &#43; DB or config &#43; DB &#43; /mnt/ncdata.">
+
+
+  <meta itemprop="name" content="Nextcloud VM cloud backups with restic and Backblaze">
+  <meta itemprop="description" content="UPDATE 20241206 Happy Independence Day for all Finns &lt;3
+I have created a V1.0 script for backing up your Nextcloud instance using Restic. It has been mainlined to “not supported” scripts folder and you can find it here
+Currently script has support for:
+AWS S3 Bucket Azure Blob Storage Backblaze B2 Tested working with Azure and Backblaze, as I have access to those two environments.
+Script has logging, error handling and hopefully clear instuctions how to set it up. Also has options to only backup the config &#43; DB or config &#43; DB &#43; /mnt/ncdata.">
+  <meta itemprop="datePublished" content="2024-01-23T16:58:43+02:00">
+  <meta itemprop="dateModified" content="2024-01-23T16:58:43+02:00">
+  <meta itemprop="wordCount" content="1231">
+  <meta itemprop="keywords" content="Nextcloud,Linux,Lang-English,Backblaze">
+</head>
+<body>
+<header>
+<div id="avatar">
+<a href="https://nenimein.fi/blog/"><img src="/blog/img/logo.png" alt="Sami&#39;s Blog"></a>
+</div>
+<div id="titletext">
+<h2 id="title"><a href="https://nenimein.fi/blog/">Sami&#39;s Blog</a></h2>
+</div>
+<div id="title-description">
+<p id="subtitle">Made with <a href="https://gohugo.io/" target="_blank">Hugo</a>. Themed by <a href="https://codeberg.org/farooqkz/hugo-vitae" target="_blank">Vitae</a>. Deployed to someone else&rsquo;s computer.</p>
+<div id="social">
+<nav><ul>
+<li><button id="dark-mode" aria-label="Switch Dark Mode"><span title="Switch Dark Mode" class="icons fas fa-moon" aria-hidden="true"></span></button></li>
+</ul></nav>
+</div>
+</div>
+<div id="mainmenu">
+<nav>
+<ul>
+<li><a href="/blog/">Home</a></li>
+<li><a href="/blog/post">All posts</a></li>
+<li><a href="/blog/about">About</a></li>
+<li><a href="/blog/tags">Tags</a></li>
+<li><a href="/blog/sitemap.xml">RSS</a></li>
+</ul>
+</nav>
+</div>
+</header>
+<main>
+<div class="post" dir="auto">
+<article>
+<div class="post-header" dir="auto">
+<div class="meta" dir="auto">
+<div class="date" data-date='2024-01-23'>
+<span class="day">23</span>
+<span class="rest">Jan 2024</span>
+</div>
+
+
+</div>
+<div class="matter" dir="auto">
+<h1 class="title">Nextcloud VM cloud backups with restic and Backblaze</h1>
+<p class="post-meta" dir="auto">
+<span class="post-meta">
+
+
+
+
+
+</span>
+
+</p>
+</div>
+</div>
+<div class="markdown">
+<h1 id="update-20241206">UPDATE 20241206</h1>
+<p>Happy Independence Day for all Finns &lt;3</p>
+<p>I have created a V1.0 script for backing up your Nextcloud instance using Restic.
+It has been mainlined to &ldquo;not supported&rdquo; scripts folder and you can find it <a href="https://github.com/nextcloud/vm/blob/main/not-supported/restic-cloud-backup-wizard.sh" target="_blank">here</a></p>
+<p>Currently script has support for:</p>
+<ul>
+<li>AWS S3 Bucket</li>
+<li>Azure Blob Storage</li>
+<li>Backblaze B2</li>
+</ul>
+<p>Tested working with Azure and Backblaze, as I have access to those two environments.</p>
+<p>Script has logging, error handling and hopefully clear instuctions how to set it up.
+Also has options to only backup the config + DB or config + DB + /mnt/ncdata.</p>
+<h2 id="original-post-follows">Original post follows:</h2>
+<p>Currently there are no instructions on how to backup Nextcloud VM to a offsite location without mountpoints.
+Mounting Backblaze B2 as a mount inside linux is supported as a S3 compatible fuse, but that gets really clunky, and has no support for snapshotted backups.</p>
+<p>I have opened a <a href="https://github.com/nextcloud/vm/issues/2583" target="_blank">issue</a> to the project, so this situation might get better soon :)</p>
+<div>
+    <h2>Table Of Contents</h2>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#original-post-follows">Original post follows:</a></li>
+    <li><a href="#current-setup">Current setup</a></li>
+    <li><a href="#scripts-and-configs">Scripts and configs</a>
+      <ul>
+        <li><a href="#install-restic-from-restic">Install restic from restic</a></li>
+        <li><a href="#main-backup-script">Main backup script</a></li>
+        <li><a href="#restic-settings">Restic settings</a></li>
+        <li><a href="#restic-ignore-files">Restic ignore files</a></li>
+        <li><a href="#repository-password">Repository password</a></li>
+        <li><a href="#securing-it-all">Securing it all!</a></li>
+        <li><a href="#creating-restic-repository">Creating restic repository</a></li>
+      </ul>
+    </li>
+    <li><a href="#first-backup">First backup</a></li>
+    <li><a href="#automation">Automation</a></li>
+    <li><a href="#todo">TODO</a></li>
+  </ul>
+</nav>
+</div>
+<h2 id="current-setup">Current setup</h2>
+<p>I use 2.5G NIC, directly connected to my NAS from my ESXi host. In ESXi, I have a separate vSwitch which has a vmNIC to the nextcloud VM.
+Inside nextcloud, the vmNIC has a static IP and subnet without gateway, so that only 192.168.40.0/24 traffic goes to this NIC.</p>
+<p>My NAS is Xigmanas, running on HPE Proliant Microserver Gen7 (N54L) and has a Intel I-225V 2.5G NIC added to it.
+In Xigmanas, NIC has IP 192.168.40.40, and presented NFS mounts of my ZFS pool to that IP.</p>
+<p>Nextcloud VM has following line in /etc/fstab</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"># &lt;file system&gt; &lt;mount point&gt;   &lt;type&gt;  &lt;options&gt;       &lt;dump&gt;  &lt;pass&gt;
+</span></span><span class="line"><span class="cl">192.168.40.40:/mnt/DATAPOOL/nextcloud /mnt/ncdata nfs defaults  0 1
+</span></span></code></pre></div><p>This automounts /mnt/ncdata directly to NFS share from the NAS.</p>
+<h2 id="scripts-and-configs">Scripts and configs</h2>
+<h3 id="install-restic-from-restic">Install restic from restic</h3>
+<p>Current apt restic program is very old, &ldquo;restic 0.12.1 compiled with go1.18.1 on linux/amd64&rdquo;.
+So we need to first hold the apt version and use restic own .deb packages for install.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">apt</span><span class="o">-</span><span class="n">mark</span> <span class="n">hold</span> <span class="n">restic</span>
+</span></span><span class="line"><span class="cl"><span class="n">wget</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">restic</span><span class="o">/</span><span class="n">restic</span><span class="o">/</span><span class="n">releases</span><span class="o">/</span><span class="n">download</span><span class="o">/</span><span class="n">v0</span><span class="o">.</span><span class="mf">16.2</span><span class="o">/</span><span class="n">restic_0</span><span class="o">.</span><span class="mf">16.2</span><span class="n">_linux_amd64</span><span class="o">.</span><span class="n">bz2</span>
+</span></span><span class="line"><span class="cl"><span class="n">bzip2</span> <span class="o">-</span><span class="n">d</span> <span class="n">restic_0</span><span class="o">.</span><span class="mf">16.2</span><span class="n">_linux_amd64</span><span class="o">.</span><span class="n">bz2</span>
+</span></span><span class="line"><span class="cl"><span class="n">cp</span> <span class="n">restic_0</span><span class="o">.</span><span class="mf">16.2</span><span class="n">_linux_amd64</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">restic</span>
+</span></span><span class="line"><span class="cl"><span class="n">chmod</span> <span class="o">+</span><span class="n">x</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">restic</span>
+</span></span></code></pre></div><p>Now restic version shows &ldquo;restic 0.16.2 compiled with go1.21.3 on linux/amd64&rdquo;</p>
+<p>You can now use restic self-update to update binary to latest release.</p>
+<h3 id="main-backup-script">Main backup script</h3>
+<p>First is the actual backup script which is responsible for backing up files and pruning old snapshots from the restic repository.</p>
+<ul>
+<li>BACKUP_PATHS are the locations we want to include inside the repository.</li>
+<li>RETENTION_DAYS, WEEKS, MONTHS and YEARS define how long we keep different snapshots.</li>
+<li>EXCLUDE_FILE is file used to exclude certain folders from repo.</li>
+<li>BACKUP_TAG is added to all snapshots, so you know what took the snapshots inside repo.</li>
+<li>source /etc/restic-env is used to save all restic repo settings.</li>
+</ul>
+<p>/etc/restic-backup.sh</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/usr/bin/env bash
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="c1"># This script is intended to be run by a systemd timer</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Exit on failure or pipefail</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> -e -o pipefail
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#Set this to any location you like</span>
+</span></span><span class="line"><span class="cl"><span class="nv">BACKUP_PATHS</span><span class="o">=</span><span class="s2">&#34;/mnt/ncdata /mnt/NCBACKUP&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">EXCLUDE_FILE</span><span class="o">=</span><span class="s2">&#34;/etc/restic-excludes.txt&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">BACKUP_TAG</span><span class="o">=</span><span class="s2">&#34;systemd.timer&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># How many backups to keep.</span>
+</span></span><span class="line"><span class="cl"><span class="nv">RETENTION_DAYS</span><span class="o">=</span><span class="m">30</span>
+</span></span><span class="line"><span class="cl"><span class="nv">RETENTION_WEEKS</span><span class="o">=</span><span class="m">4</span>
+</span></span><span class="line"><span class="cl"><span class="nv">RETENTION_MONTHS</span><span class="o">=</span><span class="m">1</span>
+</span></span><span class="line"><span class="cl"><span class="nv">RETENTION_YEARS</span><span class="o">=</span><span class="m">0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">source</span> /etc/restic-env
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Remove locks in case other stale processes kept them in</span>
+</span></span><span class="line"><span class="cl">restic unlock <span class="p">&amp;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">wait</span> <span class="nv">$!</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#Do the backup</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">restic backup <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --verbose <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --one-file-system <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --tag <span class="nv">$BACKUP_TAG</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="nv">$BACKUP_PATHS</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --exclude-file <span class="nv">$EXCLUDE_FILE</span> <span class="p">&amp;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">wait</span> <span class="nv">$!</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Remove old Backups</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">restic forget <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --verbose <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --tag <span class="nv">$BACKUP_TAG</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --prune <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --keep-daily <span class="nv">$RETENTION_DAYS</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --keep-weekly <span class="nv">$RETENTION_WEEKS</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --keep-monthly <span class="nv">$RETENTION_MONTHS</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --keep-yearly <span class="nv">$RETENTION_YEARS</span> <span class="p">&amp;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">wait</span> <span class="nv">$!</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Check if everything is fine</span>
+</span></span><span class="line"><span class="cl">restic check <span class="p">&amp;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">wait</span> <span class="nv">$!</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;Backup done!&#34;</span>
+</span></span></code></pre></div><h3 id="restic-settings">Restic settings</h3>
+<p>All settings related to repo go to this file.
+ID&rsquo;s can be found from backblaze.com -&gt; Account -&gt; Application Keys</p>
+<p>ALWAYS create a new key and give it write permissions to the bucket you want to save the backups.</p>
+<ul>
+<li>B2_ACCOUNT_ID is &ldquo;keyID&rdquo; in Backblaze.</li>
+<li>B2_ACCOUNT_KEY is shown you only one time during the creation of the key. Save this in you password manager so you can recreate the config, or create a new one per client you connect to the repository.</li>
+<li>RESTIC_REPOSITORY is the Restic repo we must create before running the script for the first time.</li>
+<li>RESTIC_PASSWORD_FILE is the password we use to encrypt the repository data. SAVE THIS, because if you do not have this, you cannot open the repository ever again!</li>
+</ul>
+<p>/etc/restic-env</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="k">export</span> <span class="n">B2_ACCOUNT_ID</span><span class="o">=</span><span class="s2">&#34;xxxxxxxxxxxxxxxxxxxxxx&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">export</span> <span class="n">B2_ACCOUNT_KEY</span><span class="o">=</span><span class="s2">&#34;xxxxxxxxxxxxxxxxxxxxxxxx&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">export</span> <span class="n">RESTIC_REPOSITORY</span><span class="o">=</span><span class="s2">&#34;b2:your-amazing-b2-nextcloud-repo&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">export</span> <span class="n">RESTIC_PASSWORD_FILE</span><span class="o">=/</span><span class="n">etc</span><span class="o">/</span><span class="n">restic</span><span class="o">-</span><span class="n">password</span>
+</span></span></code></pre></div><h3 id="restic-ignore-files">Restic ignore files</h3>
+<p>I would highly recommend you ignore the preview folder from backups.
+This reduces the time restic has to compare snapshots, as these files change very often and are not needed if you need to do a restore.</p>
+<p>/etc/restic-excludes.txt</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">/mnt/ncdata/*/preview/
+</span></span></code></pre></div><p>This will match all folders under /mnt/ncdata which are named preview.
+You can also use the full folder name, eg /mnt/ncdata/appdata_ocupxw9n9gyb/preview but I think this is unique per server.
+If you have a user name preview, well, this will also exclude all files from that user. But don&rsquo;t do that :)</p>
+<h3 id="repository-password">Repository password</h3>
+<p>Just type the repository password inside this file.</p>
+<h3 id="securing-it-all">Securing it all!</h3>
+<p>Do not forget this.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">chown root:root /etc/restic-env
+</span></span><span class="line"><span class="cl">chown root:root /etc/restic-password
+</span></span><span class="line"><span class="cl">chmod 600 /etc/restic-env
+</span></span><span class="line"><span class="cl">chmod 600 /etc/restic-password
+</span></span></code></pre></div><h3 id="creating-restic-repository">Creating restic repository</h3>
+<p>We need to initialize the restic repo to connect to backblaze.</p>
+<ol>
+<li>Elevate to root inside nextcloud VM, <code>sudo su root</code>.</li>
+<li>Source all settings with <code>source /etc/restic-env</code>.</li>
+<li>Create the restic repo with <code>restic -r b2:your-amazing-b2-nextcloud-repo init</code></li>
+</ol>
+<p>Now you have a working repository to store snapshots.
+You can check that it was created successfully from backblaze.com -&gt; B2 Cloud Storage -&gt; Browse files -&gt; your-amazing-b2-nextcloud-repo -&gt; you should see &ldquo;config&rdquo; file and data, index, keys, snapshots folders.</p>
+<h2 id="first-backup">First backup</h2>
+<p>We run the first backup manually, as it might take a long time and we can see if we have any errors etc.</p>
+<p>First we source the backup config again and then run the actual backup.</p>
+<ul>
+<li>&ldquo;-r&rdquo; defines the repo name.</li>
+<li>backup is the restic action.</li>
+<li>After backup are the directories we want to backup.</li>
+<li>Then we also need to add our exclude file so we do not backup previews.</li>
+<li>Add &ndash;dry-run if you want to test your excludes without copying all the data.</li>
+<li>And we run it all inside screen so we dont need to watch the console for 10 hours :).</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">source /etc/restic-env
+</span></span><span class="line"><span class="cl">screen restic -r b2:your-amazing-b2-nextcloud-repo backup /mnt/ncdata /mnt/NCBACKUP --exclude-file &#34;/etc/restic-excludes.txt&#34; --tag &#34;systemd.timer&#34;
+</span></span></code></pre></div><p>Now you should see following:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">repository 7dfb0247 opened successfully, password is correct
+</span></span><span class="line"><span class="cl">no parent snapshot found, will read all files
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Files:       85163 new,     0 changed,     0 unmodified
+</span></span><span class="line"><span class="cl">Dirs:        69932 new,     0 changed,     0 unmodified
+</span></span><span class="line"><span class="cl">Added to the repo: 1.062 KiB
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">processed 85163 files, 47.856 GiB in 22:05
+</span></span><span class="line"><span class="cl">snapshot 3ca17de6 saved
+</span></span></code></pre></div><h2 id="automation">Automation</h2>
+<p>Now that we have a working backup with a snapshot, we need to automate the whole deal so we dont have to SSH to our box to run the backups.</p>
+<p>Create a systemd service to <code>/etc/systemd/system/backup.service</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">[Unit]
+</span></span><span class="line"><span class="cl">Description=Backup with restic
+</span></span><span class="line"><span class="cl">[Service]
+</span></span><span class="line"><span class="cl">Type=simple
+</span></span><span class="line"><span class="cl">Nice=10
+</span></span><span class="line"><span class="cl">ExecStart=/etc/restic-backup.sh
+</span></span><span class="line"><span class="cl">#$HOME must be set for restic to find /root/.cache/restic/
+</span></span><span class="line"><span class="cl">Environment=&#34;HOME=/root&#34;
+</span></span></code></pre></div><p>Then create a timer for the backup to <code>/etc/systemd/system/backup.timer</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">[Unit]
+</span></span><span class="line"><span class="cl">Description=Backup on schedule
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">[Timer]
+</span></span><span class="line"><span class="cl">OnCalendar=daily
+</span></span><span class="line"><span class="cl">Persistent=true
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">[Install]
+</span></span><span class="line"><span class="cl">WantedBy=timers.target
+</span></span></code></pre></div><p>Now lets make systemd aware of the new service and then enable it:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">systemctl</span> <span class="n">daemon</span><span class="o">-</span><span class="n">reload</span>
+</span></span><span class="line"><span class="cl"><span class="n">systemctl</span> <span class="n">enable</span> <span class="o">--</span><span class="n">now</span> <span class="n">backup</span><span class="o">.</span><span class="n">timer</span>
+</span></span></code></pre></div><p>To check the next run time, run <code>systemctl list-timers</code>.</p>
+<p>To run the backup now, run <code>systemctl start backup.service</code>.</p>
+<p>Check logs with <code>journalctl -f -u backup.service</code>.</p>
+<h2 id="todo">TODO</h2>
+<p>Add some way to inform if something is not right or backups fail&hellip;</p>
+
+</div>
+<div class="tags" dir="auto">
+<div class="taxosfloating_left">
+<p>Tags</p>
+</div>
+<div class="termsfloating_right">
+<p>
+<a href="/blog/tags/backblaze/">backblaze</a>
+<a href="/blog/tags/lang-english/">lang-english</a>
+<a href="/blog/tags/linux/">linux</a>
+<a href="/blog/tags/nextcloud/">nextcloud</a>
+</p>
+</div>
+<div class="clearit"></div>
+</div>
+</article>
+</div>
+</main>
+<footer>
+© Sami Nieminen
+
+<script data-id="matomo-tracking" data-matomo-tracking-url='https://matomo.nenimein.fi' data-matomo-tracking-id='1' src="/blog/js/matomo-tracking.min.d8e1498fb42aa6048c4db4ac8451d0141fe4a0a83a1b4857df2a67a0cabd350a.js" integrity="sha256-2OFJj7QqpgSMTbSshFHQFB/koKg6G0hX3ypnoMq9NQo=" crossorigin="anonymous" defer></script>
+</footer><script src="/blog/js/dark-mode.js"></script>
+
+</body>
+</html>

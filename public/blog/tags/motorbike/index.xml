@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Motorbike on Sami&#39;s Blog</title>
+		<link>https://nenimein.fi/blog/tags/motorbike/</link>
+		<description>Recent content in Motorbike on nenimein.fi</description>
+		<generator>Hugo -- gohugo.io</generator>
+		<language>en-us</language>
+		<copyright>© Sami Nieminen</copyright>
+		<lastBuildDate>Thu, 29 May 2025 15:29:32 +0300</lastBuildDate>
+		<atom:link href="https://nenimein.fi/blog/tags/motorbike/index.xml" rel="self" type="application/rss+xml" />
+		<item>
+			<title>CBR1100XX Centerstand installation</title>
+			<link>https://nenimein.fi/blog/post/cbr1100xx-centerstand/</link>
+			<pubDate>Thu, 29 May 2025 15:29:32 +0300</pubDate>
+			<guid>https://nenimein.fi/blog/post/cbr1100xx-centerstand/</guid>
+			<description>
+			For some reason my Honda CBR1100XX Super Blackbird was missing the centerstand.
+Here’s how you install it on your bike, with parts & …
+			</description>
+		</item>
+	</channel>
+</rss>
