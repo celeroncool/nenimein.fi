@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Car on Sami&#39;s Blog</title>
+		<link>https://nenimein.fi/blog/tags/car/</link>
+		<description>Recent content in Car on nenimein.fi</description>
+		<generator>Hugo -- gohugo.io</generator>
+		<language>en-us</language>
+		<copyright>© Sami Nieminen</copyright>
+		<lastBuildDate>Sat, 12 Aug 2023 12:32:12 +0300</lastBuildDate>
+		<atom:link href="https://nenimein.fi/blog/tags/car/index.xml" rel="self" type="application/rss+xml" />
+		<item>
+			<title>Toyota Corolla E120 ethanol conversion.</title>
+			<link>https://nenimein.fi/blog/post/toyota-corolla-e120-flexfuel/</link>
+			<pubDate>Sat, 12 Aug 2023 12:32:12 +0300</pubDate>
+			<guid>https://nenimein.fi/blog/post/toyota-corolla-e120-flexfuel/</guid>
+			<description>
+			Quick guide to install ethanol conversion kit (eFlexFuel) on 2002-2008 Toyota Corolla (E120).
+I was inspired by ChrisFix’s latest video on …
+			</description>
+		</item>
+		<item>
+			<title>Tesla Model X speaker measurements</title>
+			<link>https://nenimein.fi/blog/post/tesla-1/</link>
+			<pubDate>Fri, 04 Feb 2022 19:43:58 +0200</pubDate>
+			<guid>https://nenimein.fi/blog/post/tesla-1/</guid>
+			<description>
+			Here are some measurements of a Tesla Model X, with “basic” audio package (two speakers per door).
+I have also included the full REW …
+			</description>
+		</item>
+		<item>
+			<title>Emma - Sixth part</title>
+			<link>https://nenimein.fi/blog/post/emma-6/</link>
+			<pubDate>Wed, 02 Feb 2022 10:39:18 +0200</pubDate>
+			<guid>https://nenimein.fi/blog/post/emma-6/</guid>
+			<description>
+			Welcome to the sixth part of this series focused on building a SQ competition car. The class where I hope I can compete, is the EMMA Sound …
+			</description>
+		</item>
+		<item>
+			<title>Emma - Fifth part</title>
+			<link>https://nenimein.fi/blog/post/emma-5/</link>
+			<pubDate>Sun, 20 Sep 2020 20:00:00 +0200</pubDate>
+			<guid>https://nenimein.fi/blog/post/emma-5/</guid>
+			<description>
+			Welcome to the fifth part of this series focused on building a SQ competition car. The class where I hope I can compete, is the EMMA Sound …
+			</description>
+		</item>
+		<item>
+			<title>Emma - Fourth part</title>
+			<link>https://nenimein.fi/blog/post/emma-4/</link>
+			<pubDate>Tue, 28 Jul 2020 22:35:44 +0300</pubDate>
+			<guid>https://nenimein.fi/blog/post/emma-4/</guid>
+			<description>
+			Welcome to the fourth part of this series focused on building a SQ competition car. The class where I hope I can compete, is the EMMA Sound …
+			</description>
+		</item>
+		<item>
+			<title>Emma - Third part</title>
+			<link>https://nenimein.fi/blog/post/emma-3/</link>
+			<pubDate>Thu, 26 Mar 2020 20:32:49 +0200</pubDate>
+			<guid>https://nenimein.fi/blog/post/emma-3/</guid>
+			<description>
+			Welcome to the third part of this series focused on building a SQ competition car. The class where I hope I can compete, is the EMMA Sound …
+			</description>
+		</item>
+		<item>
+			<title>Kuinka madallat autosi vuonna 2020</title>
+			<link>https://nenimein.fi/blog/post/kuinka-madallat-autosi-2020/</link>
+			<pubDate>Fri, 20 Mar 2020 14:32:07 +0200</pubDate>
+			<guid>https://nenimein.fi/blog/post/kuinka-madallat-autosi-2020/</guid>
+			<description>
+			Tässä “lyhyt” ohje siitä kuinka madallat autosi 100% laillisesti vuonna 2020 Suomessa. Teksti osittain sarkastista, johtuen prosessin …
+			</description>
+		</item>
+		<item>
+			<title>Emma - Second part</title>
+			<link>https://nenimein.fi/blog/post/emma-2/</link>
+			<pubDate>Mon, 04 Nov 2019 21:32:56 +0200</pubDate>
+			<guid>https://nenimein.fi/blog/post/emma-2/</guid>
+			<description>
+			Welcome to the second part of this series focused on building a SQ competition car. The class where I hope I can compete, is the EMMA Sound …
+			</description>
+		</item>
+		<item>
+			<title>Emma - The beginning</title>
+			<link>https://nenimein.fi/blog/post/emma-1/</link>
+			<pubDate>Thu, 28 Feb 2019 17:58:56 +0200</pubDate>
+			<guid>https://nenimein.fi/blog/post/emma-1/</guid>
+			<description>
+			Welcome to this series focused on building a SQ competition car. The class where I hope I can compete, is the EMMA Sound Quality (S) Skilled …
+			</description>
+		</item>
+	</channel>
+</rss>

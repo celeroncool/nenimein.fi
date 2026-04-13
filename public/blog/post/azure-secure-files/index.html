@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en" dir='ltr'>
+<head>
+<meta charset="UTF-8">
+<title>How to actually use Azure Secure Files with Terraform | Sami&#39;s Blog</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.147.6">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="keywords" content="azure, security, devops">
+<link rel="stylesheet" type="text/css" media="screen" href="/blog/css/normalize.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="/blog/css/main.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="/blog/css/all.css" />
+
+<script>
+localStorage.setItem('theme', 'dark');
+</script>
+
+
+
+
+
+<meta property="og:url" content="https://nenimein.fi/blog/post/azure-secure-files/">
+  <meta property="og:site_name" content="Sami&#39;s Blog">
+  <meta property="og:title" content="How to actually use Azure Secure Files with Terraform">
+  <meta property="og:description" content="I could not find a real guide to use Azure secure files securely in combination with Terraform. All guides either used a PAT (Privileged Access Token) or in worst cases, commiting secrets to code.
+The problem: We are trying to deploy Azure Devops Agent with Terraform to bootstrap our Ansible deployments. Kind of a chicken-egg issue is that how do you deploy the Azure Devops Agent runner to a linux machine without doing manual commands?">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2024-11-03T17:25:41+02:00">
+    <meta property="article:modified_time" content="2024-11-03T17:25:41+02:00">
+    <meta property="article:tag" content="Azure">
+    <meta property="article:tag" content="Security">
+    <meta property="article:tag" content="Devops">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="How to actually use Azure Secure Files with Terraform">
+  <meta name="twitter:description" content="I could not find a real guide to use Azure secure files securely in combination with Terraform. All guides either used a PAT (Privileged Access Token) or in worst cases, commiting secrets to code.
+The problem: We are trying to deploy Azure Devops Agent with Terraform to bootstrap our Ansible deployments. Kind of a chicken-egg issue is that how do you deploy the Azure Devops Agent runner to a linux machine without doing manual commands?">
+
+
+  <meta itemprop="name" content="How to actually use Azure Secure Files with Terraform">
+  <meta itemprop="description" content="I could not find a real guide to use Azure secure files securely in combination with Terraform. All guides either used a PAT (Privileged Access Token) or in worst cases, commiting secrets to code.
+The problem: We are trying to deploy Azure Devops Agent with Terraform to bootstrap our Ansible deployments. Kind of a chicken-egg issue is that how do you deploy the Azure Devops Agent runner to a linux machine without doing manual commands?">
+  <meta itemprop="datePublished" content="2024-11-03T17:25:41+02:00">
+  <meta itemprop="dateModified" content="2024-11-03T17:25:41+02:00">
+  <meta itemprop="wordCount" content="2177">
+  <meta itemprop="keywords" content="Azure,Security,Devops">
+</head>
+<body>
+<header>
+<div id="avatar">
+<a href="https://nenimein.fi/blog/"><img src="/blog/img/logo.png" alt="Sami&#39;s Blog"></a>
+</div>
+<div id="titletext">
+<h2 id="title"><a href="https://nenimein.fi/blog/">Sami&#39;s Blog</a></h2>
+</div>
+<div id="title-description">
+<p id="subtitle">Made with <a href="https://gohugo.io/" target="_blank">Hugo</a>. Themed by <a href="https://codeberg.org/farooqkz/hugo-vitae" target="_blank">Vitae</a>. Deployed to someone else&rsquo;s computer.</p>
+<div id="social">
+<nav><ul>
+<li><button id="dark-mode" aria-label="Switch Dark Mode"><span title="Switch Dark Mode" class="icons fas fa-moon" aria-hidden="true"></span></button></li>
+</ul></nav>
+</div>
+</div>
+<div id="mainmenu">
+<nav>
+<ul>
+<li><a href="/blog/">Home</a></li>
+<li><a href="/blog/post">All posts</a></li>
+<li><a href="/blog/about">About</a></li>
+<li><a href="/blog/tags">Tags</a></li>
+<li><a href="/blog/sitemap.xml">RSS</a></li>
+</ul>
+</nav>
+</div>
+</header>
+<main>
+<div class="post" dir="auto">
+<article>
+<div class="post-header" dir="auto">
+<div class="meta" dir="auto">
+<div class="date" data-date='2024-11-03'>
+<span class="day">03</span>
+<span class="rest">Nov 2024</span>
+</div>
+
+
+</div>
+<div class="matter" dir="auto">
+<h1 class="title">How to actually use Azure Secure Files with Terraform</h1>
+<p class="post-meta" dir="auto">
+<span class="post-meta">
+
+
+
+
+
+</span>
+
+</p>
+</div>
+</div>
+<div class="markdown">
+<p>I could not find a real guide to use Azure secure files securely in combination with Terraform. All guides either used a PAT (Privileged Access Token) or in worst cases, commiting secrets to code.</p>
+<h1 id="the-problem">The problem:</h1>
+<p>We are trying to deploy Azure Devops Agent with Terraform to bootstrap our Ansible deployments. Kind of a chicken-egg issue is that how do you deploy the Azure Devops Agent runner to a linux machine without doing manual commands?</p>
+<p>Most of the guides found are using PAT added to the code and repo (not very secure as they are printed in plaintext to extension logs!):
+<a href="https://jamescook.dev/azuredevops-linux-agent-install-using-terraform" target="_blank">https://jamescook.dev/azuredevops-linux-agent-install-using-terraform</a> or manually install &amp; configure the agent after deploying the infra using terraform: <a href="https://opstree.com/blog/2022/08/30/how-to-setup-an-agent-on-azure-devops/" target="_blank">https://opstree.com/blog/2022/08/30/how-to-setup-an-agent-on-azure-devops/</a></p>
+<h1 id="requirements">Requirements:</h1>
+<ul>
+<li>Secure, so no credentials or access tokens in code. Even if we are using private repos, we do not want to make exceptions for this!</li>
+<li>Automated, no manual steps other than starting the pipeline on deployments.</li>
+<li>Must run in private VNET:s as build machines will not have any inbound SSH possibilities (we use Azure Bastion).</li>
+<li>All code commited to git repo so that someone can edit the code, generate new secure file and deploy agents.</li>
+</ul>
+<h1 id="known-issues">Known issues:</h1>
+<ul>
+<li>Previous Agent must be removed before building the agent, as Azure has no way to replace Agent with same name.</li>
+</ul>
+<h1 id="solution">Solution:</h1>
+<p>In the end, we went with a combination of:</p>
+<ul>
+<li>Azure Secure Files: <a href="https://learn.microsoft.com/en-us/azure/devops/pipelines/library/secure-files?view=azure-devops" target="_blank">Link to MS Docs</a></li>
+<li>Terraform <a href="https://learn.microsoft.com/en-us/azure/developer/terraform/overview" target="_blank">Link to MS Docs for Terraform AzAPI</a></li>
+<li>Azure VM Extension <a href="https://registry.terraform.io/providers/hashicorp/azurestack/latest/docs/resources/virtual_machine_extension" target="_blank">Link to Terraform docs for azurestack_virtual_machine_extension</a></li>
+</ul>
+<p>Quickly checking through the documentation, there are no instructions on how to replace a file in build directory using secure files (disclaimer: I&rsquo;n not a coder :) ). Also no documentation is found on Azure VM Extensions and how to dynamically build the extensions so the following guide is very much a combination of hacks to make it work.</p>
+<h3 id="bitbucket-repo-for-all-code">Bitbucket repo for all code:</h3>
+<p><a href="https://bitbucket.org/sami_nieminen/terraform-azure-secure-files" target="_blank">https://bitbucket.org/sami_nieminen/terraform-azure-secure-files</a></p>
+<h2 id="part-0-folder-setup">Part 0: Folder setup</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">Repository</span>                                                       
+</span></span><span class="line"><span class="cl"><span class="err">├─►</span><span class="n">terraform</span>                                 
+</span></span><span class="line"><span class="cl"><span class="err">│</span>  <span class="o">-</span> <span class="n">setup_agent_script</span><span class="o">.</span><span class="n">sh</span>                   
+</span></span><span class="line"><span class="cl"><span class="err">│</span>  <span class="o">-</span> <span class="n">main</span><span class="o">.</span><span class="n">tf</span>                                 
+</span></span><span class="line"><span class="cl"><span class="err">│</span>  <span class="o">-</span> <span class="n">agent</span><span class="o">-</span><span class="n">vm</span><span class="o">.</span><span class="n">tf</span>                             
+</span></span><span class="line"><span class="cl"><span class="err">│</span>  <span class="o">-</span> <span class="n">agent</span><span class="o">-</span><span class="n">vm</span><span class="o">.</span><span class="n">prod</span><span class="o">.</span><span class="n">tfvars</span>                    
+</span></span><span class="line"><span class="cl"><span class="err">│</span>  <span class="o">-</span> <span class="n">providers</span><span class="o">.</span><span class="n">tf</span>                            
+</span></span><span class="line"><span class="cl"><span class="err">│</span>  <span class="o">-</span> <span class="n">variables</span><span class="o">.</span><span class="n">tf</span>                            
+</span></span><span class="line"><span class="cl"><span class="err">└┬►</span><span class="n">deploy</span>                                    
+</span></span><span class="line"><span class="cl"> <span class="err">│</span> <span class="o">-</span> <span class="n">devops</span><span class="o">-</span><span class="n">infrastructure</span><span class="o">-</span><span class="n">prod</span><span class="o">-</span><span class="n">terraform</span><span class="o">.</span><span class="n">yml</span>
+</span></span><span class="line"><span class="cl"> <span class="err">└──►</span><span class="n">templates</span>                               
+</span></span><span class="line"><span class="cl">     <span class="o">-</span> <span class="n">terraform</span><span class="o">-</span><span class="n">template</span><span class="o">.</span><span class="n">yml</span> 
+</span></span></code></pre></div><h2 id="part-1-create-a-service-principal">Part 1: Create a service principal</h2>
+<p>You must first link your Devops Organization to Azure Entra ID.</p>
+<p>Then follow instructions from MS Docs to <a href="https://learn.microsoft.com/en-us/azure/devops/integrate/get-started/authentication/service-principal-managed-identity?view=azure-devops#create-an-application-service-principal" target="_blank">Create an application service principal</a>.</p>
+<p>Then add the SPN as a &ldquo;Project Administrator&rdquo; to your devops project, <a href="https://learn.microsoft.com/en-us/azure/devops/pipelines/agents/service-principal-agent-registration?view=azure-devops" target="_blank">instructions from MS</a>.</p>
+<p>Then also add the SPN as &ldquo;Contributor&rdquo; permissions to your Azure Resource group where you want to deploy the VM to.
+If you dont want to precreate the</p>
+<p>TLDR: Create new Enterprise App, create new secret, add secret to your secrets manager to use later. Then add correct permissions to the SPN for your Devops project &amp; organization.</p>
+<h2 id="part-2-azure--terraform-link">Part 2: Azure + Terraform link</h2>
+<p>Mostly following this <a href="https://www.carbonlogiq.io/post/azure-devops-pipeline-terraform-deployment-tutorial" target="_blank">excellent guide from CarbonLogiQ</a>.</p>
+<p>To link Azure add file <code>terraform/providers.tf</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">terraform {
+</span></span><span class="line"><span class="cl">  required_version = &#34;&gt;= 1.9&#34;
+</span></span><span class="line"><span class="cl">  required_providers {
+</span></span><span class="line"><span class="cl">    azurerm = {
+</span></span><span class="line"><span class="cl">      source  = &#34;hashicorp/azurerm&#34;
+</span></span><span class="line"><span class="cl">      version = &#34;~&gt;3.0&#34;
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">    random = {
+</span></span><span class="line"><span class="cl">      source  = &#34;hashicorp/random&#34;
+</span></span><span class="line"><span class="cl">      version = &#34;~&gt;3.0&#34;
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">    azapi = {
+</span></span><span class="line"><span class="cl">      source  = &#34;azure/azapi&#34;
+</span></span><span class="line"><span class="cl">      version = &#34;~&gt;1.5&#34;
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">  backend &#34;azurerm&#34; {
+</span></span><span class="line"><span class="cl">    resource_group_name  = &#34;devops-Infrastructure&#34;
+</span></span><span class="line"><span class="cl">    storage_account_name = &#34;tfstatedemostg&#34;
+</span></span><span class="line"><span class="cl">    container_name       = &#34;tfstate&#34;
+</span></span><span class="line"><span class="cl">    key                  = &#34;devops-Infrastructure.prod.tfstate&#34;
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">provider &#34;azurerm&#34; {
+</span></span><span class="line"><span class="cl">  features {}
+</span></span><span class="line"><span class="cl">  skip_provider_registration = &#34;true&#34;
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></div><p>You can use the same SPN you created previously.</p>
+<ol>
+<li>
+<p>Create a new resource group, devops-Infrastructure.</p>
+</li>
+<li>
+<p>Create a new storage account, tfstatedemostg (accept all default configuration settings).</p>
+</li>
+<li>
+<p>Create a tfstate blob container (stores Terraform state for deployments).</p>
+<p>These variable names are of special significance to Terraform. When set as environment variables within the ADO build agent, Terraform will automatically attempt to authenticate against Azure using their values.</p>
+</li>
+<li>
+<p>Pipelines -&gt; Environments -&gt; Create new environment.</p>
+</li>
+<li>
+<p>Name it how ever you want.</p>
+</li>
+<li>
+<p>Add Approvals and Checks -&gt; add yourself or groups as approved approver :)</p>
+</li>
+<li>
+<p>Continue to pipeline setup.</p>
+</li>
+</ol>
+<h2 id="part-3-azure-pipeline-setup">Part 3: Azure Pipeline setup.</h2>
+<p>Pipeline setup is quite simple, add the following code to repo and import the pipeline.</p>
+<h3 id="31-pipeline-variables">3.1: Pipeline variables:</h3>
+<p>We need to set up few variables before we can use the code:</p>
+<ol>
+<li>Go to Pipelines -&gt; Library -&gt; Variable Groups</li>
+<li>Create new variable group and name it &ldquo;Terraform_SPN&rdquo;</li>
+<li>Add in details of your target deployment subscription.</li>
+<li>ARM_CLIENT_ID: SPN ID</li>
+<li>ARM_CLIENT_SECRET: SPN Secret</li>
+<li>ARM_SUBSCRIPTION_ID: Your Azure Subscription</li>
+<li>ARM_TENANT_ID:</li>
+</ol>
+<h3 id="32-pipeline-code">3.2: Pipeline code:</h3>
+<p>Here we just set the general settings for pipeline.</p>
+<p>Code to file <code>deploy/devops-infrastructure-prod-terraform.yml</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">name</span><span class="p">:</span> <span class="n">Terraform</span> <span class="o">-</span> <span class="n">deploy</span> <span class="n">agent</span> <span class="n">VM</span> <span class="n">to</span> <span class="n">prod</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">trigger</span><span class="p">:</span> <span class="n">none</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">variables</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">  <span class="o">-</span> <span class="n">group</span><span class="p">:</span> <span class="n">Terraform_SPN</span>
+</span></span><span class="line"><span class="cl">  <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">rootFolder</span>
+</span></span><span class="line"><span class="cl">    <span class="n">value</span><span class="p">:</span> <span class="s1">&#39;terraform/&#39;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">tfvarsFile</span>
+</span></span><span class="line"><span class="cl">    <span class="n">value</span><span class="p">:</span> <span class="s1">&#39;agent-vm.prod.tfvars&#39;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">adoEnvironment</span>
+</span></span><span class="line"><span class="cl">    <span class="n">value</span><span class="p">:</span> <span class="s1">&#39;prod&#39;</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl"><span class="n">stages</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="n">template</span><span class="p">:</span> <span class="n">templates</span><span class="o">/</span><span class="n">terraform</span><span class="o">-</span><span class="n">template</span><span class="o">.</span><span class="n">yml</span>
+</span></span><span class="line"><span class="cl">  <span class="n">parameters</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">rootFolder</span><span class="p">:</span> <span class="o">$</span><span class="p">(</span><span class="n">rootFolder</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">tfvarsFile</span><span class="p">:</span> <span class="o">$</span><span class="p">(</span><span class="n">tfvarsFile</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">adoEnvironment</span><span class="p">:</span> <span class="o">$</span><span class="p">(</span><span class="n">adoEnvironment</span><span class="p">)</span>
+</span></span></code></pre></div><h3 id="33-pipeline-template-code">3.3: Pipeline template code:</h3>
+<p>Important steps for the usage of secure files are &ldquo;DownloadSecureFile@1&rdquo; and &ldquo;CopyFiles@2&rdquo;.
+What these do, is first tell the pipeline to download the secure file named &ldquo;setup_agent_script.sh&rdquo; to a variable &ldquo;setupagentscript&rdquo;. Then we copy the file (in folder $(Agent.TempDirectory)) over the repository included &ldquo;template&rdquo; of that file, so we can later convert it to base64 and add it as extension.</p>
+<p>Code to file <code>deploy/templates/terraform-template.yml</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">parameters</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">rootFolder</span>
+</span></span><span class="line"><span class="cl">  <span class="n">type</span><span class="p">:</span> <span class="n">string</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">tfvarsFile</span>
+</span></span><span class="line"><span class="cl">  <span class="n">type</span><span class="p">:</span> <span class="n">string</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">adoEnvironment</span>
+</span></span><span class="line"><span class="cl">  <span class="n">type</span><span class="p">:</span> <span class="n">string</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">stages</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="n">stage</span><span class="p">:</span> <span class="s1">&#39;Terraform_Plan&#39;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">displayName</span><span class="p">:</span> <span class="s1">&#39;Terraform Plan&#39;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">jobs</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">  <span class="o">-</span> <span class="n">job</span><span class="p">:</span> <span class="s1">&#39;Terraform_Plan&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">pool</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">      <span class="n">vmImage</span><span class="p">:</span> <span class="s1">&#39;ubuntu-latest&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">steps</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-</span> <span class="n">task</span><span class="p">:</span> <span class="n">DownloadSecureFile</span><span class="err">@</span><span class="mi">1</span>
+</span></span><span class="line"><span class="cl">      <span class="n">name</span><span class="p">:</span> <span class="n">setupagentscript</span>
+</span></span><span class="line"><span class="cl">      <span class="n">displayName</span><span class="p">:</span> <span class="s1">&#39;Download bash script securely&#39;</span>
+</span></span><span class="line"><span class="cl">      <span class="n">inputs</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">secureFile</span><span class="p">:</span> <span class="s1">&#39;setup_agent_script.sh&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-</span> <span class="n">task</span><span class="p">:</span> <span class="n">CopyFiles</span><span class="err">@</span><span class="mi">2</span>
+</span></span><span class="line"><span class="cl">      <span class="n">displayName</span><span class="p">:</span> <span class="s2">&#34;Import secure file to build root&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="n">inputs</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">SourceFolder</span><span class="p">:</span> <span class="s1">&#39;$(Agent.TempDirectory)&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Contents</span><span class="p">:</span> <span class="s1">&#39;setup_agent_script.sh&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">targetFolder</span><span class="p">:</span> <span class="s2">&#34;$(System.DefaultWorkingDirectory)&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-</span> <span class="n">script</span><span class="p">:</span> <span class="o">|</span>
+</span></span><span class="line"><span class="cl">        <span class="n">echo</span> <span class="s2">&#34;Running Terraform init...&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">terraform</span> <span class="n">init</span>
+</span></span><span class="line"><span class="cl">        <span class="n">echo</span> <span class="s2">&#34;Running Terraform plan...&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">terraform</span> <span class="n">plan</span> <span class="o">-</span><span class="k">var</span><span class="o">-</span><span class="n">file</span> <span class="o">$</span><span class="p">{{</span> <span class="n">parameters</span><span class="o">.</span><span class="n">tfvarsFile</span> <span class="p">}}</span>
+</span></span><span class="line"><span class="cl">      <span class="n">displayName</span><span class="p">:</span> <span class="s1">&#39;Terraform plan&#39;</span>
+</span></span><span class="line"><span class="cl">      <span class="n">workingDirectory</span><span class="p">:</span> <span class="o">$</span><span class="p">{{</span> <span class="n">parameters</span><span class="o">.</span><span class="n">rootFolder</span> <span class="p">}}</span>
+</span></span><span class="line"><span class="cl">      <span class="n">env</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ARM_CLIENT_SECRET</span><span class="p">:</span> <span class="o">$</span><span class="p">(</span><span class="n">ARM_CLIENT_SECRET</span><span class="p">)</span> <span class="c1"># this needs to be explicitly set as it&#39;s a sensitive value</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="n">stage</span><span class="p">:</span> <span class="s1">&#39;Terraform_Apply&#39;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">displayName</span><span class="p">:</span> <span class="s1">&#39;Terraform Apply&#39;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">dependsOn</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">  <span class="o">-</span> <span class="s1">&#39;Terraform_Plan&#39;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">condition</span><span class="p">:</span> <span class="n">succeeded</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="n">jobs</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">  <span class="o">-</span> <span class="n">deployment</span><span class="p">:</span> <span class="s1">&#39;Terraform_Apply&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">pool</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">      <span class="n">vmImage</span><span class="p">:</span> <span class="s1">&#39;ubuntu-latest&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">environment</span><span class="p">:</span> <span class="o">$</span><span class="p">{{</span> <span class="n">parameters</span><span class="o">.</span><span class="n">adoEnvironment</span> <span class="p">}}</span> <span class="c1"># using an ADO environment allows us to add a manual approval check</span>
+</span></span><span class="line"><span class="cl">    <span class="n">strategy</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">      <span class="n">runOnce</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">deploy</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">          <span class="n">steps</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">          <span class="o">-</span> <span class="n">checkout</span><span class="p">:</span> <span class="bp">self</span>
+</span></span><span class="line"><span class="cl">          <span class="o">-</span> <span class="n">task</span><span class="p">:</span> <span class="n">DownloadSecureFile</span><span class="err">@</span><span class="mi">1</span>
+</span></span><span class="line"><span class="cl">            <span class="n">name</span><span class="p">:</span> <span class="n">setupagentscript</span>
+</span></span><span class="line"><span class="cl">            <span class="n">displayName</span><span class="p">:</span> <span class="s1">&#39;Download bash script securely&#39;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">inputs</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">              <span class="n">secureFile</span><span class="p">:</span> <span class="s1">&#39;setup_agent_script.sh&#39;</span>
+</span></span><span class="line"><span class="cl">          <span class="o">-</span> <span class="n">task</span><span class="p">:</span> <span class="n">CopyFiles</span><span class="err">@</span><span class="mi">2</span>
+</span></span><span class="line"><span class="cl">            <span class="n">displayName</span><span class="p">:</span> <span class="s2">&#34;Import secure file to build root&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">inputs</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">              <span class="n">SourceFolder</span><span class="p">:</span> <span class="s1">&#39;$(Agent.TempDirectory)&#39;</span>
+</span></span><span class="line"><span class="cl">              <span class="n">Contents</span><span class="p">:</span> <span class="s1">&#39;setup_agent_script.sh&#39;</span>
+</span></span><span class="line"><span class="cl">              <span class="n">targetFolder</span><span class="p">:</span> <span class="s2">&#34;$(System.DefaultWorkingDirectory)&#34;</span>
+</span></span><span class="line"><span class="cl">          <span class="o">-</span> <span class="n">script</span><span class="p">:</span> <span class="o">|</span>
+</span></span><span class="line"><span class="cl">              <span class="n">echo</span> <span class="s2">&#34;Running Terraform init...&#34;</span>
+</span></span><span class="line"><span class="cl">              <span class="n">terraform</span> <span class="n">init</span>
+</span></span><span class="line"><span class="cl">              <span class="n">echo</span> <span class="s2">&#34;Running Terraform apply...&#34;</span>
+</span></span><span class="line"><span class="cl">              <span class="n">terraform</span> <span class="n">apply</span> <span class="o">-</span><span class="k">var</span><span class="o">-</span><span class="n">file</span> <span class="o">$</span><span class="p">{{</span> <span class="n">parameters</span><span class="o">.</span><span class="n">tfvarsFile</span> <span class="p">}}</span> <span class="o">-</span><span class="n">auto</span><span class="o">-</span><span class="n">approve</span>
+</span></span><span class="line"><span class="cl">            <span class="n">displayName</span><span class="p">:</span> <span class="s1">&#39;Terraform apply&#39;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">workingDirectory</span><span class="p">:</span> <span class="o">$</span><span class="p">{{</span> <span class="n">parameters</span><span class="o">.</span><span class="n">rootFolder</span> <span class="p">}}</span>
+</span></span><span class="line"><span class="cl">            <span class="n">env</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">              <span class="n">ARM_CLIENT_SECRET</span><span class="p">:</span> <span class="o">$</span><span class="p">(</span><span class="n">ARM_CLIENT_SECRET</span><span class="p">)</span>
+</span></span></code></pre></div><p>Import pipeline:</p>
+<ol>
+<li>Go to Project -&gt; Pipelines -&gt; Add Pipeline</li>
+<li>Select Azure Repos GIT</li>
+<li>Select &ldquo;Existing Axure Pipelines YAML file&rdquo;</li>
+<li>Select your branch -&gt; deploy/devops-infrastructure-prod-terraform.yml</li>
+</ol>
+<h2 id="part-4-azure-resource-setup">Part 4: Azure resource setup</h2>
+<p>To make Terraform agent deployments automated, you will need to setup a RSA4096 SSH key which will be used to setup the VM.
+Then we need to import the RG + SSH key for Terraform. Otherwise Terraform would complain that it cannot overwrite existing resources.</p>
+<h3 id="41-adding-ssh-key-for-the-vm-deployment">4.1: Adding SSH key for the VM deployment</h3>
+<ol>
+<li>Go to Azure -&gt; your RG -&gt; Create</li>
+<li>Search for SSH key</li>
+<li>Import your own or create it via the guided setup.</li>
+<li>Name it &ldquo;az-agent-service&rdquo; or something that indicates it is used for the VM.</li>
+</ol>
+<h3 id="42-import-resources-to-terraform">4.2: Import resources to Terraform</h3>
+<p>This is done so that terraform knows about our SSH key and the Resource Group we are deploying into.</p>
+<ul>
+<li>Replace id = with correct URL for your RG</li>
+<li>Replace name = with your RG name</li>
+</ul>
+<p>Code to file <code>terraform/main.tf</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="c1"># Create resource group if not imported</span>
+</span></span><span class="line"><span class="cl"><span class="n">resource</span> <span class="s2">&#34;azurerm_resource_group&#34;</span> <span class="s2">&#34;rg&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">name</span>     <span class="o">=</span> <span class="s2">&#34;devops-Infrastructure&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">location</span> <span class="o">=</span> <span class="k">var</span><span class="o">.</span><span class="n">location</span>
+</span></span><span class="line"><span class="cl">  <span class="n">tags</span> <span class="o">=</span> <span class="n">local</span><span class="o">.</span><span class="n">tags</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">import</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">id</span> <span class="o">=</span> <span class="s2">&#34;/subscriptions/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxx/resourceGroups/devops-Infrastructure&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">to</span> <span class="o">=</span> <span class="n">azurerm_resource_group</span><span class="o">.</span><span class="n">rg</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h3 id="43-tf-environment-setup--settings">4.3 TF Environment setup &amp; settings</h3>
+<p>This controls your environment tags, sets the VM name and what region we want to deploy.</p>
+<p>File <code>terraform/agent-vm.prod.tfvars</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"># Variables for env01
+</span></span><span class="line"><span class="cl">project              = &#34;devops-infrastructure&#34;
+</span></span><span class="line"><span class="cl">environment          = &#34;prod&#34;
+</span></span><span class="line"><span class="cl">location             = &#34;northeurope&#34;
+</span></span><span class="line"><span class="cl">vm-name              = &#34;agent01&#34;
+</span></span><span class="line"><span class="cl">vm-root-username     = &#34;your-root-user&#34;
+</span></span></code></pre></div><p>This file controls our variables and sets the correct default Agent Extension filename.</p>
+<p>File <code>terraform/variables.tf</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="c1"># Variable definitions</span>
+</span></span><span class="line"><span class="cl"><span class="n">variable</span> <span class="s2">&#34;project&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">type</span>        <span class="o">=</span> <span class="n">string</span>
+</span></span><span class="line"><span class="cl">  <span class="n">description</span> <span class="o">=</span> <span class="s2">&#34;Project name i.e. tfdemo&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">variable</span> <span class="s2">&#34;environment&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">type</span>        <span class="o">=</span> <span class="n">string</span>
+</span></span><span class="line"><span class="cl">  <span class="n">description</span> <span class="o">=</span> <span class="s2">&#34;Environment name i.e. env01, env02 etc.&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">variable</span> <span class="s2">&#34;location&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">type</span>        <span class="o">=</span> <span class="n">string</span>
+</span></span><span class="line"><span class="cl">  <span class="n">description</span> <span class="o">=</span> <span class="s2">&#34;Location of the Azure resources i.e. uksouth &#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">variable</span> <span class="s2">&#34;vm-name&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">type</span>        <span class="o">=</span> <span class="n">string</span>
+</span></span><span class="line"><span class="cl">  <span class="n">description</span> <span class="o">=</span> <span class="s2">&#34;Virtual machine name.&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">variable</span> <span class="s2">&#34;vm-root-username&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">type</span>        <span class="o">=</span> <span class="n">string</span>
+</span></span><span class="line"><span class="cl">  <span class="n">description</span> <span class="o">=</span> <span class="s2">&#34;Virtual machine root username&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">variable</span> <span class="s2">&#34;scfile&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">type</span> <span class="o">=</span> <span class="n">string</span>
+</span></span><span class="line"><span class="cl">  <span class="n">description</span> <span class="o">=</span> <span class="s2">&#34;Secure file location&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">default</span> <span class="o">=</span> <span class="s2">&#34;../setup_agent_script.sh&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Local variables</span>
+</span></span><span class="line"><span class="cl"><span class="n">locals</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">tags</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Project</span>     <span class="o">=</span> <span class="k">var</span><span class="o">.</span><span class="n">project</span>
+</span></span><span class="line"><span class="cl">    <span class="ne">Environment</span> <span class="o">=</span> <span class="k">var</span><span class="o">.</span><span class="n">environment</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h2 id="part-5-azure-vm-extension">Part 5: Azure VM Extension</h2>
+<p>This will be the code which is executed when the VM is provisioned.
+It will install the agent and connect is using a <a href="https://learn.microsoft.com/en-us/azure/devops/pipelines/agents/service-principal-agent-registration?view=azure-devops" target="_blank">Service Principal credential</a>.</p>
+<p>To install the Azure VSTS Agent completely automated, use the following script and replace:</p>
+<ul>
+<li>url: this must be your Azure Devops URL with the Devops organization included!</li>
+<li>ClientId: your Azure devops agent service credential (Enterprise App) Client ID.</li>
+<li>TenantID: your Azure subscription ID.</li>
+<li>ClientSecret: secret (credential) for the Devops agent service Enterprise App.</li>
+<li>pool: the Devops agent pool you want to add the agent to.</li>
+<li>projectName: name of your Devops project.</li>
+<li>your-root-user: replace with your precreated Agent linux service account, must have root permissions.</li>
+</ul>
+<p>The script saved as <code>setup-agent-script.sh</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/bin/sh
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Creates directory &amp; download ADO agent install files</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">sudo mkdir -p /myagent
+</span></span><span class="line"><span class="cl">sudo wget -qN https://vstsagentpackage.azureedge.net/agent/3.246.0/vsts-agent-linux-x64-3.246.0.tar.gz -O /myagent/vsts-agent-linux-x64-3.246.0.tar.gz
+</span></span><span class="line"><span class="cl">sudo tar --overwrite -zxf /myagent/vsts-agent-linux-x64-3.246.0.tar.gz -C /myagent
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Unattended install</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">sudo su - your-root-user -c <span class="s2">&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">/myagent/config.sh --unattended \
+</span></span></span><span class="line"><span class="cl"><span class="s2">  --agent &#34;</span><span class="si">${</span><span class="nv">AZP_AGENT_NAME</span><span class="k">:-$(</span>hostname<span class="k">)</span><span class="si">}</span><span class="s2">&#34; \
+</span></span></span><span class="line"><span class="cl"><span class="s2">  --url &#34;</span>https://dev.azure.com/yourdevopsproject/<span class="s2">&#34; \
+</span></span></span><span class="line"><span class="cl"><span class="s2">  --auth SP \
+</span></span></span><span class="line"><span class="cl"><span class="s2">  --ClientId &#34;</span>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxx<span class="s2">&#34; \
+</span></span></span><span class="line"><span class="cl"><span class="s2">  --tenantId &#34;</span>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxx<span class="s2">&#34; \
+</span></span></span><span class="line"><span class="cl"><span class="s2">  --ClientSecret &#34;</span>stored_in_secret_files<span class="s2">&#34; \
+</span></span></span><span class="line"><span class="cl"><span class="s2">  --pool &#34;</span>Agent01<span class="s2">&#34; \
+</span></span></span><span class="line"><span class="cl"><span class="s2">  --projectName &#34;</span>yourprojectname<span class="s2">&#34; \
+</span></span></span><span class="line"><span class="cl"><span class="s2">  --replace \
+</span></span></span><span class="line"><span class="cl"><span class="s2">  --acceptTeeEula &amp; wait </span><span class="nv">$!</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#Configure as a service</span>
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> /myagent/
+</span></span><span class="line"><span class="cl">sudo /myagent/svc.sh install your-root-user
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#Start svc</span>
+</span></span><span class="line"><span class="cl">sudo /myagent/svc.sh start
+</span></span></code></pre></div><p><strong>!IMPORTANT!</strong>
+Do not commit this code with the details included as it contains the secret. Follow the next steps to actually use it in secure files.</p>
+<h2 id="part-6-adding-secure-files">Part 6: Adding secure files.</h2>
+<p>Now that we have template code to run on the VM, we can add the juicy credentials to the code <em>locally</em> then upload the file (with credentials included) to Azure Devops Secure files.</p>
+<ol>
+<li>Go to Project -&gt; Pipelines -&gt; Library -&gt; Secure files.</li>
+<li>Upload the files as &ldquo;setup_agent_script.sh&rdquo;.</li>
+<li>Add your pipeline to the &ldquo;Pipeline permissions&rdquo;.</li>
+</ol>
+<h2 id="part-7-combine-everything">Part 7: Combine everything!</h2>
+<p>Here is the main terraform code to set up one VM, in private VNET. After setting up the VM, we then add the VM extension from secure files which handles the Devops Agent installation.</p>
+<p>Mind that this code sets up public IP for testing purposes and allows SSH from All, so make sure you are using this only for testing.</p>
+<p>File <code>terraform/agent-vm.tf</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">data</span> <span class="s2">&#34;azurerm_ssh_public_key&#34;</span> <span class="s2">&#34;sshkey&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">name</span>                <span class="o">=</span> <span class="s2">&#34;az-agent-service&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">resource_group_name</span> <span class="o">=</span> <span class="n">azurerm_resource_group</span><span class="o">.</span><span class="n">rg</span><span class="o">.</span><span class="n">name</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Define virtual network</span>
+</span></span><span class="line"><span class="cl"><span class="n">resource</span> <span class="s2">&#34;azurerm_virtual_network&#34;</span> <span class="s2">&#34;vnet&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">name</span>                <span class="o">=</span> <span class="s2">&#34;${var.project}-${var.environment}-vnet&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">address_space</span>       <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;10.100.6.0/23&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="n">location</span>            <span class="o">=</span> <span class="n">azurerm_resource_group</span><span class="o">.</span><span class="n">rg</span><span class="o">.</span><span class="n">location</span>
+</span></span><span class="line"><span class="cl">  <span class="n">resource_group_name</span> <span class="o">=</span> <span class="n">azurerm_resource_group</span><span class="o">.</span><span class="n">rg</span><span class="o">.</span><span class="n">name</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Define Subnet</span>
+</span></span><span class="line"><span class="cl"><span class="n">resource</span> <span class="s2">&#34;azurerm_subnet&#34;</span> <span class="s2">&#34;internal&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">name</span>                 <span class="o">=</span> <span class="s2">&#34;internal&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">resource_group_name</span>  <span class="o">=</span> <span class="n">azurerm_resource_group</span><span class="o">.</span><span class="n">rg</span><span class="o">.</span><span class="n">name</span>
+</span></span><span class="line"><span class="cl">  <span class="n">virtual_network_name</span> <span class="o">=</span> <span class="n">azurerm_virtual_network</span><span class="o">.</span><span class="n">vnet</span><span class="o">.</span><span class="n">name</span>
+</span></span><span class="line"><span class="cl">  <span class="n">address_prefixes</span>     <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;10.100.6.0/24&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">resource</span> <span class="s2">&#34;azurerm_public_ip&#34;</span> <span class="s2">&#34;public_ip&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">name</span>                <span class="o">=</span> <span class="s2">&#34;${var.vm-name}-${var.environment}-ip&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">resource_group_name</span> <span class="o">=</span> <span class="n">azurerm_resource_group</span><span class="o">.</span><span class="n">rg</span><span class="o">.</span><span class="n">name</span>
+</span></span><span class="line"><span class="cl">  <span class="n">location</span>            <span class="o">=</span> <span class="n">azurerm_resource_group</span><span class="o">.</span><span class="n">rg</span><span class="o">.</span><span class="n">location</span>
+</span></span><span class="line"><span class="cl">  <span class="n">allocation_method</span>   <span class="o">=</span> <span class="s2">&#34;Dynamic&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">resource</span> <span class="s2">&#34;azurerm_network_interface&#34;</span> <span class="s2">&#34;nic&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">name</span>                <span class="o">=</span> <span class="s2">&#34;${var.vm-name}-${var.environment}-nic&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">resource_group_name</span> <span class="o">=</span> <span class="n">azurerm_resource_group</span><span class="o">.</span><span class="n">rg</span><span class="o">.</span><span class="n">name</span>
+</span></span><span class="line"><span class="cl">  <span class="n">location</span>            <span class="o">=</span> <span class="n">azurerm_resource_group</span><span class="o">.</span><span class="n">rg</span><span class="o">.</span><span class="n">location</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">ip_configuration</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">name</span>                          <span class="o">=</span> <span class="s2">&#34;internal&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">subnet_id</span>                     <span class="o">=</span> <span class="n">azurerm_subnet</span><span class="o">.</span><span class="n">internal</span><span class="o">.</span><span class="n">id</span>
+</span></span><span class="line"><span class="cl">    <span class="n">private_ip_address_allocation</span> <span class="o">=</span> <span class="s2">&#34;Dynamic&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">public_ip_address_id</span>          <span class="o">=</span> <span class="n">azurerm_public_ip</span><span class="o">.</span><span class="n">public_ip</span><span class="o">.</span><span class="n">id</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">resource</span> <span class="s2">&#34;azurerm_network_security_group&#34;</span> <span class="s2">&#34;nsg&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">name</span>                <span class="o">=</span> <span class="s2">&#34;ssh_nsg&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">location</span>            <span class="o">=</span> <span class="n">azurerm_resource_group</span><span class="o">.</span><span class="n">rg</span><span class="o">.</span><span class="n">location</span>
+</span></span><span class="line"><span class="cl">  <span class="n">resource_group_name</span> <span class="o">=</span> <span class="n">azurerm_resource_group</span><span class="o">.</span><span class="n">rg</span><span class="o">.</span><span class="n">name</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">security_rule</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">name</span>                       <span class="o">=</span> <span class="s2">&#34;allow_ssh_sg&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">priority</span>                   <span class="o">=</span> <span class="mi">100</span>
+</span></span><span class="line"><span class="cl">    <span class="n">direction</span>                  <span class="o">=</span> <span class="s2">&#34;Inbound&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">access</span>                     <span class="o">=</span> <span class="s2">&#34;Allow&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">protocol</span>                   <span class="o">=</span> <span class="s2">&#34;Tcp&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">source_port_range</span>          <span class="o">=</span> <span class="s2">&#34;*&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">destination_port_range</span>     <span class="o">=</span> <span class="s2">&#34;22&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">source_address_prefix</span>      <span class="o">=</span> <span class="s2">&#34;*&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">destination_address_prefix</span> <span class="o">=</span> <span class="s2">&#34;*&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">#security_rule  {</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">#  name                       = &#34;allow_publicIP&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">#  priority                   = 103</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">#  direction                  = &#34;Inbound&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">#  access                     = &#34;Allow&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">#  protocol                   = &#34;Tcp&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">#  source_port_range          = &#34;*&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">#  destination_port_range     = &#34;80&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">#  source_address_prefix      = &#34;*&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">#  destination_address_prefix = &#34;*&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">#}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">resource</span> <span class="s2">&#34;azurerm_network_interface_security_group_association&#34;</span> <span class="s2">&#34;association&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">network_interface_id</span>      <span class="o">=</span> <span class="n">azurerm_network_interface</span><span class="o">.</span><span class="n">nic</span><span class="o">.</span><span class="n">id</span>
+</span></span><span class="line"><span class="cl">  <span class="n">network_security_group_id</span> <span class="o">=</span> <span class="n">azurerm_network_security_group</span><span class="o">.</span><span class="n">nsg</span><span class="o">.</span><span class="n">id</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">resource</span> <span class="s2">&#34;azurerm_linux_virtual_machine&#34;</span> <span class="s2">&#34;vm&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">name</span>                            <span class="o">=</span> <span class="s2">&#34;${var.vm-name}-${var.environment}-vm&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">resource_group_name</span>             <span class="o">=</span> <span class="n">azurerm_resource_group</span><span class="o">.</span><span class="n">rg</span><span class="o">.</span><span class="n">name</span>
+</span></span><span class="line"><span class="cl">  <span class="n">location</span>                        <span class="o">=</span> <span class="n">azurerm_resource_group</span><span class="o">.</span><span class="n">rg</span><span class="o">.</span><span class="n">location</span>
+</span></span><span class="line"><span class="cl">  <span class="n">size</span>                            <span class="o">=</span> <span class="s2">&#34;Standard_D2s_v3&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">admin_username</span>                  <span class="o">=</span> <span class="s2">&#34;${var.vm-root-username}&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">disable_password_authentication</span> <span class="o">=</span> <span class="bp">true</span>
+</span></span><span class="line"><span class="cl">  <span class="n">network_interface_ids</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="n">azurerm_network_interface</span><span class="o">.</span><span class="n">nic</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="n">patch_assessment_mode</span>           <span class="o">=</span> <span class="s2">&#34;AutomaticByPlatform&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">patch_mode</span>                      <span class="o">=</span> <span class="s2">&#34;AutomaticByPlatform&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">provision_vm_agent</span>              <span class="o">=</span> <span class="bp">true</span>
+</span></span><span class="line"><span class="cl">  <span class="n">reboot_setting</span>                  <span class="o">=</span> <span class="s2">&#34;IfRequired&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">secure_boot_enabled</span>             <span class="o">=</span> <span class="bp">true</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">admin_ssh_key</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">username</span>   <span class="o">=</span> <span class="s2">&#34;${var.vm-root-username}&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">public_key</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">azurerm_ssh_public_key</span><span class="o">.</span><span class="n">sshkey</span><span class="o">.</span><span class="n">public_key</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">source_image_reference</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">publisher</span> <span class="o">=</span> <span class="s2">&#34;Canonical&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">offer</span>     <span class="o">=</span> <span class="s2">&#34;0001-com-ubuntu-server-jammy&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sku</span>       <span class="o">=</span> <span class="s2">&#34;22_04-lts-gen2&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">version</span>   <span class="o">=</span> <span class="s2">&#34;latest&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">os_disk</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">storage_account_type</span> <span class="o">=</span> <span class="s2">&#34;Standard_LRS&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">caching</span>              <span class="o">=</span> <span class="s2">&#34;ReadWrite&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">resource</span> <span class="s2">&#34;azurerm_virtual_machine_extension&#34;</span> <span class="s2">&#34;vmext&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">name</span>                   <span class="o">=</span> <span class="s2">&#34;update-vm&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">publisher</span>              <span class="o">=</span> <span class="s2">&#34;Microsoft.Azure.Extensions&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">type</span>                   <span class="o">=</span> <span class="s2">&#34;CustomScript&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">type_handler_version</span>   <span class="o">=</span> <span class="s2">&#34;2.1&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">virtual_machine_id</span>     <span class="o">=</span> <span class="n">azurerm_linux_virtual_machine</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">id</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">protected_settings</span> <span class="o">=</span> <span class="o">&lt;&lt;</span><span class="n">PROT</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;script&#34;</span><span class="p">:</span> <span class="s2">&#34;${base64encode(file(var.scfile))}&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">PROT</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h2 id="results">Results:</h2>
+<p>Your Code should look something like this:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<img 
+  sizes="(min-width: 35em) 1200px, 100vw"
+  srcset='
+  
+    /blog/post/azure-secure-files/code_overview_hu_c2e524103278a9b6.png 500w
+  
+  
+    , /blog/post/azure-secure-files/code_overview_hu_815fa604c5862199.png 800w
+  
+  
+    , /blog/post/azure-secure-files/code_overview_hu_788036640427627c.png 1200w
+  
+  '
+  
+    src="/blog/post/azure-secure-files/code_overview.png" 
+  
+  alt="Repo overview of files."></p>
+<p>Now run the pipeline:</p>
+<ol>
+<li>Go to Pipelines -&gt; Pipeline</li>
+<li>Select your imported pipeline -&gt; Run pipeline</li>
+</ol>
+<p>It will first run &ldquo;Terraform plan&rdquo; part of the pipeline, which checks what is already set up, what needs to be set up and in the end you will have a clear output of what happens when you run &ldquo;Terraform Apply&rdquo;.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<img 
+  sizes="(min-width: 35em) 1200px, 100vw"
+  srcset='
+  
+    /blog/post/azure-secure-files/terraform_plan_hu_1e49327b504f30fb.png 500w
+  
+  
+  
+  '
+  
+    src="/blog/post/azure-secure-files/terraform_plan.png" 
+  
+  alt="Results of terraform Plan"></p>
+<p>Now when you have plan ready, you will need to approve the results before the Apply part will be ran. This makes it easy to Dev using the pipeline, before sending it to prod ;)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<img 
+  sizes="(min-width: 35em) 1200px, 100vw"
+  srcset='
+  
+    /blog/post/azure-secure-files/terraform_apply_hu_a08e6df5084bba01.png 500w
+  
+  
+    , /blog/post/azure-secure-files/terraform_apply_hu_50f16c0da1d57a23.png 800w
+  
+  
+  '
+  
+    src="/blog/post/azure-secure-files/terraform_apply.png" 
+  
+  alt="Sending it to prod using Terraform apply."></p>
+<p>After pressing apply, waiting for terraform to finish, you should see something like this in your Azure RG:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<img 
+  sizes="(min-width: 35em) 1200px, 100vw"
+  srcset='
+  
+    /blog/post/azure-secure-files/azure_rg_hu_588909438a99b228.png 500w
+  
+  
+    , /blog/post/azure-secure-files/azure_rg_hu_224a78636759e913.png 800w
+  
+  
+    , /blog/post/azure-secure-files/azure_rg_hu_3d38b4adfe2d87f8.png 1200w
+  
+  '
+  
+    src="/blog/post/azure-secure-files/azure_rg.png" 
+  
+  alt="Overview of Azure Resource Group."></p>
+<p>Also you should have a working agent in your agent pool!
+Go to Project Settings -&gt; Pipelines -&gt; Agent pools and check that the agent is registered OK.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<img 
+  sizes="(min-width: 35em) 1200px, 100vw"
+  srcset='
+  
+    /blog/post/azure-secure-files/agent_pool_hu_213641c160302a02.png 500w
+  
+  
+    , /blog/post/azure-secure-files/agent_pool_hu_43ff4d6cf0a77db9.png 800w
+  
+  
+    , /blog/post/azure-secure-files/agent_pool_hu_3b1ba1a3504265b8.png 1200w
+  
+  '
+  
+    src="/blog/post/azure-secure-files/agent_pool.png" 
+  
+  alt="Overview of agent pool &amp; agent."></p>
+
+</div>
+<div class="tags" dir="auto">
+<div class="taxosfloating_left">
+<p>Tags</p>
+</div>
+<div class="termsfloating_right">
+<p>
+<a href="/blog/tags/azure/">azure</a>
+<a href="/blog/tags/devops/">devops</a>
+<a href="/blog/tags/security/">security</a>
+</p>
+</div>
+<div class="clearit"></div>
+</div>
+</article>
+</div>
+</main>
+<footer>
+© Sami Nieminen
+
+<script data-id="matomo-tracking" data-matomo-tracking-url='https://matomo.nenimein.fi' data-matomo-tracking-id='1' src="/blog/js/matomo-tracking.min.d8e1498fb42aa6048c4db4ac8451d0141fe4a0a83a1b4857df2a67a0cabd350a.js" integrity="sha256-2OFJj7QqpgSMTbSshFHQFB/koKg6G0hX3ypnoMq9NQo=" crossorigin="anonymous" defer></script>
+</footer><script src="/blog/js/dark-mode.js"></script>
+
+</body>
+</html>

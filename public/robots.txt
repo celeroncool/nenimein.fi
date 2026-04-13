@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://nenimein.fi/sitemap.xml

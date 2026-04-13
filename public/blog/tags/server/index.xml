@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Server on Sami&#39;s Blog</title>
+		<link>https://nenimein.fi/blog/tags/server/</link>
+		<description>Recent content in Server on nenimein.fi</description>
+		<generator>Hugo -- gohugo.io</generator>
+		<language>en-us</language>
+		<copyright>© Sami Nieminen</copyright>
+		<lastBuildDate>Mon, 30 Oct 2023 18:59:18 +0200</lastBuildDate>
+		<atom:link href="https://nenimein.fi/blog/tags/server/index.xml" rel="self" type="application/rss+xml" />
+		<item>
+			<title>HPE Primera LDAPS Configuration</title>
+			<link>https://nenimein.fi/blog/post/hpe-primera-ldaps-config/</link>
+			<pubDate>Mon, 30 Oct 2023 18:59:18 +0200</pubDate>
+			<guid>https://nenimein.fi/blog/post/hpe-primera-ldaps-config/</guid>
+			<description>
+			HPE Primera LDAPS How to get it working and issues you might encounter.
+Config You unfortunately cannot get LDAPS working with SSMC GUI, so …
+			</description>
+		</item>
+		<item>
+			<title>Migrating mumble servers</title>
+			<link>https://nenimein.fi/blog/post/migrate_mumble_server/</link>
+			<pubDate>Thu, 03 Feb 2022 19:44:10 +0200</pubDate>
+			<guid>https://nenimein.fi/blog/post/migrate_mumble_server/</guid>
+			<description>
+			How to migrate mumble server to from old linux server to new linux server.
+This is mostly a reminder for myself, on how to do it in the …
+			</description>
+		</item>
+	</channel>
+</rss>

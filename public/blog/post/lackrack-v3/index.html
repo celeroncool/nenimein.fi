@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en" dir='ltr'>
+<head>
+<meta charset="UTF-8">
+<title>LackRack V3 | Sami&#39;s Blog</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.147.6">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="keywords" content="ikea, diy, servers, homelab, woodworking, lang-english">
+<link rel="stylesheet" type="text/css" media="screen" href="/blog/css/normalize.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="/blog/css/main.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="/blog/css/all.css" />
+
+<script>
+localStorage.setItem('theme', 'dark');
+</script>
+
+
+
+
+
+<meta property="og:url" content="https://nenimein.fi/blog/post/lackrack-v3/">
+  <meta property="og:site_name" content="Sami&#39;s Blog">
+  <meta property="og:title" content="LackRack V3">
+  <meta property="og:description" content="LackRack V3 - Cheaper, stronger, complies with standards! Inspired by the original LackRack - Eth0Wiki and later revisions NiBuch LackRack-20xx, I decided to improve on these designs with real rack mounts.
+Plan Few issues with the original designs:
+Required reinforcing the legs with wood -&gt; bit of a hassle. Rack equipment rarely has round rack ears -&gt; finding good wood screws is a major issue. Wood screws and high tech electronics dont go hand in hand. Depending on config, has protruding equipment -&gt; fiber connector danger! What I want:">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2025-08-26T14:11:38+03:00">
+    <meta property="article:modified_time" content="2025-08-26T14:11:38+03:00">
+    <meta property="article:tag" content="Ikea">
+    <meta property="article:tag" content="Diy">
+    <meta property="article:tag" content="Servers">
+    <meta property="article:tag" content="Homelab">
+    <meta property="article:tag" content="Woodworking">
+    <meta property="article:tag" content="Lang-English">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="LackRack V3">
+  <meta name="twitter:description" content="LackRack V3 - Cheaper, stronger, complies with standards! Inspired by the original LackRack - Eth0Wiki and later revisions NiBuch LackRack-20xx, I decided to improve on these designs with real rack mounts.
+Plan Few issues with the original designs:
+Required reinforcing the legs with wood -&gt; bit of a hassle. Rack equipment rarely has round rack ears -&gt; finding good wood screws is a major issue. Wood screws and high tech electronics dont go hand in hand. Depending on config, has protruding equipment -&gt; fiber connector danger! What I want:">
+
+
+  <meta itemprop="name" content="LackRack V3">
+  <meta itemprop="description" content="LackRack V3 - Cheaper, stronger, complies with standards! Inspired by the original LackRack - Eth0Wiki and later revisions NiBuch LackRack-20xx, I decided to improve on these designs with real rack mounts.
+Plan Few issues with the original designs:
+Required reinforcing the legs with wood -&gt; bit of a hassle. Rack equipment rarely has round rack ears -&gt; finding good wood screws is a major issue. Wood screws and high tech electronics dont go hand in hand. Depending on config, has protruding equipment -&gt; fiber connector danger! What I want:">
+  <meta itemprop="datePublished" content="2025-08-26T14:11:38+03:00">
+  <meta itemprop="dateModified" content="2025-08-26T14:11:38+03:00">
+  <meta itemprop="wordCount" content="497">
+  <meta itemprop="keywords" content="Ikea,Diy,Servers,Homelab,Woodworking,Lang-English">
+</head>
+<body>
+<header>
+<div id="avatar">
+<a href="https://nenimein.fi/blog/"><img src="/blog/img/logo.png" alt="Sami&#39;s Blog"></a>
+</div>
+<div id="titletext">
+<h2 id="title"><a href="https://nenimein.fi/blog/">Sami&#39;s Blog</a></h2>
+</div>
+<div id="title-description">
+<p id="subtitle">Made with <a href="https://gohugo.io/" target="_blank">Hugo</a>. Themed by <a href="https://codeberg.org/farooqkz/hugo-vitae" target="_blank">Vitae</a>. Deployed to someone else&rsquo;s computer.</p>
+<div id="social">
+<nav><ul>
+<li><button id="dark-mode" aria-label="Switch Dark Mode"><span title="Switch Dark Mode" class="icons fas fa-moon" aria-hidden="true"></span></button></li>
+</ul></nav>
+</div>
+</div>
+<div id="mainmenu">
+<nav>
+<ul>
+<li><a href="/blog/">Home</a></li>
+<li><a href="/blog/post">All posts</a></li>
+<li><a href="/blog/about">About</a></li>
+<li><a href="/blog/tags">Tags</a></li>
+<li><a href="/blog/sitemap.xml">RSS</a></li>
+</ul>
+</nav>
+</div>
+</header>
+<main>
+<div class="post" dir="auto">
+<article>
+<div class="post-header" dir="auto">
+<div class="meta" dir="auto">
+<div class="date" data-date='2025-08-26'>
+<span class="day">26</span>
+<span class="rest">Aug 2025</span>
+</div>
+
+
+</div>
+<div class="matter" dir="auto">
+<h1 class="title">LackRack V3</h1>
+<p class="post-meta" dir="auto">
+<span class="post-meta">
+
+
+
+
+
+</span>
+
+</p>
+</div>
+</div>
+<div class="markdown">
+<h1 id="lackrack-v3---cheaper-stronger-complies-with-standards">LackRack V3 - Cheaper, stronger, complies with standards!</h1>
+<p>Inspired by the original <a href="https://wiki.eth0.nl/index.php/LackRack" target="_blank">LackRack - Eth0Wiki</a> and later revisions <a href="https://github.com/NiBuch/LackRack-20XX/" target="_blank">NiBuch LackRack-20xx</a>, I decided to improve on these designs with real rack mounts.</p>
+<h2 id="plan">Plan</h2>
+<p>Few issues with the original designs:</p>
+<ul>
+<li>Required reinforcing the legs with wood -&gt; bit of a hassle.</li>
+<li>Rack equipment rarely has round rack ears -&gt; finding good wood screws is a major issue.</li>
+<li>Wood screws and high tech electronics dont go hand in hand.</li>
+<li>Depending on config, has protruding equipment -&gt; fiber connector danger!</li>
+</ul>
+<p>What I want:</p>
+<ul>
+<li>Easy way to mount rack equipment with correct industry standard cage nuts and M6 bolts.</li>
+<li>Less woodworking.</li>
+<li>Metal supports for heavy rackmount stuff.</li>
+</ul>
+<h2 id="bom">BOM</h2>
+<p>Shopping list with current (2025) pricing. Mind you, these were all bought in northern Europe.</p>
+<ul>
+<li>2x IKEA LACK tables: <a href="https://www.ikea.com/fi/en/p/lack-side-table-black-brown-80104268/" target="_blank">IKEA LACK</a>, 12,99 €/piece.</li>
+<li>2x caster wheel, 10 €/piece.</li>
+<li>2x caster wheel with lock, 15 €/piece.</li>
+<li>2x 18U Rack rail: <a href="https://www.thomann.de/intl/adam_hall_61535b18_rack_strip_18u_blk.htm?shp=eyJjb3VudHJ5IjoiZmkiLCJjdXJyZW5jeSI6MiwibGFuZ3VhZ2UiOjJ9&amp;reload=1" target="_blank">Adam Hall 61535B18 Rack Strip 18U</a>, 9,20 €/piece.</li>
+<li>Woodscrews to attach the rack rail to LACK (already had).</li>
+<li>5mm drillbit + drill (already had).</li>
+</ul>
+<p>Total: 94,38 €</p>
+<p>If you want to have rack rails front and back, add two more 18U rails.</p>
+<p>Mounting rack equipment uses standard cage nuts and M6 bolts: 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<img 
+  sizes="(min-width: 35em) 1200px, 100vw"
+  srcset='
+  
+    /blog/post/lackrack-v3/nut_hu_cc72845f772dba57.jpeg 500w
+  
+  
+    , /blog/post/lackrack-v3/nut_hu_c5c9a0b1414f1e2c.jpeg 800w
+  
+  
+    , /blog/post/lackrack-v3/nut_hu_e1a302f36846ad86.jpeg 1200w
+  
+  '
+  
+    src="/blog/post/lackrack-v3/nut.jpeg" 
+  
+  alt="M6 cage nut set."></p>
+<h2 id="build">Build</h2>
+<p>Almost finished, just missing a way to attach rear legs together, will update this later.</p>
+<h3 id="tables-with-casters">Tables with casters</h3>
+<p>Build both of the LACK tables according to IKEA instructions.</p>
+<p>Next lets add the casters to the &ldquo;bottom&rdquo; table:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<img 
+  sizes="(min-width: 35em) 1200px, 100vw"
+  srcset='
+  
+    /blog/post/lackrack-v3/caster_1_hu_37b2249dd1389674.jpeg 500w
+  
+  
+    , /blog/post/lackrack-v3/caster_1_hu_4bd391b9e8a6524b.jpeg 800w
+  
+  
+    , /blog/post/lackrack-v3/caster_1_hu_18ac4de2b41716ff.jpeg 1200w
+  
+  '
+  
+    src="/blog/post/lackrack-v3/caster_1.jpeg" 
+  
+  alt="Underside of the table.">
+You only need three screws per caster, as the third closest to the center of the table does not really attach to anything:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<img 
+  sizes="(min-width: 35em) 1200px, 100vw"
+  srcset='
+  
+    /blog/post/lackrack-v3/caster_2_hu_4de59e75b05d52e0.jpeg 500w
+  
+  
+    , /blog/post/lackrack-v3/caster_2_hu_ef5b49d5395f4037.jpeg 800w
+  
+  
+    , /blog/post/lackrack-v3/caster_2_hu_81889f3845eb4f0b.jpeg 1200w
+  
+  '
+  
+    src="/blog/post/lackrack-v3/caster_2.jpeg" 
+  
+  alt="Caster detailed mounting.">
+Flip the table and enjoy the freely moving rack:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<img 
+  sizes="(min-width: 35em) 1200px, 100vw"
+  srcset='
+  
+    /blog/post/lackrack-v3/caster_3_hu_8e79f3aa0367a1e9.jpeg 500w
+  
+  
+    , /blog/post/lackrack-v3/caster_3_hu_ca0e11d4819b39c0.jpeg 800w
+  
+  
+    , /blog/post/lackrack-v3/caster_3_hu_7391608d758fa69a.jpeg 1200w
+  
+  '
+  
+    src="/blog/post/lackrack-v3/caster_3.jpeg" 
+  
+  alt="Casters mounted."></p>
+<h3 id="custom-rackrails">Custom rackrails</h3>
+<p>The 18U rackrails will with perfectly depending on how much paint they used in the factory&hellip; So you might need to file approx 0.5mm from either end of the rail to make the IKEA legs sit flush against each other.</p>
+<p>To attach the rails to the tables, you will need to drill four holes per rail.
+Use 5mm drill to make the holes and 7mm to chamfer them.
+One hole on each end:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<img 
+  sizes="(min-width: 35em) 1200px, 100vw"
+  srcset='
+  
+    /blog/post/lackrack-v3/rackrail_1_hu_75768b114e5d69fa.jpeg 500w
+  
+  
+    , /blog/post/lackrack-v3/rackrail_1_hu_934f86f011114903.jpeg 800w
+  
+  
+    , /blog/post/lackrack-v3/rackrail_1_hu_6e943338026ac7a4.jpeg 1200w
+  
+  '
+  
+    src="/blog/post/lackrack-v3/rackrail_1.jpeg" 
+  
+  alt="End holes.">
+And two in the center:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<img 
+  sizes="(min-width: 35em) 1200px, 100vw"
+  srcset='
+  
+    /blog/post/lackrack-v3/rackrail_2_hu_75e6f7e9bd378ea5.jpeg 500w
+  
+  
+    , /blog/post/lackrack-v3/rackrail_2_hu_589378f6da795df2.jpeg 800w
+  
+  
+    , /blog/post/lackrack-v3/rackrail_2_hu_a35d9e801239f3f0.jpeg 1200w
+  
+  '
+  
+    src="/blog/post/lackrack-v3/rackrail_2.jpeg" 
+  
+  alt="End holes.">
+Rails finished:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<img 
+  sizes="(min-width: 35em) 1200px, 100vw"
+  srcset='
+  
+    /blog/post/lackrack-v3/rackrail_3_hu_aef910ebc358a769.jpeg 500w
+  
+  
+    , /blog/post/lackrack-v3/rackrail_3_hu_fe16295a98fa9a5f.jpeg 800w
+  
+  
+    , /blog/post/lackrack-v3/rackrail_3_hu_2d1d00194c32031b.jpeg 1200w
+  
+  '
+  
+    src="/blog/post/lackrack-v3/rackrail_3.jpeg" 
+  
+  alt="Middle holes."></p>
+<h3 id="mounting-the-rails">Mounting the rails</h3>
+<p>Now lets mount the rails we made to the table.
+Use a small (1-3mm) drill to make a pilot hole for your screws. This prevents the wood from splitting.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<img 
+  sizes="(min-width: 35em) 1200px, 100vw"
+  srcset='
+  
+    /blog/post/lackrack-v3/holes_1_hu_a0bbb5f77a22629b.jpeg 500w
+  
+  
+    , /blog/post/lackrack-v3/holes_1_hu_490a3fc7ff14d77a.jpeg 800w
+  
+  
+    , /blog/post/lackrack-v3/holes_1_hu_88d60d0f89ae8baa.jpeg 1200w
+  
+  '
+  
+    src="/blog/post/lackrack-v3/holes_1.jpeg" 
+  
+  alt="Bottom hole for rails.">
+Middle holes are located at the bottom of each leg, where it has wood behind the cardboard outer shell:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<img 
+  sizes="(min-width: 35em) 1200px, 100vw"
+  srcset='
+  
+    /blog/post/lackrack-v3/holes_2_hu_549b75d0fc06affd.jpeg 500w
+  
+  
+    , /blog/post/lackrack-v3/holes_2_hu_7c09c32e644d50be.jpeg 800w
+  
+  
+    , /blog/post/lackrack-v3/holes_2_hu_140ee90a191de05f.jpeg 1200w
+  
+  '
+  
+    src="/blog/post/lackrack-v3/holes_2.jpeg" 
+  
+  alt="Middle holes.">
+Use the holes in the rails to make sure they are perpendicular to the legs before drilling holes:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<img 
+  sizes="(min-width: 35em) 1200px, 100vw"
+  srcset='
+  
+    /blog/post/lackrack-v3/holes_3_hu_968d5a49ebbecc4d.jpeg 500w
+  
+  
+    , /blog/post/lackrack-v3/holes_3_hu_c963f8f2d77d9be0.jpeg 800w
+  
+  
+    , /blog/post/lackrack-v3/holes_3_hu_c2b1feb5b1e2e5c6.jpeg 1200w
+  
+  '
+  
+    src="/blog/post/lackrack-v3/holes_3.jpeg" 
+  
+  alt="Rail location.">
+Then screw in the rails to the legs:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<img 
+  sizes="(min-width: 35em) 1200px, 100vw"
+  srcset='
+  
+    /blog/post/lackrack-v3/holes_4_hu_2bc8c5e8e5d83e65.jpeg 500w
+  
+  
+    , /blog/post/lackrack-v3/holes_4_hu_b7b6694763a56f66.jpeg 800w
+  
+  
+    , /blog/post/lackrack-v3/holes_4_hu_98ff34888b67e27d.jpeg 1200w
+  
+  '
+  
+    src="/blog/post/lackrack-v3/holes_4.jpeg" 
+  
+  alt="Screws to table."></p>
+<p>Done!</p>
+<h1 id="finished-rack">Finished rack</h1>
+<p>Now all you need to do, is add the cage nuts from behind for each device you want mounted.
+Thomann 8-port shucko power strip mounted:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<img 
+  sizes="(min-width: 35em) 1200px, 100vw"
+  srcset='
+  
+    /blog/post/lackrack-v3/finished_1_hu_c0d27d2ebe7d0913.jpeg 500w
+  
+  
+    , /blog/post/lackrack-v3/finished_1_hu_155aaf97dcf33446.jpeg 800w
+  
+  
+    , /blog/post/lackrack-v3/finished_1_hu_fbf296618746a24d.jpeg 1200w
+  
+  '
+  
+    src="/blog/post/lackrack-v3/finished_1.jpeg" 
+  
+  alt="PDU.">
+Spacing is perfect even with the added width of the rails:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<img 
+  sizes="(min-width: 35em) 1200px, 100vw"
+  srcset='
+  
+    /blog/post/lackrack-v3/finished_2_hu_4ad3cf24a693fafc.jpeg 500w
+  
+  
+    , /blog/post/lackrack-v3/finished_2_hu_c0b1f80b8eebd89d.jpeg 800w
+  
+  
+    , /blog/post/lackrack-v3/finished_2_hu_5caac49392531d52.jpeg 1200w
+  
+  '
+  
+    src="/blog/post/lackrack-v3/finished_2.jpeg" 
+  
+  alt="Rack from front.">
+Side view shows you have plenty of room to add the cage nuts and screw in equipment:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<img 
+  sizes="(min-width: 35em) 1200px, 100vw"
+  srcset='
+  
+    /blog/post/lackrack-v3/finished_3_hu_c7fc3d9b54c523b4.jpeg 500w
+  
+  
+    , /blog/post/lackrack-v3/finished_3_hu_2e99fb862305de29.jpeg 800w
+  
+  
+    , /blog/post/lackrack-v3/finished_3_hu_7e3dbb2690457319.jpeg 1200w
+  
+  '
+  
+    src="/blog/post/lackrack-v3/finished_3.jpeg" 
+  
+  alt="Rack side view.">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<img 
+  sizes="(min-width: 35em) 1200px, 100vw"
+  srcset='
+  
+    /blog/post/lackrack-v3/finished_4_hu_cb3bc438529a18f4.jpeg 500w
+  
+  
+    , /blog/post/lackrack-v3/finished_4_hu_d756ec0b9378eaad.jpeg 800w
+  
+  
+    , /blog/post/lackrack-v3/finished_4_hu_b91ce044335ab315.jpeg 1200w
+  
+  '
+  
+    src="/blog/post/lackrack-v3/finished_4.jpeg" 
+  
+  alt="Rack side view.">
+Finished product (cat not included in your purchase!):
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<img 
+  sizes="(min-width: 35em) 1200px, 100vw"
+  srcset='
+  
+    /blog/post/lackrack-v3/finished_5_hu_15e3ecd1506b434e.jpeg 500w
+  
+  
+    , /blog/post/lackrack-v3/finished_5_hu_e0af44646d8dde33.jpeg 800w
+  
+  
+    , /blog/post/lackrack-v3/finished_5_hu_224606ca6162ae7f.jpeg 1200w
+  
+  '
+  
+    src="/blog/post/lackrack-v3/finished_5.jpeg" 
+  
+  alt="Rack overview."></p>
+
+</div>
+<div class="tags" dir="auto">
+<div class="taxosfloating_left">
+<p>Tags</p>
+</div>
+<div class="termsfloating_right">
+<p>
+<a href="/blog/tags/diy/">diy</a>
+<a href="/blog/tags/homelab/">homelab</a>
+<a href="/blog/tags/ikea/">ikea</a>
+<a href="/blog/tags/lang-english/">lang-english</a>
+<a href="/blog/tags/servers/">servers</a>
+<a href="/blog/tags/woodworking/">woodworking</a>
+</p>
+</div>
+<div class="clearit"></div>
+</div>
+</article>
+</div>
+</main>
+<footer>
+© Sami Nieminen
+
+<script data-id="matomo-tracking" data-matomo-tracking-url='https://matomo.nenimein.fi' data-matomo-tracking-id='1' src="/blog/js/matomo-tracking.min.d8e1498fb42aa6048c4db4ac8451d0141fe4a0a83a1b4857df2a67a0cabd350a.js" integrity="sha256-2OFJj7QqpgSMTbSshFHQFB/koKg6G0hX3ypnoMq9NQo=" crossorigin="anonymous" defer></script>
+</footer><script src="/blog/js/dark-mode.js"></script>
+
+</body>
+</html>

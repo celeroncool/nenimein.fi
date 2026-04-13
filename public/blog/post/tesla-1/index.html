@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en" dir='ltr'>
+<head>
+<meta charset="UTF-8">
+<title>Tesla Model X speaker measurements | Sami&#39;s Blog</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.147.6">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="keywords" content="car, car-audio, projects">
+<link rel="stylesheet" type="text/css" media="screen" href="/blog/css/normalize.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="/blog/css/main.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="/blog/css/all.css" />
+
+<script>
+localStorage.setItem('theme', 'dark');
+</script>
+
+
+
+
+
+<meta property="og:url" content="https://nenimein.fi/blog/post/tesla-1/">
+  <meta property="og:site_name" content="Sami&#39;s Blog">
+  <meta property="og:title" content="Tesla Model X speaker measurements">
+  <meta property="og:description" content="Here are some measurements of a Tesla Model X, with “basic” audio package (two speakers per door).
+I have also included the full REW measurement data here, so you do not have to trust pictures only.
+Measuring setup Equipment RTA MIC: Measurements were done with MiniDSP UMIK-1, microphone pointing up, and 90deg calibration file loaded to REW. Speaker line measuring: Mackie ProFX6v3, with speaker line going in to high-level input. Source: USB stick, Audison BitOne test CD track “03 Pink noise 10min” in WAV format (lossless), played with volume 5 on Tesla’s head unit/entertainment system. Method Method is mostly based on this great guide from diymobileaudio author Hanatsu.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2022-02-04T19:43:58+02:00">
+    <meta property="article:modified_time" content="2022-02-04T19:43:58+02:00">
+    <meta property="article:tag" content="Car">
+    <meta property="article:tag" content="Car-Audio">
+    <meta property="article:tag" content="Projects">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Tesla Model X speaker measurements">
+  <meta name="twitter:description" content="Here are some measurements of a Tesla Model X, with “basic” audio package (two speakers per door).
+I have also included the full REW measurement data here, so you do not have to trust pictures only.
+Measuring setup Equipment RTA MIC: Measurements were done with MiniDSP UMIK-1, microphone pointing up, and 90deg calibration file loaded to REW. Speaker line measuring: Mackie ProFX6v3, with speaker line going in to high-level input. Source: USB stick, Audison BitOne test CD track “03 Pink noise 10min” in WAV format (lossless), played with volume 5 on Tesla’s head unit/entertainment system. Method Method is mostly based on this great guide from diymobileaudio author Hanatsu.">
+
+
+  <meta itemprop="name" content="Tesla Model X speaker measurements">
+  <meta itemprop="description" content="Here are some measurements of a Tesla Model X, with “basic” audio package (two speakers per door).
+I have also included the full REW measurement data here, so you do not have to trust pictures only.
+Measuring setup Equipment RTA MIC: Measurements were done with MiniDSP UMIK-1, microphone pointing up, and 90deg calibration file loaded to REW. Speaker line measuring: Mackie ProFX6v3, with speaker line going in to high-level input. Source: USB stick, Audison BitOne test CD track “03 Pink noise 10min” in WAV format (lossless), played with volume 5 on Tesla’s head unit/entertainment system. Method Method is mostly based on this great guide from diymobileaudio author Hanatsu.">
+  <meta itemprop="datePublished" content="2022-02-04T19:43:58+02:00">
+  <meta itemprop="dateModified" content="2022-02-04T19:43:58+02:00">
+  <meta itemprop="wordCount" content="292">
+  <meta itemprop="keywords" content="Car,Car-Audio,Projects">
+</head>
+<body>
+<header>
+<div id="avatar">
+<a href="https://nenimein.fi/blog/"><img src="/blog/img/logo.png" alt="Sami&#39;s Blog"></a>
+</div>
+<div id="titletext">
+<h2 id="title"><a href="https://nenimein.fi/blog/">Sami&#39;s Blog</a></h2>
+</div>
+<div id="title-description">
+<p id="subtitle">Made with <a href="https://gohugo.io/" target="_blank">Hugo</a>. Themed by <a href="https://codeberg.org/farooqkz/hugo-vitae" target="_blank">Vitae</a>. Deployed to someone else&rsquo;s computer.</p>
+<div id="social">
+<nav><ul>
+<li><button id="dark-mode" aria-label="Switch Dark Mode"><span title="Switch Dark Mode" class="icons fas fa-moon" aria-hidden="true"></span></button></li>
+</ul></nav>
+</div>
+</div>
+<div id="mainmenu">
+<nav>
+<ul>
+<li><a href="/blog/">Home</a></li>
+<li><a href="/blog/post">All posts</a></li>
+<li><a href="/blog/about">About</a></li>
+<li><a href="/blog/tags">Tags</a></li>
+<li><a href="/blog/sitemap.xml">RSS</a></li>
+</ul>
+</nav>
+</div>
+</header>
+<main>
+<div class="post" dir="auto">
+<article>
+<div class="post-header" dir="auto">
+<div class="meta" dir="auto">
+<div class="date" data-date='2022-02-04'>
+<span class="day">04</span>
+<span class="rest">Feb 2022</span>
+</div>
+
+
+</div>
+<div class="matter" dir="auto">
+<h1 class="title">Tesla Model X speaker measurements</h1>
+<p class="post-meta" dir="auto">
+<span class="post-meta">
+
+
+
+
+
+</span>
+
+</p>
+</div>
+</div>
+<div class="markdown">
+<p>Here are some measurements of a Tesla Model X, with &ldquo;basic&rdquo; audio package (two speakers per door).</p>
+<p>I have also included the <a href="./rew_data.mdat">full REW measurement data here</a>, so you do not have to trust pictures only.</p>
+<h2 id="measuring-setup">Measuring setup</h2>
+<h3 id="equipment">Equipment</h3>
+<ul>
+<li>RTA MIC: Measurements were done with MiniDSP UMIK-1, microphone pointing up, and 90deg calibration file loaded to REW.</li>
+<li>Speaker line measuring: Mackie ProFX6v3, with speaker line going in to high-level input.</li>
+<li>Source: USB stick, Audison BitOne test CD track &ldquo;03 Pink noise 10min&rdquo; in WAV format (lossless), played with volume 5 on Tesla&rsquo;s head unit/entertainment system.</li>
+</ul>
+<h3 id="method">Method</h3>
+<p>Method is mostly based on <a href="https://www.diymobileaudio.com/threads/first-timers-guide-to-measuring-your-system.163234/" target="_blank">this great guide</a> from diymobileaudio author Hanatsu.</p>
+<p>Each measurement is taken by moving the microphone around near the driver&rsquo;s ear, while sitting in drivers seat. We take 30 samples using REW RTA with the following options:</p>
+<ul>
+<li>Mode: RTA 1/12 octave</li>
+<li>Smoothing: no smoothing</li>
+<li>FFT length: 64k</li>
+<li>Averages: Forever</li>
+<li>Window: Hann</li>
+<li>Max overlap: 50%</li>
+</ul>
+<p>This gives us the best possibility to get a &ldquo;real&rdquo; average. Unfortunately we cannot input REW sweeps to the H/U as it does not have AUX in.</p>
+<h3 id="results">Results</h3>
+<p>Left front speakers (Psychoacoustic smoothing applied):
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<img 
+  sizes="(min-width: 35em) 1200px, 100vw"
+  srcset='
+  
+    /blog/post/tesla-1/left_average_hu_43f5ac06a07a49a1.jpg 500w
+  
+  
+    , /blog/post/tesla-1/left_average_hu_248ebff0bed8daf4.jpg 800w
+  
+  
+    , /blog/post/tesla-1/left_average_hu_5c4e6eb7da59ec69.jpg 1200w
+  
+  '
+  
+    src="/blog/post/tesla-1/left_average.jpg" 
+  
+  alt="Left speaker averages."></p>
+<p>Right front speakers (Psychoacoustic smoothing applied):
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<img 
+  sizes="(min-width: 35em) 1200px, 100vw"
+  srcset='
+  
+    /blog/post/tesla-1/right_average_hu_f25daa3872eb019d.jpg 500w
+  
+  
+    , /blog/post/tesla-1/right_average_hu_8cfb40155d34f6c7.jpg 800w
+  
+  
+    , /blog/post/tesla-1/right_average_hu_5315fb0ce9a1cbd2.jpg 1200w
+  
+  '
+  
+    src="/blog/post/tesla-1/right_average.jpg" 
+  
+  alt="Right speaker averages."></p>
+<h3 id="direct-speaker-line-measurements">Direct speaker line measurements</h3>
+<p>We attached the Mackie ProFX6v3 straight to speaker wires, so we can figure out what frequencies we get in to the OEM speakers. We are installing Audison Prima AP8.9 Bit to this car, and need to figure out where to get full range signal into the DSP, more on this later&hellip;</p>
+<p>Here are the front midrange and tweeter measurements combined, as the front has a &ldquo;door unit&rdquo; which probably has a crossover built in:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<img 
+  sizes="(min-width: 35em) 1200px, 100vw"
+  srcset='
+  
+    /blog/post/tesla-1/front_line_hu_2d5acc98eece8da9.jpg 500w
+  
+  
+    , /blog/post/tesla-1/front_line_hu_e7f10277506efecd.jpg 800w
+  
+  
+    , /blog/post/tesla-1/front_line_hu_eaca7b8f835974c1.jpg 1200w
+  
+  '
+  
+    src="/blog/post/tesla-1/front_line.jpg" 
+  
+  alt="Front speaker line measurements."></p>
+<p>And here is the rear speaker measured, rear only has a capacitor at tweeter input, so rear has full-range signal:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<img 
+  sizes="(min-width: 35em) 1200px, 100vw"
+  srcset='
+  
+    /blog/post/tesla-1/rear_line_hu_22728ab0bee537aa.jpg 500w
+  
+  
+    , /blog/post/tesla-1/rear_line_hu_4144180297760264.jpg 800w
+  
+  
+    , /blog/post/tesla-1/rear_line_hu_a932ada274f20a26.jpg 1200w
+  
+  '
+  
+    src="/blog/post/tesla-1/rear_line.jpg" 
+  
+  alt="Front speaker line measurements."></p>
+
+</div>
+<div class="tags" dir="auto">
+<div class="taxosfloating_left">
+<p>Tags</p>
+</div>
+<div class="termsfloating_right">
+<p>
+<a href="/blog/tags/car/">car</a>
+<a href="/blog/tags/car-audio/">car-audio</a>
+<a href="/blog/tags/projects/">projects</a>
+</p>
+</div>
+<div class="clearit"></div>
+</div>
+</article>
+</div>
+</main>
+<footer>
+© Sami Nieminen
+
+<script data-id="matomo-tracking" data-matomo-tracking-url='https://matomo.nenimein.fi' data-matomo-tracking-id='1' src="/blog/js/matomo-tracking.min.d8e1498fb42aa6048c4db4ac8451d0141fe4a0a83a1b4857df2a67a0cabd350a.js" integrity="sha256-2OFJj7QqpgSMTbSshFHQFB/koKg6G0hX3ypnoMq9NQo=" crossorigin="anonymous" defer></script>
+</footer><script src="/blog/js/dark-mode.js"></script>
+
+</body>
+</html>
