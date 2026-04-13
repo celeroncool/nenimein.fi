@@ -19,7 +19,7 @@ jobs:
         uses: actions/checkout@master
         
       - name: Retrieve bitwarden secrets
-        uses: bitwarden/sm-action@v3
+        uses: bitwarden/sm-action@v2
         with:
           access_token: ${{ secrets.SM_ACCESS_TOKEN }}
           secrets: |
