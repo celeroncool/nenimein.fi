@@ -1,0 +1,3 @@
+[submodule "themes/digio-theme"]
+	path = themes/digio-theme
+	url = https://github.com/danapixels/digio-theme
