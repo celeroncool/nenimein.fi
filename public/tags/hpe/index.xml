@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Hpe on Nieminen</title>
+    <link>https://nenimein.fi/tags/hpe/</link>
+    <description>Recent content in Hpe on Nieminen</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <copyright>Copyright © Sami Nieminen</copyright>
+    <lastBuildDate>Mon, 30 Oct 2023 18:59:18 +0200</lastBuildDate>
+    <atom:link href="https://nenimein.fi/tags/hpe/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>HPE Primera LDAPS Configuration</title>
+      <link>https://nenimein.fi/blog/post/hpe-primera-ldaps-config/</link>
+      <pubDate>Mon, 30 Oct 2023 18:59:18 +0200</pubDate>
+      <guid>https://nenimein.fi/blog/post/hpe-primera-ldaps-config/</guid>
+      <description>&lt;h1 id=&#34;hpe-primera-ldaps&#34;&gt;HPE Primera LDAPS&lt;/h1&gt;&#xA;&lt;p&gt;How to get it working and issues you might encounter.&lt;/p&gt;&#xA;&lt;h2 id=&#34;config&#34;&gt;Config&lt;/h2&gt;&#xA;&lt;p&gt;You unfortunately cannot get LDAPS working with SSMC GUI, so you must do the basic config via CLI.&lt;/p&gt;&#xA;&lt;h3 id=&#34;cli&#34;&gt;CLI&lt;/h3&gt;&#xA;&lt;p&gt;Open SSH to your primera/3par and type following commands.&lt;/p&gt;&#xA;&lt;p&gt;First, we set up necessary LDAPS servers:&lt;/p&gt;&#xA;&lt;p&gt;&lt;code&gt;setauthparam -f ldap-server &amp;quot;fqdn.of.dc.local&amp;quot;&lt;/code&gt; &amp;lt; Type this changing the FQDN of DC until you got atleast two.&lt;/p&gt;&#xA;&lt;p&gt;&lt;code&gt;setauthparam -f ldap-port 636&lt;/code&gt; &amp;lt; Set LDAP port to use LDAPS 636 or GC port 3269.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>HPE Proliant Microserver Gen7 fan mod</title>
+      <link>https://nenimein.fi/blog/post/hpe-n54l-fans/</link>
+      <pubDate>Tue, 23 May 2023 21:09:55 +0300</pubDate>
+      <guid>https://nenimein.fi/blog/post/hpe-n54l-fans/</guid>
+      <description>&lt;p&gt;Modding my HPE Proliant Microserver Gen7 (N54L) to be less loud.&#xA;Also listing the fans which do &lt;strong&gt;not&lt;/strong&gt; work and fans which work.&lt;/p&gt;&#xA;&lt;p&gt;Mostly following the now &amp;ldquo;defunct&amp;rdquo; guide from &lt;a href=&#34;http://www.silentpcreview.com/article1193-page7.html&#34;&gt;SilentPCReview&lt;/a&gt;. Working guide can be found at &lt;a href=&#34;https://web.archive.org/web/20180618153444/http://www.silentpcreview.com/article1193-page7.html&#34;&gt;Internet Archive&lt;/a&gt;&lt;/p&gt;&#xA;&lt;h2 id=&#34;problem&#34;&gt;Problem&lt;/h2&gt;&#xA;&lt;p&gt;Stock fans, especially the PSU fan is very noisy. It doesnt output much desibels, but it certainly outputs them at very annoying frequencies.&lt;/p&gt;&#xA;&lt;p&gt;Here are REW graphs, measured with MiniDSP UMIK-1 measuring microphone approx one meter away from the device, with fans pointing away from the microphone. The server is sitting under my desk, in a corner. Red graph is NAS turned off and green is NAS running with stock fans.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

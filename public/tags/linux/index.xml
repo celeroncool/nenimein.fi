@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Linux on Nieminen</title>
+    <link>https://nenimein.fi/tags/linux/</link>
+    <description>Recent content in Linux on Nieminen</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <copyright>Copyright © Sami Nieminen</copyright>
+    <lastBuildDate>Tue, 23 Jan 2024 16:58:43 +0200</lastBuildDate>
+    <atom:link href="https://nenimein.fi/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Nextcloud VM cloud backups with restic and Backblaze</title>
+      <link>https://nenimein.fi/blog/post/nextcloud-vm-backups/</link>
+      <pubDate>Tue, 23 Jan 2024 16:58:43 +0200</pubDate>
+      <guid>https://nenimein.fi/blog/post/nextcloud-vm-backups/</guid>
+      <description>&lt;h1 id=&#34;update-20241206&#34;&gt;UPDATE 20241206&lt;/h1&gt;&#xA;&lt;p&gt;Happy Independence Day for all Finns &amp;lt;3&lt;/p&gt;&#xA;&lt;p&gt;I have created a V1.0 script for backing up your Nextcloud instance using Restic.&#xA;It has been mainlined to &amp;ldquo;not supported&amp;rdquo; scripts folder and you can find it &lt;a href=&#34;https://github.com/nextcloud/vm/blob/main/not-supported/restic-cloud-backup-wizard.sh&#34;&gt;here&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;Currently script has support for:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;AWS S3 Bucket&lt;/li&gt;&#xA;&lt;li&gt;Azure Blob Storage&lt;/li&gt;&#xA;&lt;li&gt;Backblaze B2&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;Tested working with Azure and Backblaze, as I have access to those two environments.&lt;/p&gt;&#xA;&lt;p&gt;Script has logging, error handling and hopefully clear instuctions how to set it up.&#xA;Also has options to only backup the config + DB or config + DB + /mnt/ncdata.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>How to add boot options in PopOS! 22.04</title>
+      <link>https://nenimein.fi/blog/post/how-to-add-boot-options-in-popos-22.04/</link>
+      <pubDate>Thu, 10 Aug 2023 08:51:33 +0300</pubDate>
+      <guid>https://nenimein.fi/blog/post/how-to-add-boot-options-in-popos-22.04/</guid>
+      <description>&lt;p&gt;Most of the guides tell you to just add a grub option. Well, PopOS! 22.04 does not use GRUB, if you have a UEFI motherboard and installed PopOS! with UEFI (no CSM enabled)&amp;hellip;&lt;/p&gt;&#xA;&lt;h1 id=&#34;kernelstub&#34;&gt;kernelstub&lt;/h1&gt;&#xA;&lt;p&gt;Official documentation from System76:&#xA;&lt;a href=&#34;https://support.system76.com/articles/kernelstub/&#34;&gt;https://support.system76.com/articles/kernelstub/&lt;/a&gt;&lt;/p&gt;&#xA;&lt;h2 id=&#34;sudo-kernelstub--p&#34;&gt;sudo kernelstub -p&lt;/h2&gt;&#xA;&lt;p&gt;This will print out your current settings:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;kernelstub.Config    : INFO     Looking for configuration...&#xD;&#xA;kernelstub           : INFO     System information: &#xD;&#xA;&#xD;&#xA;    OS:..................Pop!_OS 22.04&#xD;&#xA;    Root partition:....../dev/nvme0n1p2&#xD;&#xA;    Root FS UUID:........&#xD;&#xA;    ESP Path:............/boot/efi&#xD;&#xA;    ESP Partition:......./dev/nvme0n1p3&#xD;&#xA;    ESP Partition #:.....3&#xD;&#xA;    NVRAM entry #:.......-1&#xD;&#xA;    Boot Variable #:.....0000&#xD;&#xA;    Kernel Boot Options:.quiet splash amdgpu.ppfeaturemask=0xfff7ffff acpi_enforce_resources=lax&#xD;&#xA;    Kernel Image Path:.../boot/vmlinuz-6.4.6-76060406-generic&#xD;&#xA;    Initrd Image Path:.../boot/initrd.img-6.4.6-76060406-generic&#xD;&#xA;    Force-overwrite:.....False&#xD;&#xA;&#xD;&#xA;kernelstub           : INFO     Configuration details: &#xD;&#xA;&#xD;&#xA;   ESP Location:................../boot/efi&#xD;&#xA;   Management Mode:...............True&#xD;&#xA;   Install Loader configuration:..True&#xD;&#xA;   Configuration version:.........3&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;sudo-kernelstub--o-options&#34;&gt;sudo kernelstub -o &amp;ldquo;options&amp;rdquo;&lt;/h2&gt;&#xA;&lt;p&gt;This will modify current kernel options. Beware, this will not ADD, but EDIT, so you will loose your current options&amp;hellip;&#xA;In this example, I&amp;rsquo;m adding a custom resolution. For some reason my display only shows up as 120Hz, but it is a 144Hz Freesync Premium monitor (works fine in Windows).&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Migrating mumble servers</title>
+      <link>https://nenimein.fi/blog/post/migrate_mumble_server/</link>
+      <pubDate>Thu, 03 Feb 2022 19:44:10 +0200</pubDate>
+      <guid>https://nenimein.fi/blog/post/migrate_mumble_server/</guid>
+      <description>&lt;p&gt;How to migrate mumble server to from old linux server to new linux server.&lt;/p&gt;&#xA;&lt;p&gt;This is mostly a reminder for myself, on how to do it in the future if I ever need to migrate servers again. But, it might also help you if you hit a few &amp;ldquo;gotchas&amp;rdquo; on the way as I did.&lt;/p&gt;&#xA;&lt;h2 id=&#34;prep&#34;&gt;Prep&lt;/h2&gt;&#xA;&lt;p&gt;First, set up the new server. My new server is running Ubuntu 20.04 LTS, so I get the best mix of latest packages and stability.&#xA;Most of the commands are run as #root.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

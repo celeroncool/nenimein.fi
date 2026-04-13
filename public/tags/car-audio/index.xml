@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Car-Audio on Nieminen</title>
+    <link>https://nenimein.fi/tags/car-audio/</link>
+    <description>Recent content in Car-Audio on Nieminen</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <copyright>Copyright © Sami Nieminen</copyright>
+    <lastBuildDate>Fri, 04 Feb 2022 19:43:58 +0200</lastBuildDate>
+    <atom:link href="https://nenimein.fi/tags/car-audio/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Tesla Model X speaker measurements</title>
+      <link>https://nenimein.fi/blog/post/tesla-1/</link>
+      <pubDate>Fri, 04 Feb 2022 19:43:58 +0200</pubDate>
+      <guid>https://nenimein.fi/blog/post/tesla-1/</guid>
+      <description>&lt;p&gt;Here are some measurements of a Tesla Model X, with &amp;ldquo;basic&amp;rdquo; audio package (two speakers per door).&lt;/p&gt;&#xA;&lt;p&gt;I have also included the &lt;a href=&#34;./rew_data.mdat&#34;&gt;full REW measurement data here&lt;/a&gt;, so you do not have to trust pictures only.&lt;/p&gt;&#xA;&lt;h2 id=&#34;measuring-setup&#34;&gt;Measuring setup&lt;/h2&gt;&#xA;&lt;h3 id=&#34;equipment&#34;&gt;Equipment&lt;/h3&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;RTA MIC: Measurements were done with MiniDSP UMIK-1, microphone pointing up, and 90deg calibration file loaded to REW.&lt;/li&gt;&#xA;&lt;li&gt;Speaker line measuring: Mackie ProFX6v3, with speaker line going in to high-level input.&lt;/li&gt;&#xA;&lt;li&gt;Source: USB stick, Audison BitOne test CD track &amp;ldquo;03 Pink noise 10min&amp;rdquo; in WAV format (lossless), played with volume 5 on Tesla&amp;rsquo;s head unit/entertainment system.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h3 id=&#34;method&#34;&gt;Method&lt;/h3&gt;&#xA;&lt;p&gt;Method is mostly based on &lt;a href=&#34;https://www.diymobileaudio.com/threads/first-timers-guide-to-measuring-your-system.163234/&#34;&gt;this great guide&lt;/a&gt; from diymobileaudio author Hanatsu.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Emma - Sixth part</title>
+      <link>https://nenimein.fi/blog/post/emma-6/</link>
+      <pubDate>Wed, 02 Feb 2022 10:39:18 +0200</pubDate>
+      <guid>https://nenimein.fi/blog/post/emma-6/</guid>
+      <description>&lt;p&gt;Welcome to the sixth part of this series focused on building a SQ competition car.&#xA;The class where I hope I can compete, is the &lt;strong&gt;EMMA Sound Quality (S) Skilled OEM&lt;/strong&gt;-class&lt;/p&gt;&#xA;&lt;p&gt;Links to more resources&#xA;&lt;a href=&#34;http://emmafinland.com&#34;&gt;EMMA Finland&lt;/a&gt; and &lt;a href=&#34;http://www.emmanet.info/&#34;&gt;EMMA International&lt;/a&gt;&lt;/p&gt;&#xA;&lt;h1 id=&#34;make-it-silent&#34;&gt;Make it silent!&lt;/h1&gt;&#xA;&lt;p&gt;Last time I treated the trunk and doors with some sound deadening, but there was still too much noise while driving.&#xA;The roof has already been treated, but there was one more place which haven&amp;rsquo;t yet done&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Emma - Fifth part</title>
+      <link>https://nenimein.fi/blog/post/emma-5/</link>
+      <pubDate>Sun, 20 Sep 2020 20:00:00 +0200</pubDate>
+      <guid>https://nenimein.fi/blog/post/emma-5/</guid>
+      <description>&lt;p&gt;Welcome to the fifth part of this series focused on building a SQ competition car.&#xA;The class where I hope I can compete, is the &lt;strong&gt;EMMA Sound Quality (S) Skilled OEM&lt;/strong&gt;-class&lt;/p&gt;&#xA;&lt;p&gt;Links to more resources&#xA;&lt;a href=&#34;http://emmafinland.com&#34;&gt;EMMA Finland&lt;/a&gt; and &lt;a href=&#34;http://www.emmanet.info/&#34;&gt;EMMA International&lt;/a&gt;&lt;/p&gt;&#xA;&lt;h1 id=&#34;about-that-trunk&#34;&gt;About that trunk&lt;/h1&gt;&#xA;&lt;p&gt;So now that the sound side is starting to plan out nicely, I need to do something special for the trunk.&#xA;For a while, the trunk looked like this;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Emma - Fourth part</title>
+      <link>https://nenimein.fi/blog/post/emma-4/</link>
+      <pubDate>Tue, 28 Jul 2020 22:35:44 +0300</pubDate>
+      <guid>https://nenimein.fi/blog/post/emma-4/</guid>
+      <description>&lt;p&gt;Welcome to the fourth part of this series focused on building a SQ competition car.&#xA;The class where I hope I can compete, is the &lt;strong&gt;EMMA Sound Quality (S) Skilled OEM&lt;/strong&gt;-class&lt;/p&gt;&#xA;&lt;p&gt;Links to more resources&#xA;&lt;a href=&#34;http://emmafinland.com&#34;&gt;EMMA Finland&lt;/a&gt; and &lt;a href=&#34;http://www.emmanet.info/&#34;&gt;EMMA International&lt;/a&gt;&lt;/p&gt;&#xA;&lt;h1 id=&#34;new-speakers-new-sounds&#34;&gt;New speakers, new sounds!&lt;/h1&gt;&#xA;&lt;p&gt;After the first competitions &amp;ldquo;throw those away&amp;rdquo; mids, I was on the lookout for better mids.&#xA;Some research later, I decided on same series mids as the tweeters, the Hertz Mille Legend ML1650.3.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Emma - Third part</title>
+      <link>https://nenimein.fi/blog/post/emma-3/</link>
+      <pubDate>Thu, 26 Mar 2020 20:32:49 +0200</pubDate>
+      <guid>https://nenimein.fi/blog/post/emma-3/</guid>
+      <description>&lt;p&gt;Welcome to the third part of this series focused on building a SQ competition car.&#xA;The class where I hope I can compete, is the &lt;strong&gt;EMMA Sound Quality (S) Skilled OEM&lt;/strong&gt;-class&lt;/p&gt;&#xA;&lt;p&gt;Links to more resources&#xA;&lt;a href=&#34;http://emmafinland.com&#34;&gt;EMMA Finland&lt;/a&gt; and &lt;a href=&#34;http://www.emmanet.info/&#34;&gt;EMMA International&lt;/a&gt;&lt;/p&gt;&#xA;&lt;h1 id=&#34;new-car-time&#34;&gt;New car time!&lt;/h1&gt;&#xA;&lt;p&gt;It was finally time to change the trusty old Skoda to a new car, so I bought a 2007 Seat Leon 1P1 from a auction, sight unseen (stupid, I know&amp;hellip;), for a great price!&#xA;Auction said no rust, and it really didn&amp;rsquo;t have any rust. Later I found out that they had cheaply fixed a few places, so they rusted out after six months. But, the fix up&amp;rsquo;s are destined for another blog post :)&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Emma - Second part</title>
+      <link>https://nenimein.fi/blog/post/emma-2/</link>
+      <pubDate>Mon, 04 Nov 2019 21:32:56 +0200</pubDate>
+      <guid>https://nenimein.fi/blog/post/emma-2/</guid>
+      <description>&lt;p&gt;Welcome to the second part of this series focused on building a SQ competition car.&#xA;The class where I hope I can compete, is the &lt;strong&gt;EMMA Sound Quality (S) Skilled OEM&lt;/strong&gt;-class&lt;/p&gt;&#xA;&lt;p&gt;Links to more resources&#xA;&lt;a href=&#34;http://emmafinland.com&#34;&gt;EMMA Finland&lt;/a&gt; and &lt;a href=&#34;http://www.emmanet.info/&#34;&gt;EMMA International&lt;/a&gt;&lt;/p&gt;&#xA;&lt;h1 id=&#34;my-first-car&#34;&gt;My first car&lt;/h1&gt;&#xA;&lt;p&gt;My first own car was a year 2001 Skodâ Fabia 1.9SDI (Slow Diesel&amp;hellip;).&#xA;I drove this car to almost 500k kilometers, but unfortunately, some dbag reversed to the right rear door in a parking lot.&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&lt;img &#xD;&#xA;  sizes=&#34;(min-width: 35em) 1200px, 100vw&#34;&#xD;&#xA;  srcset=&#39;&#xD;&#xA;  &#xD;&#xA;    /blog/post/emma-2/dbag_hu_777dd71130758f7a.jpg 500w&#xD;&#xA;  &#xD;&#xA;  &#xD;&#xA;    , /blog/post/emma-2/dbag_hu_7d83d92c3051f05c.jpg 800w&#xD;&#xA;  &#xD;&#xA;  &#xD;&#xA;    , /blog/post/emma-2/dbag_hu_e21225f66eb251c8.jpg 1200w&#xD;&#xA;  &#xD;&#xA;  &#xD;&#xA;    , /blog/post/emma-2/dbag_hu_7838a96d6fdd4794.jpg 1500w &#xD;&#xA;  &#39;&#xD;&#xA;  &#xD;&#xA;    src=&#34;https://nenimein.fi/blog/post/emma-2/dbag.jpg&#34; &#xD;&#xA;  &#xD;&#xA;  alt=&#34;Dents.&#34;&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Emma - The beginning</title>
+      <link>https://nenimein.fi/blog/post/emma-1/</link>
+      <pubDate>Thu, 28 Feb 2019 17:58:56 +0200</pubDate>
+      <guid>https://nenimein.fi/blog/post/emma-1/</guid>
+      <description>&lt;p&gt;Welcome to this series focused on building a SQ competition car.&#xA;The class where I hope I can compete, is the &lt;strong&gt;EMMA Sound Quality (S) Skilled OEM&lt;/strong&gt;-class&lt;/p&gt;&#xA;&lt;p&gt;Links to more resources&#xA;&lt;a href=&#34;http://emmafinland.com&#34;&gt;EMMA Finland&lt;/a&gt; and &lt;a href=&#34;http://www.emmanet.info/&#34;&gt;EMMA International&lt;/a&gt;&lt;/p&gt;&#xA;&lt;h2 id=&#34;rules&#34;&gt;Rules&lt;/h2&gt;&#xA;&lt;p&gt;There are more classes where you can compete and rules, but these are the brief rules for &lt;strong&gt;OEM Skilled&lt;/strong&gt;-class.&lt;/p&gt;&#xA;&lt;h3 id=&#34;installation&#34;&gt;Installation&lt;/h3&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Installation has to be top quality (meaning no loose wires and sloppy installs).&lt;/li&gt;&#xA;&lt;li&gt;Hidden components have to be documented.&lt;/li&gt;&#xA;&lt;li&gt;No need for presentation of the car/install.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h3 id=&#34;limitations&#34;&gt;Limitations&lt;/h3&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;No sponsored cars (receipts have to be available for all the purchases).&lt;/li&gt;&#xA;&lt;li&gt;No judges or professionals.&lt;/li&gt;&#xA;&lt;li&gt;No modified/self-made components.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h3 id=&#34;oem-class-specific-limitations&#34;&gt;OEM Class specific limitations&lt;/h3&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Only original speaker locations allowed.&lt;/li&gt;&#xA;&lt;li&gt;No &amp;ldquo;tuning&amp;rdquo;-shop specific car models. Factory special models are allowed.&lt;/li&gt;&#xA;&lt;li&gt;Headunit swap is allowed.&lt;/li&gt;&#xA;&lt;li&gt;Separate volume knob or display install is allowed&lt;/li&gt;&#xA;&lt;li&gt;Modifications to other car components allowed&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;These rules make the class interesting and fair, and prove that you can have nice audio for a relatively &amp;ldquo;small&amp;rdquo; cost.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

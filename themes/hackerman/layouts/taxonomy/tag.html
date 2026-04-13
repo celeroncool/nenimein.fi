@@ -1,0 +1,13 @@
+{{ define "main" }}
+<h1><span class="comment">##</span> tag::{{ .Title }}</h1>
+<p class="tag-meta">{{ len .Pages }} post{{ if ne (len .Pages) 1 }}s{{ end }} tagged</p>
+<ul class="post-list">
+  {{ range .Pages }}
+  <li>
+    <span class="date">{{ .Date.Format "2006-01-02" }}</span>
+    <a href="{{ .Permalink }}">{{ .Title }}</a>
+  </li>
+  {{ end }}
+</ul>
+<p><a href="{{ "/tags" | relURL }}">&gt; all tags</a></p>
+{{ end }}

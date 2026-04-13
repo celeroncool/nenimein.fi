@@ -1,0 +1,14 @@
+<header>
+  <div class="prompt">
+    <span class="user">root@{{ .Site.Title | lower | replaceRE " " "-" }}</span><span class="at">:</span><span class="path">~</span><span class="dollar">$</span>
+    <a class="site-title" href="{{ "/" | relURL }}">{{ .Site.Title }}</a>
+  </div>
+  <nav>
+    <a href="{{ "/" | relURL }}">/home</a>
+    <a href="{{ "/blog" | relURL }}">/blog</a>
+    <a href="{{ "/tags" | relURL }}">/tags</a>
+    <a href="{{ "/about" | relURL }}">/about</a>
+    <a href="{{ "index.xml" | absURL }}">/rss</a>
+  </nav>
+</header>
+<hr class="sep" />

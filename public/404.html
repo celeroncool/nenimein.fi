@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>404 Page not found | Nieminen</title>
+<link rel="stylesheet" href="/css/style.css" />
+<link rel="alternate" type="application/rss+xml" title="Nieminen" href="https://nenimein.fi/index.xml" />
+
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<meta name="theme-color" content="#0d0d0d" />
+
+</head>
+<body>
+  <header>
+  <div class="prompt">
+    <span class="user">root@nieminen</span><span class="at">:</span><span class="path">~</span><span class="dollar">$</span>
+    <a class="site-title" href="/">Nieminen</a>
+  </div>
+  <nav>
+    <a href="/">/home</a>
+    <a href="/blog">/blog</a>
+    <a href="/tags">/tags</a>
+    <a href="/about">/about</a>
+    <a href="https://nenimein.fi/index.xml">/rss</a>
+  </nav>
+</header>
+<hr class="sep" />
+
+  <main>
+    
+<section class="error-page">
+  <div class="error-trace">
+    <p><span class="comment">$</span> curl -v https://nenimein.fi//404.html</p>
+    <p>&nbsp;</p>
+    <p><span class="comment">*</span>   Trying nenimein.fi...</p>
+    <p><span class="comment">*</span> Connected to nenimein.fi port 443</p>
+    <p><span class="comment">*</span> TLS handshake complete</p>
+    <p><span class="comment">&gt;</span> GET /404.html HTTP/2</p>
+    <p><span class="comment">&gt;</span> Host: nenimein.fi</p>
+    <p><span class="comment">&gt;</span> User-Agent: curl/8.7.1</p>
+    <p><span class="comment">&gt;</span> Accept: */*</p>
+    <p>&nbsp;</p>
+    <p><span class="error-code"><span class="comment">&lt;</span> HTTP/2 404</span></p>
+    <p><span class="comment">&lt;</span> content-type: text/html; charset=utf-8</p>
+    <p><span class="comment">&lt;</span> server: hugo</p>
+    <p>&nbsp;</p>
+    <p><span class="comment">*</span> The requested URL returned error: 404</p>
+  </div>
+
+  <div class="error-actions">
+    <p><span class="comment">##</span> Suggested commands:</p>
+    <ul>
+      <li><a href="/">cd ~</a> <span class="comment"># go home</span></li>
+      <li><a href="/blog">ls ./blog</a> <span class="comment"># list posts</span></li>
+      <li><a href="/tags">ls ./tags</a> <span class="comment"># browse tags</span></li>
+      <li><a href="javascript:history.back()">cd -</a> <span class="comment"># go back</span></li>
+    </ul>
+  </div>
+</section>
+
+  </main>
+  <hr class="sep" />
+<footer>
+  <span class="prompt-small">root@nieminen:~$ curl https://nenimein.fi/404.html<span class="blink">_</span></span>
+  <span class="copy">2026 — Nieminen — <a href="https://nenimein.fi/index.xml">RSS</a></span>
+</footer>
+
+</body>
+</html>

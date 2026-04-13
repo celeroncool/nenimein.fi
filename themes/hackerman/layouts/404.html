@@ -1,0 +1,31 @@
+{{ define "main" }}
+<section class="error-page">
+  <div class="error-trace">
+    <p><span class="comment">$</span> curl -v {{ .Site.BaseURL }}{{ .RelPermalink }}</p>
+    <p>&nbsp;</p>
+    <p><span class="comment">*</span>   Trying {{ .Site.BaseURL | replaceRE "https?://" "" | strings.TrimRight "/" }}...</p>
+    <p><span class="comment">*</span> Connected to {{ .Site.BaseURL | replaceRE "https?://" "" | strings.TrimRight "/" }} port 443</p>
+    <p><span class="comment">*</span> TLS handshake complete</p>
+    <p><span class="comment">&gt;</span> GET {{ .RelPermalink }} HTTP/2</p>
+    <p><span class="comment">&gt;</span> Host: {{ .Site.BaseURL | replaceRE "https?://" "" | strings.TrimRight "/" }}</p>
+    <p><span class="comment">&gt;</span> User-Agent: curl/8.7.1</p>
+    <p><span class="comment">&gt;</span> Accept: */*</p>
+    <p>&nbsp;</p>
+    <p><span class="error-code"><span class="comment">&lt;</span> HTTP/2 404</span></p>
+    <p><span class="comment">&lt;</span> content-type: text/html; charset=utf-8</p>
+    <p><span class="comment">&lt;</span> server: hugo</p>
+    <p>&nbsp;</p>
+    <p><span class="comment">*</span> The requested URL returned error: 404</p>
+  </div>
+
+  <div class="error-actions">
+    <p><span class="comment">##</span> Suggested commands:</p>
+    <ul>
+      <li><a href="{{ "/" | relURL }}">cd ~</a> <span class="comment"># go home</span></li>
+      <li><a href="{{ "/blog" | relURL }}">ls ./blog</a> <span class="comment"># list posts</span></li>
+      <li><a href="{{ "/tags" | relURL }}">ls ./tags</a> <span class="comment"># browse tags</span></li>
+      <li><a href="javascript:history.back()">cd -</a> <span class="comment"># go back</span></li>
+    </ul>
+  </div>
+</section>
+{{ end }}

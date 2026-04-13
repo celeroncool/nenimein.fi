@@ -1,111 +1,59 @@
 <!DOCTYPE html>
-<html lang="en" dir='ltr'>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Tesla Model X speaker measurements | Sami&#39;s Blog</title>
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Hugo 0.147.6">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="keywords" content="car, car-audio, projects">
-<link rel="stylesheet" type="text/css" media="screen" href="/blog/css/normalize.css" />
-<link rel="stylesheet" type="text/css" media="screen" href="/blog/css/main.css" />
-<link rel="stylesheet" type="text/css" media="screen" href="/blog/css/all.css" />
-
-<script>
-localStorage.setItem('theme', 'dark');
-</script>
+  <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Tesla Model X speaker measurements | Nieminen</title>
+<link rel="stylesheet" href="/css/style.css" />
+<link rel="alternate" type="application/rss+xml" title="Nieminen" href="https://nenimein.fi/index.xml" />
 
 
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<meta name="theme-color" content="#0d0d0d" />
 
-
-
-<meta property="og:url" content="https://nenimein.fi/blog/post/tesla-1/">
-  <meta property="og:site_name" content="Sami&#39;s Blog">
-  <meta property="og:title" content="Tesla Model X speaker measurements">
-  <meta property="og:description" content="Here are some measurements of a Tesla Model X, with “basic” audio package (two speakers per door).
-I have also included the full REW measurement data here, so you do not have to trust pictures only.
-Measuring setup Equipment RTA MIC: Measurements were done with MiniDSP UMIK-1, microphone pointing up, and 90deg calibration file loaded to REW. Speaker line measuring: Mackie ProFX6v3, with speaker line going in to high-level input. Source: USB stick, Audison BitOne test CD track “03 Pink noise 10min” in WAV format (lossless), played with volume 5 on Tesla’s head unit/entertainment system. Method Method is mostly based on this great guide from diymobileaudio author Hanatsu.">
-  <meta property="og:locale" content="en_us">
-  <meta property="og:type" content="article">
-    <meta property="article:section" content="post">
-    <meta property="article:published_time" content="2022-02-04T19:43:58+02:00">
-    <meta property="article:modified_time" content="2022-02-04T19:43:58+02:00">
-    <meta property="article:tag" content="Car">
-    <meta property="article:tag" content="Car-Audio">
-    <meta property="article:tag" content="Projects">
-
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Tesla Model X speaker measurements">
-  <meta name="twitter:description" content="Here are some measurements of a Tesla Model X, with “basic” audio package (two speakers per door).
-I have also included the full REW measurement data here, so you do not have to trust pictures only.
-Measuring setup Equipment RTA MIC: Measurements were done with MiniDSP UMIK-1, microphone pointing up, and 90deg calibration file loaded to REW. Speaker line measuring: Mackie ProFX6v3, with speaker line going in to high-level input. Source: USB stick, Audison BitOne test CD track “03 Pink noise 10min” in WAV format (lossless), played with volume 5 on Tesla’s head unit/entertainment system. Method Method is mostly based on this great guide from diymobileaudio author Hanatsu.">
-
-
-  <meta itemprop="name" content="Tesla Model X speaker measurements">
-  <meta itemprop="description" content="Here are some measurements of a Tesla Model X, with “basic” audio package (two speakers per door).
-I have also included the full REW measurement data here, so you do not have to trust pictures only.
-Measuring setup Equipment RTA MIC: Measurements were done with MiniDSP UMIK-1, microphone pointing up, and 90deg calibration file loaded to REW. Speaker line measuring: Mackie ProFX6v3, with speaker line going in to high-level input. Source: USB stick, Audison BitOne test CD track “03 Pink noise 10min” in WAV format (lossless), played with volume 5 on Tesla’s head unit/entertainment system. Method Method is mostly based on this great guide from diymobileaudio author Hanatsu.">
-  <meta itemprop="datePublished" content="2022-02-04T19:43:58+02:00">
-  <meta itemprop="dateModified" content="2022-02-04T19:43:58+02:00">
-  <meta itemprop="wordCount" content="292">
-  <meta itemprop="keywords" content="Car,Car-Audio,Projects">
 </head>
 <body>
-<header>
-<div id="avatar">
-<a href="https://nenimein.fi/blog/"><img src="/blog/img/logo.png" alt="Sami&#39;s Blog"></a>
-</div>
-<div id="titletext">
-<h2 id="title"><a href="https://nenimein.fi/blog/">Sami&#39;s Blog</a></h2>
-</div>
-<div id="title-description">
-<p id="subtitle">Made with <a href="https://gohugo.io/" target="_blank">Hugo</a>. Themed by <a href="https://codeberg.org/farooqkz/hugo-vitae" target="_blank">Vitae</a>. Deployed to someone else&rsquo;s computer.</p>
-<div id="social">
-<nav><ul>
-<li><button id="dark-mode" aria-label="Switch Dark Mode"><span title="Switch Dark Mode" class="icons fas fa-moon" aria-hidden="true"></span></button></li>
-</ul></nav>
-</div>
-</div>
-<div id="mainmenu">
-<nav>
-<ul>
-<li><a href="/blog/">Home</a></li>
-<li><a href="/blog/post">All posts</a></li>
-<li><a href="/blog/about">About</a></li>
-<li><a href="/blog/tags">Tags</a></li>
-<li><a href="/blog/sitemap.xml">RSS</a></li>
-</ul>
-</nav>
-</div>
+  <header>
+  <div class="prompt">
+    <span class="user">root@nieminen</span><span class="at">:</span><span class="path">~</span><span class="dollar">$</span>
+    <a class="site-title" href="/">Nieminen</a>
+  </div>
+  <nav>
+    <a href="/">/home</a>
+    <a href="/blog">/blog</a>
+    <a href="/tags">/tags</a>
+    <a href="/about">/about</a>
+    <a href="https://nenimein.fi/index.xml">/rss</a>
+  </nav>
 </header>
-<main>
-<div class="post" dir="auto">
+<hr class="sep" />
+
+  <main>
+    
 <article>
-<div class="post-header" dir="auto">
-<div class="meta" dir="auto">
-<div class="date" data-date='2022-02-04'>
-<span class="day">04</span>
-<span class="rest">Feb 2022</span>
-</div>
-
-
-</div>
-<div class="matter" dir="auto">
-<h1 class="title">Tesla Model X speaker measurements</h1>
-<p class="post-meta" dir="auto">
-<span class="post-meta">
-
-
-
-
-
-</span>
-
-</p>
-</div>
-</div>
-<div class="markdown">
-<p>Here are some measurements of a Tesla Model X, with &ldquo;basic&rdquo; audio package (two speakers per door).</p>
+  <header class="post-header">
+    <h1>Tesla Model X speaker measurements</h1>
+    <div class="post-meta">
+      <span class="date">2022-02-04 19:43</span>
+      
+      <span class="tags">
+        
+        <a href="/tags/car" class="tag-pill-inline">[car]</a>
+        
+        <a href="/tags/car-audio" class="tag-pill-inline">[car-audio]</a>
+        
+        <a href="/tags/projects" class="tag-pill-inline">[projects]</a>
+        
+      </span>
+      
+    </div>
+  </header>
+  <div class="post-content">
+    <p>Here are some measurements of a Tesla Model X, with &ldquo;basic&rdquo; audio package (two speakers per door).</p>
 <p>I have also included the <a href="./rew_data.mdat">full REW measurement data here</a>, so you do not have to trust pictures only.</p>
 <h2 id="measuring-setup">Measuring setup</h2>
 <h3 id="equipment">Equipment</h3>
@@ -115,7 +63,7 @@ Measuring setup Equipment RTA MIC: Measurements were done with MiniDSP UMIK-1, m
 <li>Source: USB stick, Audison BitOne test CD track &ldquo;03 Pink noise 10min&rdquo; in WAV format (lossless), played with volume 5 on Tesla&rsquo;s head unit/entertainment system.</li>
 </ul>
 <h3 id="method">Method</h3>
-<p>Method is mostly based on <a href="https://www.diymobileaudio.com/threads/first-timers-guide-to-measuring-your-system.163234/" target="_blank">this great guide</a> from diymobileaudio author Hanatsu.</p>
+<p>Method is mostly based on <a href="https://www.diymobileaudio.com/threads/first-timers-guide-to-measuring-your-system.163234/">this great guide</a> from diymobileaudio author Hanatsu.</p>
 <p>Each measurement is taken by moving the microphone around near the driver&rsquo;s ear, while sitting in drivers seat. We take 30 samples using REW RTA with the following options:</p>
 <ul>
 <li>Mode: RTA 1/12 octave</li>
@@ -159,13 +107,13 @@ Measuring setup Equipment RTA MIC: Measurements were done with MiniDSP UMIK-1, m
   sizes="(min-width: 35em) 1200px, 100vw"
   srcset='
   
-    /blog/post/tesla-1/left_average_hu_43f5ac06a07a49a1.jpg 500w
+    /blog/post/tesla-1/left_average_hu_b7967bb6f74dd99c.jpg 500w
   
   
-    , /blog/post/tesla-1/left_average_hu_248ebff0bed8daf4.jpg 800w
+    , /blog/post/tesla-1/left_average_hu_e893257118dd5019.jpg 800w
   
   
-    , /blog/post/tesla-1/left_average_hu_5c4e6eb7da59ec69.jpg 1200w
+    , /blog/post/tesla-1/left_average_hu_3aed21269d83f86d.jpg 1200w
   
   '
   
@@ -204,13 +152,13 @@ Measuring setup Equipment RTA MIC: Measurements were done with MiniDSP UMIK-1, m
   sizes="(min-width: 35em) 1200px, 100vw"
   srcset='
   
-    /blog/post/tesla-1/right_average_hu_f25daa3872eb019d.jpg 500w
+    /blog/post/tesla-1/right_average_hu_477051e82f93e5f9.jpg 500w
   
   
-    , /blog/post/tesla-1/right_average_hu_8cfb40155d34f6c7.jpg 800w
+    , /blog/post/tesla-1/right_average_hu_49313ce47414d078.jpg 800w
   
   
-    , /blog/post/tesla-1/right_average_hu_5315fb0ce9a1cbd2.jpg 1200w
+    , /blog/post/tesla-1/right_average_hu_4c4585fd1f689c2b.jpg 1200w
   
   '
   
@@ -251,13 +199,13 @@ Measuring setup Equipment RTA MIC: Measurements were done with MiniDSP UMIK-1, m
   sizes="(min-width: 35em) 1200px, 100vw"
   srcset='
   
-    /blog/post/tesla-1/front_line_hu_2d5acc98eece8da9.jpg 500w
+    /blog/post/tesla-1/front_line_hu_cf8f2576d25b0d0a.jpg 500w
   
   
-    , /blog/post/tesla-1/front_line_hu_e7f10277506efecd.jpg 800w
+    , /blog/post/tesla-1/front_line_hu_4bdc731f8585ad89.jpg 800w
   
   
-    , /blog/post/tesla-1/front_line_hu_eaca7b8f835974c1.jpg 1200w
+    , /blog/post/tesla-1/front_line_hu_4a7d1450ba78dbf0.jpg 1200w
   
   '
   
@@ -296,13 +244,13 @@ Measuring setup Equipment RTA MIC: Measurements were done with MiniDSP UMIK-1, m
   sizes="(min-width: 35em) 1200px, 100vw"
   srcset='
   
-    /blog/post/tesla-1/rear_line_hu_22728ab0bee537aa.jpg 500w
+    /blog/post/tesla-1/rear_line_hu_e559aa9660171dac.jpg 500w
   
   
-    , /blog/post/tesla-1/rear_line_hu_4144180297760264.jpg 800w
+    , /blog/post/tesla-1/rear_line_hu_70f24b4bd85ec074.jpg 800w
   
   
-    , /blog/post/tesla-1/rear_line_hu_a932ada274f20a26.jpg 1200w
+    , /blog/post/tesla-1/rear_line_hu_8a01fd0a66e165f6.jpg 1200w
   
   '
   
@@ -310,28 +258,19 @@ Measuring setup Equipment RTA MIC: Measurements were done with MiniDSP UMIK-1, m
   
   alt="Front speaker line measurements."></p>
 
-</div>
-<div class="tags" dir="auto">
-<div class="taxosfloating_left">
-<p>Tags</p>
-</div>
-<div class="termsfloating_right">
-<p>
-<a href="/blog/tags/car/">car</a>
-<a href="/blog/tags/car-audio/">car-audio</a>
-<a href="/blog/tags/projects/">projects</a>
-</p>
-</div>
-<div class="clearit"></div>
-</div>
+  </div>
+  <div class="post-nav">
+    <a href="https://nenimein.fi/blog/post/migrate_mumble_server/">&lt; Migrating mumble servers</a>
+    <a href="https://nenimein.fi/blog/post/hpe-n54l-fans/" style="float:right;">HPE Proliant Microserver Gen7 fan mod &gt;</a>
+  </div>
 </article>
-</div>
-</main>
-<footer>
-© Sami Nieminen
 
-<script data-id="matomo-tracking" data-matomo-tracking-url='https://matomo.nenimein.fi' data-matomo-tracking-id='1' src="/blog/js/matomo-tracking.min.d8e1498fb42aa6048c4db4ac8451d0141fe4a0a83a1b4857df2a67a0cabd350a.js" integrity="sha256-2OFJj7QqpgSMTbSshFHQFB/koKg6G0hX3ypnoMq9NQo=" crossorigin="anonymous" defer></script>
-</footer><script src="/blog/js/dark-mode.js"></script>
+  </main>
+  <hr class="sep" />
+<footer>
+  <span class="prompt-small">root@nieminen:~$ curl https://nenimein.fi/blog/post/tesla-1/<span class="blink">_</span></span>
+  <span class="copy">2026 — Nieminen — <a href="https://nenimein.fi/index.xml">RSS</a></span>
+</footer>
 
 </body>
 </html>

@@ -1,0 +1,9 @@
+name = "hackerman"
+license = "MIT"
+licenselink = "https://opensource.org/licenses/MIT"
+description = "hacker-style Hugo theme"
+homepage = "https://nenimein.fi"
+min_version = "0.110.0"
+
+[author]
+  name = "You"

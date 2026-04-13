@@ -1,0 +1,19 @@
+{{ define "main" }}
+<section class="hero">
+  <p class="typewriter">{{ .Site.Params.tagline | default "// welcome to the terminal." }}</p>
+  {{ .Content }}
+</section>
+
+<section class="recent-posts">
+  <h2><span class="comment">##</span> recent_posts</h2>
+  <ul>
+    {{ range first 5 (where .Site.RegularPages "Section" "blog") }}
+    <li>
+      <span class="date">{{ .Date.Format "2006-01-02" }}</span>
+      <a href="{{ .Permalink }}">{{ .Title }}</a>
+    </li>
+    {{ end }}
+  </ul>
+  <p><a href="{{ "/blog" | relURL }}">&gt; view all posts</a></p>
+</section>
+{{ end }}

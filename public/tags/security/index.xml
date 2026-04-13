@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Security on Nieminen</title>
+    <link>https://nenimein.fi/tags/security/</link>
+    <description>Recent content in Security on Nieminen</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <copyright>Copyright © Sami Nieminen</copyright>
+    <lastBuildDate>Sun, 03 Nov 2024 17:25:41 +0200</lastBuildDate>
+    <atom:link href="https://nenimein.fi/tags/security/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How to actually use Azure Secure Files with Terraform</title>
+      <link>https://nenimein.fi/blog/post/azure-secure-files/</link>
+      <pubDate>Sun, 03 Nov 2024 17:25:41 +0200</pubDate>
+      <guid>https://nenimein.fi/blog/post/azure-secure-files/</guid>
+      <description>&lt;p&gt;I could not find a real guide to use Azure secure files securely in combination with Terraform. All guides either used a PAT (Privileged Access Token) or in worst cases, commiting secrets to code.&lt;/p&gt;&#xA;&lt;h1 id=&#34;the-problem&#34;&gt;The problem:&lt;/h1&gt;&#xA;&lt;p&gt;We are trying to deploy Azure Devops Agent with Terraform to bootstrap our Ansible deployments. Kind of a chicken-egg issue is that how do you deploy the Azure Devops Agent runner to a linux machine without doing manual commands?&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

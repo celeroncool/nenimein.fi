@@ -1,0 +1,16 @@
+{{ define "main" }}
+<h1><span class="comment">##</span> {{ .Title | default "blog" }}</h1>
+<ul class="post-list">
+  {{ range .Pages }}
+  <li>
+    <span class="date">{{ .Date.Format "2006-01-02" }}</span>
+    <a href="{{ .Permalink }}">{{ .Title }}</a>
+    {{ with .Params.tags }}
+    <span class="tags">
+      {{ range . }}[<span class="tag">{{ . }}</span>]{{ end }}
+    </span>
+    {{ end }}
+  </li>
+  {{ end }}
+</ul>
+{{ end }}

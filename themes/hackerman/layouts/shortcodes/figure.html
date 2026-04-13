@@ -1,0 +1,12 @@
+{{ $src   := .Get "src" }}
+{{ $alt   := .Get "alt"     | default "" }}
+{{ $cap   := .Get "caption" | default "" }}
+{{ $class := .Get "class"   | default "" }}
+{{ $link  := .Get "link"    | default "" }}
+
+<figure{{ with $class }} class="{{ . }}"{{ end }}>
+  {{ if $link }}<a href="{{ $link }}">{{ end }}
+  <img src="{{ $src }}" alt="{{ $alt }}" loading="lazy" />
+  {{ if $link }}</a>{{ end }}
+  {{ with $cap }}<figcaption>{{ . }}</figcaption>{{ end }}
+</figure>

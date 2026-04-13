@@ -1,112 +1,61 @@
 <!DOCTYPE html>
-<html lang="en" dir='ltr'>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Migrating mumble servers | Sami&#39;s Blog</title>
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Hugo 0.147.6">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="keywords" content="projects, lang-english, linux, server">
-<link rel="stylesheet" type="text/css" media="screen" href="/blog/css/normalize.css" />
-<link rel="stylesheet" type="text/css" media="screen" href="/blog/css/main.css" />
-<link rel="stylesheet" type="text/css" media="screen" href="/blog/css/all.css" />
-
-<script>
-localStorage.setItem('theme', 'dark');
-</script>
+  <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Migrating mumble servers | Nieminen</title>
+<link rel="stylesheet" href="/css/style.css" />
+<link rel="alternate" type="application/rss+xml" title="Nieminen" href="https://nenimein.fi/index.xml" />
 
 
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<meta name="theme-color" content="#0d0d0d" />
 
-
-
-<meta property="og:url" content="https://nenimein.fi/blog/post/migrate_mumble_server/">
-  <meta property="og:site_name" content="Sami&#39;s Blog">
-  <meta property="og:title" content="Migrating mumble servers">
-  <meta property="og:description" content="How to migrate mumble server to from old linux server to new linux server.
-This is mostly a reminder for myself, on how to do it in the future if I ever need to migrate servers again. But, it might also help you if you hit a few “gotchas” on the way as I did.
-Prep First, set up the new server. My new server is running Ubuntu 20.04 LTS, so I get the best mix of latest packages and stability. Most of the commands are run as #root.">
-  <meta property="og:locale" content="en_us">
-  <meta property="og:type" content="article">
-    <meta property="article:section" content="post">
-    <meta property="article:published_time" content="2022-02-03T19:44:10+02:00">
-    <meta property="article:modified_time" content="2022-02-03T19:44:10+02:00">
-    <meta property="article:tag" content="Projects">
-    <meta property="article:tag" content="Lang-English">
-    <meta property="article:tag" content="Linux">
-    <meta property="article:tag" content="Server">
-
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Migrating mumble servers">
-  <meta name="twitter:description" content="How to migrate mumble server to from old linux server to new linux server.
-This is mostly a reminder for myself, on how to do it in the future if I ever need to migrate servers again. But, it might also help you if you hit a few “gotchas” on the way as I did.
-Prep First, set up the new server. My new server is running Ubuntu 20.04 LTS, so I get the best mix of latest packages and stability. Most of the commands are run as #root.">
-
-
-  <meta itemprop="name" content="Migrating mumble servers">
-  <meta itemprop="description" content="How to migrate mumble server to from old linux server to new linux server.
-This is mostly a reminder for myself, on how to do it in the future if I ever need to migrate servers again. But, it might also help you if you hit a few “gotchas” on the way as I did.
-Prep First, set up the new server. My new server is running Ubuntu 20.04 LTS, so I get the best mix of latest packages and stability. Most of the commands are run as #root.">
-  <meta itemprop="datePublished" content="2022-02-03T19:44:10+02:00">
-  <meta itemprop="dateModified" content="2022-02-03T19:44:10+02:00">
-  <meta itemprop="wordCount" content="503">
-  <meta itemprop="keywords" content="Projects,Lang-English,Linux,Server">
 </head>
 <body>
-<header>
-<div id="avatar">
-<a href="https://nenimein.fi/blog/"><img src="/blog/img/logo.png" alt="Sami&#39;s Blog"></a>
-</div>
-<div id="titletext">
-<h2 id="title"><a href="https://nenimein.fi/blog/">Sami&#39;s Blog</a></h2>
-</div>
-<div id="title-description">
-<p id="subtitle">Made with <a href="https://gohugo.io/" target="_blank">Hugo</a>. Themed by <a href="https://codeberg.org/farooqkz/hugo-vitae" target="_blank">Vitae</a>. Deployed to someone else&rsquo;s computer.</p>
-<div id="social">
-<nav><ul>
-<li><button id="dark-mode" aria-label="Switch Dark Mode"><span title="Switch Dark Mode" class="icons fas fa-moon" aria-hidden="true"></span></button></li>
-</ul></nav>
-</div>
-</div>
-<div id="mainmenu">
-<nav>
-<ul>
-<li><a href="/blog/">Home</a></li>
-<li><a href="/blog/post">All posts</a></li>
-<li><a href="/blog/about">About</a></li>
-<li><a href="/blog/tags">Tags</a></li>
-<li><a href="/blog/sitemap.xml">RSS</a></li>
-</ul>
-</nav>
-</div>
+  <header>
+  <div class="prompt">
+    <span class="user">root@nieminen</span><span class="at">:</span><span class="path">~</span><span class="dollar">$</span>
+    <a class="site-title" href="/">Nieminen</a>
+  </div>
+  <nav>
+    <a href="/">/home</a>
+    <a href="/blog">/blog</a>
+    <a href="/tags">/tags</a>
+    <a href="/about">/about</a>
+    <a href="https://nenimein.fi/index.xml">/rss</a>
+  </nav>
 </header>
-<main>
-<div class="post" dir="auto">
+<hr class="sep" />
+
+  <main>
+    
 <article>
-<div class="post-header" dir="auto">
-<div class="meta" dir="auto">
-<div class="date" data-date='2022-02-03'>
-<span class="day">03</span>
-<span class="rest">Feb 2022</span>
-</div>
-
-
-</div>
-<div class="matter" dir="auto">
-<h1 class="title">Migrating mumble servers</h1>
-<p class="post-meta" dir="auto">
-<span class="post-meta">
-
-
-
-
-
-</span>
-
-</p>
-</div>
-</div>
-<div class="markdown">
-<p>How to migrate mumble server to from old linux server to new linux server.</p>
+  <header class="post-header">
+    <h1>Migrating mumble servers</h1>
+    <div class="post-meta">
+      <span class="date">2022-02-03 19:44</span>
+      
+      <span class="tags">
+        
+        <a href="/tags/projects" class="tag-pill-inline">[projects]</a>
+        
+        <a href="/tags/lang-english" class="tag-pill-inline">[lang-english]</a>
+        
+        <a href="/tags/linux" class="tag-pill-inline">[linux]</a>
+        
+        <a href="/tags/server" class="tag-pill-inline">[server]</a>
+        
+      </span>
+      
+    </div>
+  </header>
+  <div class="post-content">
+    <p>How to migrate mumble server to from old linux server to new linux server.</p>
 <p>This is mostly a reminder for myself, on how to do it in the future if I ever need to migrate servers again. But, it might also help you if you hit a few &ldquo;gotchas&rdquo; on the way as I did.</p>
 <h2 id="prep">Prep</h2>
 <p>First, set up the new server. My new server is running Ubuntu 20.04 LTS, so I get the best mix of latest packages and stability.
@@ -157,29 +106,19 @@ Remember to point your mumble DNS name to the new server, otherwise the certific
 <p>And finally let&rsquo;s make it so that mumble-server will automatically start after reboots/upgrades:</p>
 <p><code># systemctl enable mumble-server</code></p>
 
-</div>
-<div class="tags" dir="auto">
-<div class="taxosfloating_left">
-<p>Tags</p>
-</div>
-<div class="termsfloating_right">
-<p>
-<a href="/blog/tags/lang-english/">lang-english</a>
-<a href="/blog/tags/linux/">linux</a>
-<a href="/blog/tags/projects/">projects</a>
-<a href="/blog/tags/server/">server</a>
-</p>
-</div>
-<div class="clearit"></div>
-</div>
+  </div>
+  <div class="post-nav">
+    <a href="https://nenimein.fi/blog/post/emma-6/">&lt; Emma - Sixth part</a>
+    <a href="https://nenimein.fi/blog/post/tesla-1/" style="float:right;">Tesla Model X speaker measurements &gt;</a>
+  </div>
 </article>
-</div>
-</main>
-<footer>
-© Sami Nieminen
 
-<script data-id="matomo-tracking" data-matomo-tracking-url='https://matomo.nenimein.fi' data-matomo-tracking-id='1' src="/blog/js/matomo-tracking.min.d8e1498fb42aa6048c4db4ac8451d0141fe4a0a83a1b4857df2a67a0cabd350a.js" integrity="sha256-2OFJj7QqpgSMTbSshFHQFB/koKg6G0hX3ypnoMq9NQo=" crossorigin="anonymous" defer></script>
-</footer><script src="/blog/js/dark-mode.js"></script>
+  </main>
+  <hr class="sep" />
+<footer>
+  <span class="prompt-small">root@nieminen:~$ curl https://nenimein.fi/blog/post/migrate_mumble_server/<span class="blink">_</span></span>
+  <span class="copy">2026 — Nieminen — <a href="https://nenimein.fi/index.xml">RSS</a></span>
+</footer>
 
 </body>
 </html>

@@ -1,118 +1,65 @@
 <!DOCTYPE html>
-<html lang="en" dir='ltr'>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>HPE Proliant Microserver Gen7 fan mod | Sami&#39;s Blog</title>
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Hugo 0.147.6">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="keywords" content="HPE, projects, diy, cooling, lang-english">
-<link rel="stylesheet" type="text/css" media="screen" href="/blog/css/normalize.css" />
-<link rel="stylesheet" type="text/css" media="screen" href="/blog/css/main.css" />
-<link rel="stylesheet" type="text/css" media="screen" href="/blog/css/all.css" />
-
-<script>
-localStorage.setItem('theme', 'dark');
-</script>
+  <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>HPE Proliant Microserver Gen7 fan mod | Nieminen</title>
+<link rel="stylesheet" href="/css/style.css" />
+<link rel="alternate" type="application/rss+xml" title="Nieminen" href="https://nenimein.fi/index.xml" />
 
 
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<meta name="theme-color" content="#0d0d0d" />
 
-
-
-<meta property="og:url" content="https://nenimein.fi/blog/post/hpe-n54l-fans/">
-  <meta property="og:site_name" content="Sami&#39;s Blog">
-  <meta property="og:title" content="HPE Proliant Microserver Gen7 fan mod">
-  <meta property="og:description" content="Modding my HPE Proliant Microserver Gen7 (N54L) to be less loud. Also listing the fans which do not work and fans which work.
-Mostly following the now “defunct” guide from SilentPCReview. Working guide can be found at Internet Archive
-Problem Stock fans, especially the PSU fan is very noisy. It doesnt output much desibels, but it certainly outputs them at very annoying frequencies.
-Here are REW graphs, measured with MiniDSP UMIK-1 measuring microphone approx one meter away from the device, with fans pointing away from the microphone. The server is sitting under my desk, in a corner. Red graph is NAS turned off and green is NAS running with stock fans.">
-  <meta property="og:locale" content="en_us">
-  <meta property="og:type" content="article">
-    <meta property="article:section" content="post">
-    <meta property="article:published_time" content="2023-05-23T21:09:55+03:00">
-    <meta property="article:modified_time" content="2023-05-23T21:09:55+03:00">
-    <meta property="article:tag" content="Hpe">
-    <meta property="article:tag" content="Projects">
-    <meta property="article:tag" content="Diy">
-    <meta property="article:tag" content="Cooling">
-    <meta property="article:tag" content="Lang-English">
-
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="HPE Proliant Microserver Gen7 fan mod">
-  <meta name="twitter:description" content="Modding my HPE Proliant Microserver Gen7 (N54L) to be less loud. Also listing the fans which do not work and fans which work.
-Mostly following the now “defunct” guide from SilentPCReview. Working guide can be found at Internet Archive
-Problem Stock fans, especially the PSU fan is very noisy. It doesnt output much desibels, but it certainly outputs them at very annoying frequencies.
-Here are REW graphs, measured with MiniDSP UMIK-1 measuring microphone approx one meter away from the device, with fans pointing away from the microphone. The server is sitting under my desk, in a corner. Red graph is NAS turned off and green is NAS running with stock fans.">
-
-
-  <meta itemprop="name" content="HPE Proliant Microserver Gen7 fan mod">
-  <meta itemprop="description" content="Modding my HPE Proliant Microserver Gen7 (N54L) to be less loud. Also listing the fans which do not work and fans which work.
-Mostly following the now “defunct” guide from SilentPCReview. Working guide can be found at Internet Archive
-Problem Stock fans, especially the PSU fan is very noisy. It doesnt output much desibels, but it certainly outputs them at very annoying frequencies.
-Here are REW graphs, measured with MiniDSP UMIK-1 measuring microphone approx one meter away from the device, with fans pointing away from the microphone. The server is sitting under my desk, in a corner. Red graph is NAS turned off and green is NAS running with stock fans.">
-  <meta itemprop="datePublished" content="2023-05-23T21:09:55+03:00">
-  <meta itemprop="dateModified" content="2023-05-23T21:09:55+03:00">
-  <meta itemprop="wordCount" content="618">
-  <meta itemprop="keywords" content="Hpe,Projects,Diy,Cooling,Lang-English">
 </head>
 <body>
-<header>
-<div id="avatar">
-<a href="https://nenimein.fi/blog/"><img src="/blog/img/logo.png" alt="Sami&#39;s Blog"></a>
-</div>
-<div id="titletext">
-<h2 id="title"><a href="https://nenimein.fi/blog/">Sami&#39;s Blog</a></h2>
-</div>
-<div id="title-description">
-<p id="subtitle">Made with <a href="https://gohugo.io/" target="_blank">Hugo</a>. Themed by <a href="https://codeberg.org/farooqkz/hugo-vitae" target="_blank">Vitae</a>. Deployed to someone else&rsquo;s computer.</p>
-<div id="social">
-<nav><ul>
-<li><button id="dark-mode" aria-label="Switch Dark Mode"><span title="Switch Dark Mode" class="icons fas fa-moon" aria-hidden="true"></span></button></li>
-</ul></nav>
-</div>
-</div>
-<div id="mainmenu">
-<nav>
-<ul>
-<li><a href="/blog/">Home</a></li>
-<li><a href="/blog/post">All posts</a></li>
-<li><a href="/blog/about">About</a></li>
-<li><a href="/blog/tags">Tags</a></li>
-<li><a href="/blog/sitemap.xml">RSS</a></li>
-</ul>
-</nav>
-</div>
+  <header>
+  <div class="prompt">
+    <span class="user">root@nieminen</span><span class="at">:</span><span class="path">~</span><span class="dollar">$</span>
+    <a class="site-title" href="/">Nieminen</a>
+  </div>
+  <nav>
+    <a href="/">/home</a>
+    <a href="/blog">/blog</a>
+    <a href="/tags">/tags</a>
+    <a href="/about">/about</a>
+    <a href="https://nenimein.fi/index.xml">/rss</a>
+  </nav>
 </header>
-<main>
-<div class="post" dir="auto">
+<hr class="sep" />
+
+  <main>
+    
 <article>
-<div class="post-header" dir="auto">
-<div class="meta" dir="auto">
-<div class="date" data-date='2023-05-23'>
-<span class="day">23</span>
-<span class="rest">May 2023</span>
-</div>
-
-
-</div>
-<div class="matter" dir="auto">
-<h1 class="title">HPE Proliant Microserver Gen7 fan mod</h1>
-<p class="post-meta" dir="auto">
-<span class="post-meta">
-
-
-
-
-
-</span>
-
-</p>
-</div>
-</div>
-<div class="markdown">
-<p>Modding my HPE Proliant Microserver Gen7 (N54L) to be less loud.
+  <header class="post-header">
+    <h1>HPE Proliant Microserver Gen7 fan mod</h1>
+    <div class="post-meta">
+      <span class="date">2023-05-23 21:09</span>
+      
+      <span class="tags">
+        
+        <a href="/tags/hpe" class="tag-pill-inline">[HPE]</a>
+        
+        <a href="/tags/projects" class="tag-pill-inline">[projects]</a>
+        
+        <a href="/tags/diy" class="tag-pill-inline">[diy]</a>
+        
+        <a href="/tags/cooling" class="tag-pill-inline">[cooling]</a>
+        
+        <a href="/tags/lang-english" class="tag-pill-inline">[lang-english]</a>
+        
+      </span>
+      
+    </div>
+  </header>
+  <div class="post-content">
+    <p>Modding my HPE Proliant Microserver Gen7 (N54L) to be less loud.
 Also listing the fans which do <strong>not</strong> work and fans which work.</p>
-<p>Mostly following the now &ldquo;defunct&rdquo; guide from <a href="http://www.silentpcreview.com/article1193-page7.html" target="_blank">SilentPCReview</a>. Working guide can be found at <a href="https://web.archive.org/web/20180618153444/http://www.silentpcreview.com/article1193-page7.html" target="_blank">Internet Archive</a></p>
+<p>Mostly following the now &ldquo;defunct&rdquo; guide from <a href="http://www.silentpcreview.com/article1193-page7.html">SilentPCReview</a>. Working guide can be found at <a href="https://web.archive.org/web/20180618153444/http://www.silentpcreview.com/article1193-page7.html">Internet Archive</a></p>
 <h2 id="problem">Problem</h2>
 <p>Stock fans, especially the PSU fan is very noisy. It doesnt output much desibels, but it certainly outputs them at very annoying frequencies.</p>
 <p>Here are REW graphs, measured with MiniDSP UMIK-1 measuring microphone approx one meter away from the device, with fans pointing away from the microphone. The server is sitting under my desk, in a corner. Red graph is NAS turned off and green is NAS running with stock fans.</p>
@@ -147,16 +94,16 @@ Also listing the fans which do <strong>not</strong> work and fans which work.</p
   sizes="(min-width: 35em) 1200px, 100vw"
   srcset='
   
-    /blog/post/hpe-n54l-fans/nas_before_hu_45effb456664c9e8.jpg 500w
+    /blog/post/hpe-n54l-fans/nas_before_hu_9d284c5b748df9ab.jpg 500w
   
   
-    , /blog/post/hpe-n54l-fans/nas_before_hu_4f52a2838cce5bd.jpg 800w
+    , /blog/post/hpe-n54l-fans/nas_before_hu_282e720fe82fdc0f.jpg 800w
   
   
-    , /blog/post/hpe-n54l-fans/nas_before_hu_744824eb73c3be71.jpg 1200w
+    , /blog/post/hpe-n54l-fans/nas_before_hu_71acdeb5aefb409b.jpg 1200w
   
   
-    , /blog/post/hpe-n54l-fans/nas_before_hu_b091f06261f45b01.jpg 1500w 
+    , /blog/post/hpe-n54l-fans/nas_before_hu_85249e7d1d9fe796.jpg 1500w 
   '
   
     src="/blog/post/hpe-n54l-fans/nas_before.jpg" 
@@ -183,9 +130,9 @@ Also listing the fans which do <strong>not</strong> work and fans which work.</p
 <h3 id="fans">Fans</h3>
 <p>I purchased following Noctua fans:</p>
 <ul>
-<li><a href="https://noctua.at/en/nf-a12x25-pwm" target="_blank">Noctua NF-A12x25 PWM</a>, a 120x25mm 12V PWM fan (Did not work, too slow start RPM&hellip;)</li>
-<li><a href="https://noctua.at/en/products/fan/nf-a4x20-5v" target="_blank">Noctua NF-A4x20 5V</a>, a 40x20mm 5V fan (Did not work, too noisy&hellip;)</li>
-<li><a href="https://noctua.at/en/products/fan/nf-a4x20-flx" target="_blank">Noctua NF-A4x20 FLX</a>, a 40x20mm 12V fan with LNA&amp;ULNA adapters (Works wonderfully!)</li>
+<li><a href="https://noctua.at/en/nf-a12x25-pwm">Noctua NF-A12x25 PWM</a>, a 120x25mm 12V PWM fan (Did not work, too slow start RPM&hellip;)</li>
+<li><a href="https://noctua.at/en/products/fan/nf-a4x20-5v">Noctua NF-A4x20 5V</a>, a 40x20mm 5V fan (Did not work, too noisy&hellip;)</li>
+<li><a href="https://noctua.at/en/products/fan/nf-a4x20-flx">Noctua NF-A4x20 FLX</a>, a 40x20mm 12V fan with LNA&amp;ULNA adapters (Works wonderfully!)</li>
 </ul>
 <p>As the new Noctua 120mm fan was too slow to run, I returned the fan back to original. The motherboard requires atleast 500RPM signal from the fan to boot. This is unfortunately not changeable in the BIOS.</p>
 <p>Here are the graphs comparing all of the options. Red is NAS not running, green is NAS running with stock fans, purple is NAS running with 5V Noctua PSU fan and orange is NAS running with 12V Noctua PSU fan.</p>
@@ -220,16 +167,16 @@ Also listing the fans which do <strong>not</strong> work and fans which work.</p
   sizes="(min-width: 35em) 1200px, 100vw"
   srcset='
   
-    /blog/post/hpe-n54l-fans/nas_after_hu_8a5bb39cb37820a3.jpg 500w
+    /blog/post/hpe-n54l-fans/nas_after_hu_20e60bb8dce5a003.jpg 500w
   
   
-    , /blog/post/hpe-n54l-fans/nas_after_hu_36f9d6762ea08c72.jpg 800w
+    , /blog/post/hpe-n54l-fans/nas_after_hu_617dd13ddf17b0c8.jpg 800w
   
   
-    , /blog/post/hpe-n54l-fans/nas_after_hu_eac299d3a0934aae.jpg 1200w
+    , /blog/post/hpe-n54l-fans/nas_after_hu_d3111d592f8a1843.jpg 1200w
   
   
-    , /blog/post/hpe-n54l-fans/nas_after_hu_f4ddd27c19544e41.jpg 1500w 
+    , /blog/post/hpe-n54l-fans/nas_after_hu_666e2712be4350a6.jpg 1500w 
   '
   
     src="/blog/post/hpe-n54l-fans/nas_after.jpg" 
@@ -272,16 +219,16 @@ Also listing the fans which do <strong>not</strong> work and fans which work.</p
   sizes="(min-width: 35em) 1200px, 100vw"
   srcset='
   
-    /blog/post/hpe-n54l-fans/IMG_7212_hu_614676d7bb1ff6a5.jpeg 500w
+    /blog/post/hpe-n54l-fans/IMG_7212_hu_edad06b27fbb16a.jpeg 500w
   
   
-    , /blog/post/hpe-n54l-fans/IMG_7212_hu_f8a5576b7221bc68.jpeg 800w
+    , /blog/post/hpe-n54l-fans/IMG_7212_hu_358c7b84fa581b42.jpeg 800w
   
   
-    , /blog/post/hpe-n54l-fans/IMG_7212_hu_e050e69a10c9a461.jpeg 1200w
+    , /blog/post/hpe-n54l-fans/IMG_7212_hu_c912ccf03d1a4b48.jpeg 1200w
   
   
-    , /blog/post/hpe-n54l-fans/IMG_7212_hu_2e74541aea7242d1.jpeg 1500w 
+    , /blog/post/hpe-n54l-fans/IMG_7212_hu_494b937d9f1dba0a.jpeg 1500w 
   '
   
     src="/blog/post/hpe-n54l-fans/IMG_7212.jpeg" 
@@ -319,16 +266,16 @@ Also listing the fans which do <strong>not</strong> work and fans which work.</p
   sizes="(min-width: 35em) 1200px, 100vw"
   srcset='
   
-    /blog/post/hpe-n54l-fans/IMG_7210_hu_a1cf84e264294749.jpeg 500w
+    /blog/post/hpe-n54l-fans/IMG_7210_hu_87c63fa90d5adb38.jpeg 500w
   
   
-    , /blog/post/hpe-n54l-fans/IMG_7210_hu_2c9ea138685688c.jpeg 800w
+    , /blog/post/hpe-n54l-fans/IMG_7210_hu_b6ba8870ee76c6a0.jpeg 800w
   
   
-    , /blog/post/hpe-n54l-fans/IMG_7210_hu_8ff3507819851a47.jpeg 1200w
+    , /blog/post/hpe-n54l-fans/IMG_7210_hu_5f5f9923ab5021dc.jpeg 1200w
   
   
-    , /blog/post/hpe-n54l-fans/IMG_7210_hu_672d00dfa28fd7b7.jpeg 1500w 
+    , /blog/post/hpe-n54l-fans/IMG_7210_hu_53898a6d4ede52a9.jpeg 1500w 
   '
   
     src="/blog/post/hpe-n54l-fans/IMG_7210.jpeg" 
@@ -366,16 +313,16 @@ Also listing the fans which do <strong>not</strong> work and fans which work.</p
   sizes="(min-width: 35em) 1200px, 100vw"
   srcset='
   
-    /blog/post/hpe-n54l-fans/IMG_7213_hu_3f2a0b1ab71d1006.jpeg 500w
+    /blog/post/hpe-n54l-fans/IMG_7213_hu_e08a2d64fb6b9041.jpeg 500w
   
   
-    , /blog/post/hpe-n54l-fans/IMG_7213_hu_b5a877f6a5d4a396.jpeg 800w
+    , /blog/post/hpe-n54l-fans/IMG_7213_hu_9ab7cb25a5dfef4.jpeg 800w
   
   
-    , /blog/post/hpe-n54l-fans/IMG_7213_hu_9554bf436a1896dd.jpeg 1200w
+    , /blog/post/hpe-n54l-fans/IMG_7213_hu_be6f1d0ff3cb0915.jpeg 1200w
   
   
-    , /blog/post/hpe-n54l-fans/IMG_7213_hu_91d4f269e65fd2c0.jpeg 1500w 
+    , /blog/post/hpe-n54l-fans/IMG_7213_hu_3205a15bc12ada65.jpeg 1500w 
   '
   
     src="/blog/post/hpe-n54l-fans/IMG_7213.jpeg" 
@@ -413,13 +360,13 @@ Also listing the fans which do <strong>not</strong> work and fans which work.</p
   sizes="(min-width: 35em) 1200px, 100vw"
   srcset='
   
-    /blog/post/hpe-n54l-fans/noctua_connector_hu_f47cfb8b11838b69.png 500w
+    /blog/post/hpe-n54l-fans/noctua_connector_hu_dd083be68bb1383a.png 500w
   
   
-    , /blog/post/hpe-n54l-fans/noctua_connector_hu_469b62efb82aa7ac.png 800w
+    , /blog/post/hpe-n54l-fans/noctua_connector_hu_e1f6c6d68cec3f40.png 800w
   
   
-    , /blog/post/hpe-n54l-fans/noctua_connector_hu_b0f7af26a32f7eef.png 1200w
+    , /blog/post/hpe-n54l-fans/noctua_connector_hu_f715627eaae10379.png 1200w
   
   '
   
@@ -457,16 +404,16 @@ Also listing the fans which do <strong>not</strong> work and fans which work.</p
   sizes="(min-width: 35em) 1200px, 100vw"
   srcset='
   
-    /blog/post/hpe-n54l-fans/IMG_7214_hu_8d4112616e71fb00.jpeg 500w
+    /blog/post/hpe-n54l-fans/IMG_7214_hu_86642560b0e251e4.jpeg 500w
   
   
-    , /blog/post/hpe-n54l-fans/IMG_7214_hu_c8b725aec2867521.jpeg 800w
+    , /blog/post/hpe-n54l-fans/IMG_7214_hu_35bcbe0b60db1018.jpeg 800w
   
   
-    , /blog/post/hpe-n54l-fans/IMG_7214_hu_65baefc53a9cf4ee.jpeg 1200w
+    , /blog/post/hpe-n54l-fans/IMG_7214_hu_85327649cd18be52.jpeg 1200w
   
   
-    , /blog/post/hpe-n54l-fans/IMG_7214_hu_40d6300c39e40d53.jpeg 1500w 
+    , /blog/post/hpe-n54l-fans/IMG_7214_hu_283e72d7062af1ec.jpeg 1500w 
   '
   
     src="/blog/post/hpe-n54l-fans/IMG_7214.jpeg" 
@@ -504,16 +451,16 @@ Also listing the fans which do <strong>not</strong> work and fans which work.</p
   sizes="(min-width: 35em) 1200px, 100vw"
   srcset='
   
-    /blog/post/hpe-n54l-fans/IMG_7216_hu_d6e0b18b45f3e535.jpeg 500w
+    /blog/post/hpe-n54l-fans/IMG_7216_hu_61bba22a5f1816fb.jpeg 500w
   
   
-    , /blog/post/hpe-n54l-fans/IMG_7216_hu_5ef9164199bece99.jpeg 800w
+    , /blog/post/hpe-n54l-fans/IMG_7216_hu_cb22d969302d984.jpeg 800w
   
   
-    , /blog/post/hpe-n54l-fans/IMG_7216_hu_4e3d47d47d0ca160.jpeg 1200w
+    , /blog/post/hpe-n54l-fans/IMG_7216_hu_47f1eb165cb62732.jpeg 1200w
   
   
-    , /blog/post/hpe-n54l-fans/IMG_7216_hu_50da474ece51ca6a.jpeg 1500w 
+    , /blog/post/hpe-n54l-fans/IMG_7216_hu_75e45642c9263498.jpeg 1500w 
   '
   
     src="/blog/post/hpe-n54l-fans/IMG_7216.jpeg" 
@@ -521,30 +468,19 @@ Also listing the fans which do <strong>not</strong> work and fans which work.</p
   alt="cables installed">
 <p>Close up the PSU case, install the PSU, route the cables, attach top panel and enjoy your nearly silent HPE Proliant Microserver Gen7!</p>
 
-</div>
-<div class="tags" dir="auto">
-<div class="taxosfloating_left">
-<p>Tags</p>
-</div>
-<div class="termsfloating_right">
-<p>
-<a href="/blog/tags/cooling/">cooling</a>
-<a href="/blog/tags/diy/">diy</a>
-<a href="/blog/tags/hpe/">hpe</a>
-<a href="/blog/tags/lang-english/">lang-english</a>
-<a href="/blog/tags/projects/">projects</a>
-</p>
-</div>
-<div class="clearit"></div>
-</div>
+  </div>
+  <div class="post-nav">
+    <a href="https://nenimein.fi/blog/post/tesla-1/">&lt; Tesla Model X speaker measurements</a>
+    <a href="https://nenimein.fi/blog/post/how-to-add-boot-options-in-popos-22.04/" style="float:right;">How to add boot options in PopOS! 22.04 &gt;</a>
+  </div>
 </article>
-</div>
-</main>
-<footer>
-© Sami Nieminen
 
-<script data-id="matomo-tracking" data-matomo-tracking-url='https://matomo.nenimein.fi' data-matomo-tracking-id='1' src="/blog/js/matomo-tracking.min.d8e1498fb42aa6048c4db4ac8451d0141fe4a0a83a1b4857df2a67a0cabd350a.js" integrity="sha256-2OFJj7QqpgSMTbSshFHQFB/koKg6G0hX3ypnoMq9NQo=" crossorigin="anonymous" defer></script>
-</footer><script src="/blog/js/dark-mode.js"></script>
+  </main>
+  <hr class="sep" />
+<footer>
+  <span class="prompt-small">root@nieminen:~$ curl https://nenimein.fi/blog/post/hpe-n54l-fans/<span class="blink">_</span></span>
+  <span class="copy">2026 — Nieminen — <a href="https://nenimein.fi/index.xml">RSS</a></span>
+</footer>
 
 </body>
 </html>

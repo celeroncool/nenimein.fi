@@ -1,0 +1,29 @@
+{{ define "main" }}
+<h1><span class="comment">##</span> tags</h1>
+<p class="tag-meta">{{ len .Data.Terms }} unique tags across all posts</p>
+
+<div class="tag-cloud">
+  {{ range .Data.Terms.Alphabetical }}
+  <a href="{{ .Page.Permalink }}" class="tag-pill">
+    <span class="tag-name">{{ .Page.Title }}</span><span class="tag-count">{{ .Count }}</span>
+  </a>
+  {{ end }}
+</div>
+
+<table class="tag-table">
+  <thead>
+    <tr>
+      <th>tag</th>
+      <th>posts</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{ range .Data.Terms.Alphabetical }}
+    <tr>
+      <td><a href="{{ .Page.Permalink }}">[{{ .Page.Title }}]</a></td>
+      <td class="num">{{ .Count }}</td>
+    </tr>
+    {{ end }}
+  </tbody>
+</table>
+{{ end }}

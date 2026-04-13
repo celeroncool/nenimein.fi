@@ -1,0 +1,534 @@
+/* ── Reset & Base ─────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --green:      #00ff41;      /* primary green — headings, links, accents */
+  --green-dim:  #00cc35;      /* secondary green — still passes 4.5:1 on #0d0d0d */
+  --green-dark: #1a6b2a;      /* borders/dividers — decorative only, not text */
+  --bg:         #0d0d0d;
+  --bg2:        #141414;
+  --text:       #e8ffe8;      /* body text — near-white green tint, ~18:1 on bg */
+  --comment:    #7acc7a;      /* meta/caption text — passes 4.5:1 on #0d0d0d */
+  --red:        #ff6b6b;
+  --font:       'Courier New', Courier, monospace;
+}
+
+
+html { font-size: 16px; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  line-height: 1.7;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+/* ── Typography ───────────────────────────────────────── */
+h1, h2, h3, h4 {
+  color: var(--green);
+  margin: 1.5rem 0 0.75rem;
+  font-weight: bold;
+}
+
+h1 { font-size: 1.6rem; }
+h2 { font-size: 1.3rem; }
+
+a {
+  color: var(--green);
+  text-decoration: none;
+  border-bottom: 1px solid var(--green-dark);
+  transition: color 0.15s, border-color 0.15s;
+}
+
+a:hover {
+  color: #fff;
+  border-color: var(--green);
+}
+
+p { margin: 0.75rem 0; }
+
+code {
+  background: var(--bg2);
+  color: var(--green);
+  padding: 0.1em 0.4em;
+  border: 1px solid var(--green-dark);
+  border-radius: 2px;
+  font-size: 0.9em;
+}
+
+pre {
+  background: var(--bg2);
+  border: 1px solid var(--green-dark);
+  border-left: 3px solid var(--green);
+  padding: 1rem;
+  overflow-x: auto;
+  margin: 1rem 0;
+}
+
+pre code {
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+blockquote {
+  border-left: 3px solid var(--green-dim);
+  padding-left: 1rem;
+  color: var(--comment);
+  margin: 1rem 0;
+}
+
+hr.sep {
+  border: none;
+  border-top: 1px solid var(--green-dark);
+  margin: 1.5rem 0;
+}
+
+/* ── Header & Nav ─────────────────────────────────────── */
+header { margin-bottom: 0.5rem; }
+
+.prompt {
+  font-size: 0.85rem;
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  flex-wrap: wrap;
+}
+
+.user   { color: var(--green); font-weight: bold; }
+.at     { color: var(--text); }
+.path   { color: var(--green-dim); }
+.dollar { color: var(--text); margin-right: 0.5rem; }
+
+.site-title {
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border: none;
+}
+
+.site-title:hover { color: var(--green); border: none; }
+
+nav {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+nav a {
+  color: var(--green-dim);
+  font-size: 0.9rem;
+  border: none;
+  letter-spacing: 0.03em;
+}
+
+nav a:hover { color: var(--green); border: none; }
+
+/* ── Footer ───────────────────────────────────────────── */
+footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--comment);
+}
+
+.prompt-small { color: var(--green-dim); }
+
+.blink {
+  animation: blink 1s step-end infinite;
+  color: var(--green);
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+/* ── Front Page ───────────────────────────────────────── */
+.hero {
+  margin: 2rem 0;
+}
+
+.typewriter {
+  color: var(--green);
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.recent-posts h2 { margin-top: 2rem; }
+
+/* ── Post List ────────────────────────────────────────── */
+.post-list {
+  list-style: none;
+  padding: 0;
+}
+
+.post-list li {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid var(--green-dark);
+}
+
+.post-list li:last-child { border-bottom: none; }
+
+ul li { list-style: none; }
+
+/* ── Dates, Tags, Comments ────────────────────────────── */
+.date    { color: var(--comment); font-size: 0.85rem; white-space: nowrap; }
+.comment { color: var(--comment); }
+.tags    { margin-left: auto; font-size: 0.8rem; }
+.tag     { color: var(--green-dim); }
+
+/* ── Single Post ──────────────────────────────────────── */
+.post-header { margin-bottom: 1.5rem; }
+
+.post-meta {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 0.4rem;
+  font-size: 0.85rem;
+}
+
+.post-content { 
+  overflow-wrap: break-word;
+  word-break: break-word;
+  margin-top: 1.5rem; 
+}
+
+.post-nav {
+  margin-top: 2.5rem;
+  overflow: hidden;
+  font-size: 0.9rem;
+}
+
+/* ── Scrollbar ────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--green-dark); border-radius: 3px; }
+
+/* ── Responsive ───────────────────────────────────────── */
+@media (min-width: 860px) and (max-width: 1200px) {
+  body {
+    padding: 2rem 3rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  body {
+    padding: 2rem 4rem;
+  }
+}
+
+/* ── Images & Figures ─────────────────────────────────── */
+
+/* Inline images inside post content */
+.post-content img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border: 1px solid var(--green-dark);
+  box-shadow: 0 0 12px rgba(0, 255, 65, 0.08);
+}
+
+/* Figure floated right (default) */
+.post-content figure {
+  float: inline-end;
+  margin-block: 0 1.25rem;
+  margin-inline: 1.25rem 0;
+  max-width: 45%;
+  clear: right;
+}
+
+/* Figure floated left via shortcode class */
+.post-content figure.left {
+  float: inline-start;
+  margin-inline: 0 1.25rem;
+  clear: left;
+}
+
+/* Full-width figure — add class="full" in shortcode */
+.post-content figure.full {
+  float: none;
+  max-width: 100%;
+  margin-inline: 0;
+  clear: both;
+}
+
+.post-content figure img {
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--green-dark);
+  box-shadow: 0 0 14px rgba(0, 255, 65, 0.10);
+  display: block;
+}
+
+/* Caption */
+.post-content figcaption {
+  font-size: 0.78rem;
+  color: var(--comment);
+  margin-top: 0.4rem;
+  text-align: center;
+  font-style: italic;
+  border-top: 1px solid var(--green-dark);
+  padding-top: 0.3rem;
+}
+
+/* Clearfix after post content so floats don't bleed into footer */
+.post-content::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* ── Responsive: stack figures on small screens ───────── */
+@media (max-width: 600px) {
+  .post-content figure,
+  .post-content figure.left {
+    float: none;
+    max-width: 100%;
+    margin-inline: 0;
+  }
+}
+/* ── Tags Page ────────────────────────────────────────── */
+
+.tag-meta {
+  color: var(--comment);
+  font-size: 0.85rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Tag cloud */
+.tag-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: 2.5rem;
+}
+
+.tag-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border: 1px solid var(--green-dark);
+  border-bottom: 1px solid var(--green-dark);
+  padding: 0.2rem 0.65rem;
+  font-size: 0.82rem;
+  color: var(--green-dim);
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+  text-decoration: none;
+}
+
+.tag-pill:hover {
+  color: var(--bg);
+  background: var(--green);
+  border-color: var(--green);
+}
+
+.tag-pill .tag-name { color: inherit; }
+
+.tag-pill .tag-count {
+  background: var(--green-dark);
+  color: var(--green);
+  font-size: 0.72rem;
+  padding: 0 0.35rem;
+  border-radius: 2px;
+  min-width: 1.4rem;
+  text-align: center;
+  transition: background 0.15s, color 0.15s;
+}
+
+.tag-pill:hover .tag-count {
+  background: var(--bg);
+  color: var(--green);
+}
+
+/* ── Tag table ────────────────────────────────────────── */
+.tag-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+  margin-top: 0.5rem;
+}
+
+.tag-table thead tr {
+  border-bottom: 1px solid var(--green);
+}
+
+.tag-table th {
+  color: var(--green);
+  text-align: left;
+  padding: 0.4rem 0.75rem;
+  font-weight: bold;
+  letter-spacing: 0.05em;
+}
+
+.tag-table th:nth-child(2),
+.tag-table td.num {
+  text-align: right;
+}
+
+.tag-table tbody tr {
+  border-bottom: 1px solid var(--green-dark);
+  transition: background 0.1s;
+}
+
+.tag-table tbody tr:hover {
+  background: rgba(0, 255, 65, 0.04);
+}
+
+.tag-table td {
+  padding: 0.4rem 0.75rem;
+  color: var(--text);
+}
+
+.tag-table td.num {
+  color: var(--green-dim);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Tag pills on post single/list ───────────────────── */
+.post-list .tags,
+.post-meta .tags {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+.post-list .tag,
+.post-meta .tag {
+  border: 1px solid var(--green-dark);
+  padding: 0 0.3rem;
+  font-size: 0.75rem;
+  color: var(--green-dim);
+}
+
+/* ── Inline tag links inside posts ───────────────────── */
+.tag-pill-inline {
+  color: var(--green-dim);
+  font-size: 0.78rem;
+  border: 1px solid var(--green-dark);
+  border-bottom: 1px solid var(--green-dark);
+  padding: 0.05rem 0.3rem;
+  transition: color 0.15s, background 0.15s, border-color 0.15s;
+}
+
+.tag-pill-inline:hover {
+  color: var(--bg);
+  background: var(--green);
+  border-color: var(--green);
+}
+
+/* ── Post content lists ───────────────────────────────── */
+.post-content ul,
+.post-content ol {
+  padding-left: 1.75rem;
+  margin: 0.75rem 0;
+}
+
+.post-content ul {
+  list-style: disc;
+}
+
+.post-content ol {
+  list-style: decimal;
+  padding-left: 2rem; /* extra room for the number + dot */
+}
+
+.post-content li {
+  margin: 0.3rem 0;
+  padding-left: 0.25rem;
+  list-style: inherit;
+  overflow-wrap: break-word; /* break long strings with no spaces */
+  word-break: break-word;    /* fallback for older WebKit/Firefox */
+  min-width: 0;              /* allow flex/grid children to shrink below content size */
+}
+
+/* Nested lists */
+.post-content ul ul,
+.post-content ol ol,
+.post-content ul ol,
+.post-content ol ul {
+  margin: 0.2rem 0;
+  padding-left: 1.75rem;
+}
+
+.post-content ul ul       { list-style: circle; }
+.post-content ul ul ul    { list-style: square; }
+.post-content ol ol       { list-style: lower-alpha; }
+.post-content ol ol ol    { list-style: lower-roman; }
+
+/* ── Inline code — ensure readable contrast ──────────── */
+code {
+  background: var(--bg2);
+  color: #00ff41;             /* full-brightness green on dark bg = ~15:1 */
+  padding: 0.1em 0.4em;
+  border: 1px solid var(--green-dark);
+  border-radius: 2px;
+  font-size: 0.9em;
+}
+
+/* ── Blockquote — was too dim ─────────────────────────── */
+blockquote {
+  border-left: 3px solid var(--green-dim);
+  padding-left: 1rem;
+  color: #a8e6a8;             /* lighter than old --comment, ~7:1 on bg */
+  margin: 1rem 0;
+}
+
+/* ── 404 Page ─────────────────────────────────────────── */
+.error-page {
+  margin: 3rem 0;
+}
+
+.error-code {
+  color: var(--red);
+  font-weight: bold;
+}
+
+.error-trace {
+  font-size: 0.85rem;
+  margin-bottom: 2rem;
+  border-left: 3px solid var(--green-dark);
+  padding-left: 1rem;
+  line-height: 1.9;
+}
+
+.error-trace p {
+  margin: 0;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.error-actions {
+  margin-top: 2rem;
+}
+
+.error-actions ul {
+  list-style: none;
+  padding-left: 1rem;
+  margin-top: 0.5rem;
+}
+
+.error-actions li {
+  margin: 0.4rem 0;
+  display: flex;
+  gap: 1rem;
+  align-items: baseline;
+}
+
+.error-actions a {
+  color: var(--green);
+  min-width: 8rem;
+  display: inline-block;
+}

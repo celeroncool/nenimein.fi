@@ -1,0 +1,25 @@
+baseURL = "https://nenimein.fi/"
+languageCode = "en-us"
+title = "Nieminen"
+theme = ["hackerman", "matomo"]
+pagination.pagerSize = 10
+enableRobotsTXT = true
+
+copyright = "Copyright © Sami Nieminen"
+
+[imaging]
+	quality = 80
+
+[params]
+  tagline = "// init blog.sh --mode=hackerman"
+
+[params.matomo]
+	url = "https://matomo.nenimein.fi"
+	id = 1
+
+[params.matomo.track]
+	button = "Allow tracking"
+	message = "Allow me to track your page visit to my personal Matomo instance."
+[params.matomo.block]
+	button = "Disallow tracking"
+	message = "You are **not** tracked."

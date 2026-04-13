@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Server on Nieminen</title>
+    <link>https://nenimein.fi/tags/server/</link>
+    <description>Recent content in Server on Nieminen</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <copyright>Copyright © Sami Nieminen</copyright>
+    <lastBuildDate>Mon, 30 Oct 2023 18:59:18 +0200</lastBuildDate>
+    <atom:link href="https://nenimein.fi/tags/server/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>HPE Primera LDAPS Configuration</title>
+      <link>https://nenimein.fi/blog/post/hpe-primera-ldaps-config/</link>
+      <pubDate>Mon, 30 Oct 2023 18:59:18 +0200</pubDate>
+      <guid>https://nenimein.fi/blog/post/hpe-primera-ldaps-config/</guid>
+      <description>&lt;h1 id=&#34;hpe-primera-ldaps&#34;&gt;HPE Primera LDAPS&lt;/h1&gt;&#xA;&lt;p&gt;How to get it working and issues you might encounter.&lt;/p&gt;&#xA;&lt;h2 id=&#34;config&#34;&gt;Config&lt;/h2&gt;&#xA;&lt;p&gt;You unfortunately cannot get LDAPS working with SSMC GUI, so you must do the basic config via CLI.&lt;/p&gt;&#xA;&lt;h3 id=&#34;cli&#34;&gt;CLI&lt;/h3&gt;&#xA;&lt;p&gt;Open SSH to your primera/3par and type following commands.&lt;/p&gt;&#xA;&lt;p&gt;First, we set up necessary LDAPS servers:&lt;/p&gt;&#xA;&lt;p&gt;&lt;code&gt;setauthparam -f ldap-server &amp;quot;fqdn.of.dc.local&amp;quot;&lt;/code&gt; &amp;lt; Type this changing the FQDN of DC until you got atleast two.&lt;/p&gt;&#xA;&lt;p&gt;&lt;code&gt;setauthparam -f ldap-port 636&lt;/code&gt; &amp;lt; Set LDAP port to use LDAPS 636 or GC port 3269.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Migrating mumble servers</title>
+      <link>https://nenimein.fi/blog/post/migrate_mumble_server/</link>
+      <pubDate>Thu, 03 Feb 2022 19:44:10 +0200</pubDate>
+      <guid>https://nenimein.fi/blog/post/migrate_mumble_server/</guid>
+      <description>&lt;p&gt;How to migrate mumble server to from old linux server to new linux server.&lt;/p&gt;&#xA;&lt;p&gt;This is mostly a reminder for myself, on how to do it in the future if I ever need to migrate servers again. But, it might also help you if you hit a few &amp;ldquo;gotchas&amp;rdquo; on the way as I did.&lt;/p&gt;&#xA;&lt;h2 id=&#34;prep&#34;&gt;Prep&lt;/h2&gt;&#xA;&lt;p&gt;First, set up the new server. My new server is running Ubuntu 20.04 LTS, so I get the best mix of latest packages and stability.&#xA;Most of the commands are run as #root.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

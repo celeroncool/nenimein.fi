@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Backblaze on Nieminen</title>
+    <link>https://nenimein.fi/tags/backblaze/</link>
+    <description>Recent content in Backblaze on Nieminen</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <copyright>Copyright © Sami Nieminen</copyright>
+    <lastBuildDate>Tue, 23 Jan 2024 16:58:43 +0200</lastBuildDate>
+    <atom:link href="https://nenimein.fi/tags/backblaze/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Nextcloud VM cloud backups with restic and Backblaze</title>
+      <link>https://nenimein.fi/blog/post/nextcloud-vm-backups/</link>
+      <pubDate>Tue, 23 Jan 2024 16:58:43 +0200</pubDate>
+      <guid>https://nenimein.fi/blog/post/nextcloud-vm-backups/</guid>
+      <description>&lt;h1 id=&#34;update-20241206&#34;&gt;UPDATE 20241206&lt;/h1&gt;&#xA;&lt;p&gt;Happy Independence Day for all Finns &amp;lt;3&lt;/p&gt;&#xA;&lt;p&gt;I have created a V1.0 script for backing up your Nextcloud instance using Restic.&#xA;It has been mainlined to &amp;ldquo;not supported&amp;rdquo; scripts folder and you can find it &lt;a href=&#34;https://github.com/nextcloud/vm/blob/main/not-supported/restic-cloud-backup-wizard.sh&#34;&gt;here&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;Currently script has support for:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;AWS S3 Bucket&lt;/li&gt;&#xA;&lt;li&gt;Azure Blob Storage&lt;/li&gt;&#xA;&lt;li&gt;Backblaze B2&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;Tested working with Azure and Backblaze, as I have access to those two environments.&lt;/p&gt;&#xA;&lt;p&gt;Script has logging, error handling and hopefully clear instuctions how to set it up.&#xA;Also has options to only backup the config + DB or config + DB + /mnt/ncdata.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
