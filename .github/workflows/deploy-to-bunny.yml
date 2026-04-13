@@ -30,9 +30,9 @@ jobs:
         uses: own3d/bunny-action@main
         env:
           BUNNY_API_ACCESS_KEY: ${{ steps.secrets.outputs.BUNNY_API_ACCESS_KEY }}
-          BUNNY_STORAGE_HOSTNAME: storage.bunnycdn.com
-          BUNNY_STORAGE_USERNAME: bunny-app
+          BUNNY_STORAGE_HOSTNAME: se.storage.bunnycdn.com
+          BUNNY_STORAGE_USERNAME: celeroncool-nenimein-fi
           BUNNY_STORAGE_PASSWORD: ${{ steps.secrets.outputs.BUNNY_STORAGE_PASSWORD }}
           BUNNY_PULL_ZONE_ID: 464290
         with:
-          args: deploy --dir=dist
+          args: deploy --dir=public
