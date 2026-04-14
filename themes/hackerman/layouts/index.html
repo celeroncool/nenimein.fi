@@ -2,6 +2,26 @@
 <section class="hero">
   <p class="typewriter">{{ .Site.Params.tagline | default "$ welcome to the terminal." }}</p>
   {{ .Content }}
+
+  <p class="typewriter">find me @</p>
+  <div class="social-icons">
+    {{ with .Site.Params.github }}
+    <a href="{{ . }}" target="_blank" rel="noopener" title="GitHub"><i class="fa-brands fa-github"></i></a>
+    {{ end }}
+    {{ with .Site.Params.bitbucket }}
+    <a href="{{ . }}" target="_blank" rel="noopener" title="Bitbucket"><i class="fa-brands fa-bitbucket"></i></a>
+    {{ end }}
+    {{ with .Site.Params.linkedin }}
+    <a href="{{ . }}" target="_blank" rel="noopener" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+    {{ end }}
+    {{ with .Site.Params.instagram }}
+    <a href="{{ . }}" target="_blank" rel="noopener" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+    {{ end }}
+    {{ with .Site.Params.keybase }}
+    <a href="{{ . }}" target="_blank" rel="noopener" title="Keybase"><i class="fa-brands fa-keybase"></i></a>
+    {{ end }}
+  </div>
+
 </section>
 
 <section class="recent-posts">
@@ -16,4 +36,5 @@
   </ul>
   <p><a href="{{ "/blog" | relURL }}">&gt; view all posts</a></p>
 </section>
+
 {{ end }}

@@ -6,6 +6,8 @@
 <body>
   {{ partial "header.html" . }}
   <main>
+    {{ partial "h-card.html" . }}
+
     {{ block "main" . }}{{ end }}
   </main>
   {{ partial "footer.html" . }}

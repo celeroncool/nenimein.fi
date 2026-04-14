@@ -544,3 +544,35 @@ blockquote {
   min-width: 8rem;
   display: inline-block;
 }
+
+/* ── Social Links ─────────────────────────────────────── */
+.social-links {
+  margin: 1.5rem 0;
+}
+
+.social-label {
+  color: var(--fg);
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.social-icons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  align-items: center;
+}
+
+.social-icons a {
+  color: var(--green-dim);
+  font-size: 1.2rem;
+  text-decoration: none;
+  transition: color 0.15s, transform 0.15s;
+  display: inline-flex;
+  align-items: center;
+}
+
+.social-icons a:hover {
+  color: var(--green);
+  transform: translateY(-2px);
+}

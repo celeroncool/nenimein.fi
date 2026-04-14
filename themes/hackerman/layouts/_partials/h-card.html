@@ -1,0 +1,15 @@
+<div class="h-card" style="display:none">
+  <a class="p-name u-url" href="{{ .Site.BaseURL }}" rel="me">{{ .Site.Params.author }}</a>
+  {{ with .Site.Params.authorEmail }}
+  <a class="u-email" href="mailto:{{ . }}">{{ . }}</a>
+  {{ end }}
+  {{ with .Site.Params.authorPhoto }}
+  <img class="u-photo" src="{{ . | absURL }}" alt="{{ $.Site.Params.author }}" />
+  {{ end }}
+  {{ with .Site.Params.authorNote }}
+  <p class="p-note">{{ . }}</p>
+  {{ end }}
+  {{ with .Site.Params.mastodon }}
+  <a class="u-url" href="{{ . }}" rel="me">Mastodon</a>
+  {{ end }}
+</div>

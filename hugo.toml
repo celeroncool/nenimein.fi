@@ -12,6 +12,17 @@ copyright = "Copyright © Sami Nieminen"
 
 [params]
   tagline = "// init blog.sh --mode=hackerman"
+  author = "Sami Nieminen"
+  authorEmail = "imas@nenimein.fi"
+  authorNote = "Hacking away at motorcycles, cars, Azure and Linux."
+  authorPhoto = "/img/me.jpg"
+  mastodon = "https://mastodon.social/@celeroncool"
+
+  github    = "https://github.com/yourusername"
+  bitbucket = "https://bitbucket.org/yourusername"
+  linkedin  = "https://linkedin.com/in/yourusername"
+  instagram = "https://instagram.com/yourusername"
+  keybase   = "https://keybase.io/yourusername"
 
 [params.matomo]
 	url = "https://matomo.nenimein.fi"
