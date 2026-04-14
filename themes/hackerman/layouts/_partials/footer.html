@@ -1,0 +1,5 @@
+<hr class="sep" />
+<footer>
+  <span class="prompt-small">web-user@{{ .Site.Title | lower | replaceRE " " "-" }}:~$ curl {{ .Permalink }}<span class="blink">_</span></span>
+  <span class="copy">{{ now.Year }} — {{ .Site.Copyright }} — <a href="{{ "index.xml" | absURL }}">RSS</a></span>
+</footer>

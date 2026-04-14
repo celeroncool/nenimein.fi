@@ -300,58 +300,70 @@ ul li { list-style: none; }
     margin-inline: 0;
   }
 }
-/* ── Tags Page ────────────────────────────────────────── */
 
+/* ── Tags Page ───────────────────────────────────────── */
 .tag-meta {
   color: var(--comment);
   font-size: 0.85rem;
   margin-bottom: 1.5rem;
 }
 
-/* Tag cloud */
 .tag-cloud {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.6rem;
-  margin-bottom: 2.5rem;
+  align-items: baseline;
+  gap: 0.5rem 0.8rem;
+  margin-bottom: 2rem;
+  line-height: 2;
 }
 
 .tag-pill {
   display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
+  align-items: baseline;
+  gap: 0.1rem;
   border: 1px solid var(--green-dark);
-  border-bottom: 1px solid var(--green-dark);
-  padding: 0.2rem 0.65rem;
-  font-size: 0.82rem;
+  padding: 0.1rem 0.55rem;
   color: var(--green-dim);
-  transition: border-color 0.15s, color 0.15s, background 0.15s;
   text-decoration: none;
+  transition: color 0.15s, background 0.15s, border-color 0.15s;
+  white-space: nowrap;
 }
 
 .tag-pill:hover {
   color: var(--bg);
   background: var(--green);
   border-color: var(--green);
+  border-bottom: 1px solid var(--green);
 }
 
-.tag-pill .tag-name { color: inherit; }
-
-.tag-pill .tag-count {
-  background: var(--green-dark);
-  color: var(--green);
-  font-size: 0.72rem;
-  padding: 0 0.35rem;
-  border-radius: 2px;
-  min-width: 1.4rem;
-  text-align: center;
-  transition: background 0.15s, color 0.15s;
+.tag-pill sup {
+  font-size: 0.6em;
+  color: var(--comment);
+  margin-left: 0.2rem;
+  transition: color 0.15s;
 }
 
-.tag-pill:hover .tag-count {
-  background: var(--bg);
-  color: var(--green);
+.tag-pill:hover sup {
+  color: var(--bg);
 }
+
+/* ── Tag pills on post single/list ───────────────────── */
+.post-list .tags,
+.post-meta .tags {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+.post-list .tag,
+.post-meta .tag {
+  border: 1px solid var(--green-dark);
+  padding: 0 0.3rem;
+  font-size: 0.75rem;
+  color: var(--green-dim);
+}
+
+
 
 /* ── Tag table ────────────────────────────────────────── */
 .tag-table {

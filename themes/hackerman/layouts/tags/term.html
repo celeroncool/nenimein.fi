@@ -1,5 +1,5 @@
 {{ define "main" }}
-<h1><span class="comment">##</span> tag::{{ .Title }}</h1>
+<h1><span class="comment">$</span> ls tag_{{ .Title }}</h1>
 <p class="tag-meta">{{ len .Pages }} post{{ if ne (len .Pages) 1 }}s{{ end }} tagged</p>
 <ul class="post-list">
   {{ range .Pages }}

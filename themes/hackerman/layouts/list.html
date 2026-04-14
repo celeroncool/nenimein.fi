@@ -1,5 +1,11 @@
 {{ define "main" }}
-<h1><span class="comment">##</span> {{ .Title | default "blog" }}</h1>
+<h1>
+  {{ if eq .Section "blog" }}
+  <span class="comment">$</span> posts
+  {{ else }}
+  <span class="comment">##</span> {{ .Title }}
+  {{ end }}
+</h1>
 <ul class="post-list">
   {{ range .Pages }}
   <li>

@@ -1,11 +1,11 @@
 {{ define "main" }}
 <section class="hero">
-  <p class="typewriter">{{ .Site.Params.tagline | default "// welcome to the terminal." }}</p>
+  <p class="typewriter">{{ .Site.Params.tagline | default "$ welcome to the terminal." }}</p>
   {{ .Content }}
 </section>
 
 <section class="recent-posts">
-  <h2><span class="comment">##</span> recent_posts</h2>
+  <h2><span class="comment">$</span> ls recent_posts</h2>
   <ul>
     {{ range first 5 (where .Site.RegularPages "Section" "blog") }}
     <li>

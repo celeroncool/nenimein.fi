@@ -1,0 +1,28 @@
+{{ define "main" }}
+<h1><span class="comment">$</span> ls tags</h1>
+<p class="tag-meta">{{ len .Site.Taxonomies.tags }} unique tags across all posts</p>
+
+{{ $largest  := 1.6 }}
+{{ $smallest := 0.75 }}
+{{ $max := add (len (index .Site.Taxonomies.tags.ByCount 0).Pages) 1 }}
+{{ $min := len (index .Site.Taxonomies.tags.ByCount.Reverse 0).Pages }}
+
+<div class="tag-cloud">
+  {{ range $name, $taxonomy := .Site.Taxonomies.tags }}
+  {{ $count := len $taxonomy.Pages }}
+  {{ $weight := 0.0 }}
+  {{ if and (gt $max $min) (gt $count 0) (gt $min 0) }}
+    {{ $weight = div
+        (sub (math.Log (float $count)) (math.Log (float $min)))
+        (sub (math.Log (float $max))  (math.Log (float $min))) }}
+  {{ end }}
+  {{ $fontSize := add $smallest (mul (sub $largest $smallest) $weight) }}
+  <a href="{{ "/tags/" | relURL }}{{ $name | urlize }}"
+     class="tag-pill"
+     style="font-size: {{ printf "%.2f" $fontSize }}rem;"
+     title="{{ $count }} post{{ if ne $count 1 }}s{{ end }}">
+    {{ $name }}<sup>{{ $count }}</sup>
+  </a>
+  {{ end }}
+</div>
+{{ end }}

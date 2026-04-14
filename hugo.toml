@@ -23,3 +23,6 @@ copyright = "Copyright © Sami Nieminen"
 [params.matomo.block]
 	button = "Disallow tracking"
 	message = "You are **not** tracked."
+
+[taxonomies]
+  tag = 'tags'
