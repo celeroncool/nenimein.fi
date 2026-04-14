@@ -18,11 +18,11 @@ copyright = "Copyright © Sami Nieminen"
   authorPhoto = "/img/me.jpg"
   mastodon = "https://mastodon.social/@celeroncool"
 
-  github    = "https://github.com/yourusername"
-  bitbucket = "https://bitbucket.org/yourusername"
-  linkedin  = "https://linkedin.com/in/yourusername"
-  instagram = "https://instagram.com/yourusername"
-  keybase   = "https://keybase.io/yourusername"
+  github    = "https://github.com/celeroncool"
+  bitbucket = "https://bitbucket.org/sami_nieminen"
+  linkedin  = "https://linkedin.com/in/sami-nieminen-761755a3/"
+  instagram = "https://instagram.com/celeroncool"
+  keybase   = "https://keybase.io/celeroncool"
 
 [params.matomo]
 	url = "https://matomo.nenimein.fi"
