@@ -1,5 +1,5 @@
 baseURL = "https://nenimein.fi/"
-languageCode = "en-us"
+locale = "en-us"
 title = "Nieminen"
 theme = ["hackerman", "matomo"]
 pagination.pagerSize = 10
