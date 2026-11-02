@@ -13,27 +13,30 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+
+    permissions:
+      id-token: write
+      contents: read
     
     steps:
       - name: Checkout
         uses: actions/checkout@master
 
-      - name: Retrieve bitwarden secrets
-        id: bwsecrets
-        uses: bitwarden/sm-action@v2.2.0
+      - name: Retrieve Infisical secrets
+        uses: Infisical/secrets-action@v1.0.18
         with:
-          access_token: ${{ secrets.SM_ACCESS_TOKEN }}
-          secrets: |
-            7e2b536c-f7ce-42ef-8a14-b42b00f0d5ff > BUNNY_STORAGE_PASSWORD
-            d41e9330-f13a-485a-a56a-b42901083b18 > BUNNY_API_ACCESS_KEY
-  
+          method: oidc
+          identity-id: f7474818-0fd2-4814-a215-22ea95df5ac9
+          project-id: 2f1bccca-e8b2-4daf-937c-adeefdbdfc59
+          env-slug: prod
+          secret-path: /Github
+          domain: https://eu.infisical.com
+
       - name: Deploy to Edge Storage
         uses: own3d/bunny-action@main
         env:
-          BUNNY_API_ACCESS_KEY: ${{ steps.bwsecrets.outputs.BUNNY_API_ACCESS_KEY }}
           BUNNY_STORAGE_HOSTNAME: se.storage.bunnycdn.com
           BUNNY_STORAGE_USERNAME: celeroncool-nenimein-fi
-          BUNNY_STORAGE_PASSWORD: ${{ steps.bwsecrets.outputs.BUNNY_STORAGE_PASSWORD }}
           BUNNY_PULL_ZONE_ID: 5679250
         with:
           args: deploy --dir=public
