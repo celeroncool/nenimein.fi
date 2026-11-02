@@ -2,13 +2,25 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://nenimein.fi/blog/</loc>
-    <lastmod>2025-08-26T14:11:38+03:00</lastmod>
+    <loc>https://nenimein.fi/blog/post/bazzite-nextcloud/</loc>
+    <lastmod>2026-11-02T20:07:32+02:00</lastmod>
   </url><url>
-    <loc>https://nenimein.fi/tags/diy/</loc>
-    <lastmod>2025-08-26T14:11:38+03:00</lastmod>
+    <loc>https://nenimein.fi/blog/</loc>
+    <lastmod>2026-11-02T20:07:32+02:00</lastmod>
   </url><url>
     <loc>https://nenimein.fi/</loc>
+    <lastmod>2026-11-02T20:07:32+02:00</lastmod>
+  </url><url>
+    <loc>https://nenimein.fi/tags/lang-english/</loc>
+    <lastmod>2026-11-02T20:07:32+02:00</lastmod>
+  </url><url>
+    <loc>https://nenimein.fi/tags/linux/</loc>
+    <lastmod>2026-11-02T20:07:32+02:00</lastmod>
+  </url><url>
+    <loc>https://nenimein.fi/tags/</loc>
+    <lastmod>2026-11-02T20:07:32+02:00</lastmod>
+  </url><url>
+    <loc>https://nenimein.fi/tags/diy/</loc>
     <lastmod>2025-08-26T14:11:38+03:00</lastmod>
   </url><url>
     <loc>https://nenimein.fi/tags/homelab/</loc>
@@ -20,13 +32,7 @@
     <loc>https://nenimein.fi/blog/post/lackrack-v3/</loc>
     <lastmod>2025-08-26T14:11:38+03:00</lastmod>
   </url><url>
-    <loc>https://nenimein.fi/tags/lang-english/</loc>
-    <lastmod>2025-08-26T14:11:38+03:00</lastmod>
-  </url><url>
     <loc>https://nenimein.fi/tags/servers/</loc>
-    <lastmod>2025-08-26T14:11:38+03:00</lastmod>
-  </url><url>
-    <loc>https://nenimein.fi/tags/</loc>
     <lastmod>2025-08-26T14:11:38+03:00</lastmod>
   </url><url>
     <loc>https://nenimein.fi/tags/woodworking/</loc>
@@ -57,9 +63,6 @@
     <lastmod>2024-11-03T17:25:41+02:00</lastmod>
   </url><url>
     <loc>https://nenimein.fi/tags/backblaze/</loc>
-    <lastmod>2024-01-23T16:58:43+02:00</lastmod>
-  </url><url>
-    <loc>https://nenimein.fi/tags/linux/</loc>
     <lastmod>2024-01-23T16:58:43+02:00</lastmod>
   </url><url>
     <loc>https://nenimein.fi/tags/nextcloud/</loc>
